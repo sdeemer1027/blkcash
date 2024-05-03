@@ -21,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_picture', // Add the profile_picture column here
+        'phone',
+        'wallet',
+        'city',
+        'state',
+        'zip',
+        'address',
+        'braintree',
     ];
 
     /**

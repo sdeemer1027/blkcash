@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -22,7 +22,15 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
+<div class="form-group">
+        <label for="profile_picture">Profile Picture</label>
+        <input type="file" name="profile_picture" accept="image/*">
+    </div>
+    <div class="form-group">
+         <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)"   />
+        
+    </div>
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
@@ -46,6 +54,31 @@
                 </div>
             @endif
         </div>
+
+ <div class="form-group">
+         <x-input-label for="address" :value="__('Adddress')" />
+            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $user->address)"   />
+        
+    </div>
+    <div class="form-group">
+         <x-input-label for="city" :value="__('City')" />
+            <x-text-input id="city" name="city" type="text" class="mt-1 block w-full" :value="old('city', $user->city)"   />
+        
+    </div>
+ <div class="form-group">
+         <x-input-label for="state" :value="__('State')" />
+            <x-text-input id="state" name="state" type="text" class="mt-1 block w-full" :value="old('state', $user->state)"   />
+        
+    </div>
+<div class="form-group">
+         <x-input-label for="zip" :value="__('Zip')" />
+            <x-text-input id="zip" name="zip" type="text" class="mt-1 block w-full" :value="old('zip', $user->zip)"   />
+        
+    </div>
+
+
+
+
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
