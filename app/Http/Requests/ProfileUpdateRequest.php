@@ -23,6 +23,8 @@ class ProfileUpdateRequest extends FormRequest
             'city' => ['string','max:255'],
             'state' => ['string','max:255'],
             'zip' => ['string','max:255'],
+            'firstname' => ['string','max:255'],
+            'lastname' => ['string','max:255'],
         ];
     }
 }

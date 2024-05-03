@@ -29,6 +29,8 @@ class User extends Authenticatable
         'zip',
         'address',
         'braintree',
+        'firstname',
+        'lastname',
     ];
 
     /**

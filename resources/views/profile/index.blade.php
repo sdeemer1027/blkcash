@@ -11,6 +11,8 @@
 
 
           <span>Name</span><span style="float: right;">{{$user->name}}</span><hr>
+           <span>First Name</span><span style="float: right;">{{$user->firstname}}</span><hr>
+            <span>Last Name</span><span style="float: right;">{{$user->lastname}}</span><hr>
 <span>Email</span><span style="float: right;">{{$user->email}}</span><hr>
 <span>Phone</span><span style="float: right;">{{$user->phone}}</span><hr>
 <span>Address</span><span style="float: right;">{{$user->address}}</span><hr>
