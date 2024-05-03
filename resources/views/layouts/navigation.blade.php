@@ -102,7 +102,7 @@
                 <x-responsive-nav-link :href="route('dashboard')">
                    Dashboard
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.index')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 

@@ -114,7 +114,7 @@
             <div class="footer-icon">
                <i class="fa fa-bell" aria-hidden="true"></i>
             </div>
-            <div class="footer-icon"><a href="{{route('profile.edit')}}">
+            <div class="footer-icon"><a href="{{route('profile.index')}}">
                 <i class="fa fa-user" aria-hidden="true"></i>
             </a>
             </div>

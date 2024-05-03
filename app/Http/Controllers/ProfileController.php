@@ -11,6 +11,14 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
+public function index()
+{
+$user = Auth::user(); // Get the authenticated user
+return view('profile.index', compact('user'));
+}
+
+
     /**
      * Display the user's profile form.
      */
@@ -29,18 +37,12 @@ class ProfileController extends Controller
         
     //    dd($request);
 
- //$request->validate([
- //   'name' => ['required', 'string', 'max:255'],
- //   'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Max file size 2MB
- //   'phone'=> ['string', 'max:255'],
- //   ]);
+ // validation is found Request/ProfileUpdteRequest
 $request->user()->fill($request->validated());
     if ($request->hasFile('profile_picture')) {
         $profilePicturePath = $request->file('profile_picture')->store('profile-pictures', 'public');
         auth()->user()->update(['profile_picture' => $profilePicturePath]);
     }
-
-
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
