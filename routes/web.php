@@ -27,7 +27,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/get-token', 'App\Http\Controllers\ProfileController@getToken')->name('get-token');
-
+Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
+Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

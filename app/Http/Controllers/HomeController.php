@@ -12,6 +12,15 @@ class HomeController extends Controller
     {
  $user = Auth::user(); // Get the authenticated user
 
+//firstname
+//lastname
+//email
+//phone
+//braintree
+
+
+dd($user);
+
         return view('home', compact('user')); // Return the home view
     }
 }
