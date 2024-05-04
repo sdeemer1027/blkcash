@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('credit_cards', function (Blueprint $table) {
-          $table->id();
-            $table->string('braintree_token');
-            $table->string('name');
-              $table->string('expires');
-              $table->string('cvv');
+        Schema::create('wallets', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('from_user_id')->nullable();
+            $table->decimal('amount', 10, 2);
             $table->timestamps();
 
+            // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-      });
+            $table->foreign('from_user_id')->references('id')->on('users')->onDelete('set null');
+
+        });
     }
 
     /**
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('credit_cards');
+        Schema::dropIfExists('wallets');
     }
 };
