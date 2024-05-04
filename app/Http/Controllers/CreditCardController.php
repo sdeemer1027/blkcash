@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Braintree\Gateway; // Add this use statement at the top of your controller
-
+use App\Model\CreditCard;
 
 
 class CreditCardController extends Controller
