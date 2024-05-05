@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
 .slide-container {
     overflow-x: auto; /* Enable horizontal scrolling */
@@ -129,11 +129,91 @@
 
 
 <hr>
+{{--$deposits--}}
+<BR>
+{{--$deposits--}} <b>Transactions </b>: <BR>
+<table  class="table" width="100%">
+  <tr>
+    <td></td>
+    <td><b>Collected </b></td>
+    <td></td>
+</tr>
+@foreach($deposits as $deposit)
+<tr class="table-success">
+    <td>
+    @if ($deposit->fromUser->profile_picture)
+        <img src="{{ asset('storage/' . $deposit->fromUser->profile_picture) }}" alt="Profile Picture" width="25px" style="border-radius: 30%;">
+    @else
+        <img src="logo.png" alt="Default Profile Picture" width="40px" style="border-radius: 30%;">
+    @endif
+    </td>
+    <td>{{$deposit->fromUser->name}} </td>
+    <td> {{$deposit->amount}}</td>
+</tr>
+
+@endforeach
+<tr>
+    <td></td>
+    <td><b>Paid</b></td>
+    <td></td>
+</tr>
+@foreach($withdraws as $withdraw)
+<tr class="table-danger">
+    <td>
+    @if ($withdraw->user['profile_picture'])
+        <img src="{{ asset('storage/' . $withdraw->user['profile_picture']) }}" alt="Profile Picture" width="25px" style="border-radius: 30%;">
+    @else
+        <img src="logo.png" alt="Default Profile Picture" width="40px" style="border-radius: 30%;">
+    @endif
+    </td>
+    <td>{{$withdraw->user_id}} {{$withdraw->user['name']}}</td>
+    <td> {{$withdraw->amount}}</td>
+</tr>
+@endforeach
+</table>
 
 
+
+<hr>
+{{--$withdraws--}}
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> 
+                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
+                        
+@foreach ($deposits as $transaction)
+    @if ($transaction && isset($transaction['amount']) && isset($transaction['from_user']) && isset($transaction['from_user']['name']))
+        <div>
+            <p>Amount: ${{ $transaction['amount'] }}</p>
+            <p>Name: {{ $transaction['from_user']['name'] }}</p>
+        </div>
+    @endif
+@endforeach
+
+                    </p>
+                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
+
+{{--$deposits--}} Collected : <BR>
+@foreach($deposits as $deposit)
+{{$deposit->id}} {{$deposit->name}} : {{$deposit->amount}}<br>
+@endforeach
+
+
+
+
+
+
+
+@foreach ($deposits as $transaction)
+    @if ($transaction && $transaction->amount && $transaction->fromUser && $transaction->fromUser->firstname)
+        <div>
+            <p>Firstname: {{ $transaction->fromUser->firstname }}</p>
+            <p>Amount: ${{ $transaction->amount }}</p>
+        </div>
+    @endif
+@endforeach
+
+
+
+                    </p> 
                 </div>
             </div>
         </div>

@@ -59,5 +59,13 @@ public function creditCards()
         return $this->hasMany(CreditCard::class);
     }
 
-    
+    public function wallets()
+    {
+        return $this->hasMany(Wallet::class, 'user_id');
+    }
+
+    public function fromWallets()
+    {
+        return $this->hasMany(Wallet::class, 'from_user_id');
+    }
 }

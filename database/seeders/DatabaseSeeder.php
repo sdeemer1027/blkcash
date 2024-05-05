@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
              'state' => 'FL',
              'zip' => '33020',
              'phone' => '888-555-1212',
+             'Wallet' => '1200.00',
          ]);
          \App\Models\User::factory()->create([
              'name' => 'williebabes',
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
              'state' => 'NC',
              'zip' => '12345',
              'phone' => '888-444-1212',
+             'Wallet' => '1200.00',
          ]);
          \App\Models\User::factory()->create([
              'name' => 'Corey',
@@ -46,6 +48,7 @@ class DatabaseSeeder extends Seeder
              'state' => 'NC',
              'zip' => '12345',
              'phone' => '888-444-1212',
+             'Wallet' => '1200.00',
          ]);
          \App\Models\CreditCard::create([
              'name' => 'Steve',
@@ -95,6 +98,72 @@ class DatabaseSeeder extends Seeder
              'user_id' => '3',
              
          ]);
+
+
+
+
+
+\App\Models\Wallet::create([
+             'user_id' => '1',
+             'from_user_id' => '2',
+             'amount'=>'50.00',
+             
+             
+         ]);
+
+\App\Models\Wallet::create([
+             'user_id' => '1',
+             'from_user_id' => '3',
+             'amount'=>'50.00',
+             
+             
+         ]);
+\App\Models\Wallet::create([
+             'user_id' => '2',
+             'from_user_id' => '1',
+             'amount'=>'50.00',
+             
+             
+         ]);
+\App\Models\Wallet::create([
+             'user_id' => '3',
+             'from_user_id' => '1',
+             'amount'=>'50.00',
+             
+             
+         ]);
+
+\App\Models\Wallet::create([
+             'user_id' => '1',
+             'from_user_id' => '2',
+             'amount'=>'150.00',
+             
+             
+         ]);
+
+\App\Models\Wallet::create([
+             'user_id' => '1',
+             'from_user_id' => '3',
+             'amount'=>'150.00',
+             
+             
+         ]);
+\App\Models\Wallet::create([
+             'user_id' => '2',
+             'from_user_id' => '1',
+             'amount'=>'150.00',
+             
+             
+         ]);
+\App\Models\Wallet::create([
+             'user_id' => '3',
+             'from_user_id' => '1',
+             'amount'=>'150.00',
+             
+             
+         ]);
+
+
 
     }
 }
