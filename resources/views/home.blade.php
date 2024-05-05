@@ -94,11 +94,9 @@
 
 <a href="#" style="float: right;">Add Card</a><BR>
 <div class="slide-container">
-<div class="slide">
-@foreach($cc as $credit)
-
-  <div class="box-credit">
-
+ <div class="slide">
+  @foreach($cc as $credit)
+    <div class="box-credit">
             <div class="box-crdits">
               <img credit-logo src="logo.png" />
               <div class="top-cips">
@@ -120,22 +118,71 @@
                 </p>
               </div>
             </div>
-</div>
-
-
-@endforeach
-</div>
+   </div>
+  @endforeach
+ </div>
 </div>
 
 
 <hr>
-{{--$deposits--}}
-<BR>
-{{--$deposits--}} <b>Transactions </b>: <BR>
+
+New Transaction <BR>
+<a href="{{ route('payments.page') }}">Go to Payment Page</a>
+<hr>
+
+
+<b>Who You Sent a Request To:</b><BR>
+@if($requested) 
+  @foreach($requested as $newrequest)
+     {{$newrequest->RequestfromUser->email}} -- ${{$newrequest->amount}}<BR>
+  @endforeach
+@endif
+<HR>
+<b>Who Sent You a Request:</b><BR>
+@if($requestedfrom)
+<table  class="table" width="100%">
+    <tr>
+        <td>Email</td>
+        <td>Amount</td>
+        <td colspan="2">Actions</td>
+    </tr>
+  @foreach($requestedfrom as $newrequestedfrom)
+  <tr>
+    <td>{{$newrequestedfrom->Requestuser->email}}</td>
+    <td>${{$newrequestedfrom->amount}}</td>
+    <td>
+        <form action="{{ route('wallet.approve-reject') }}" method="POST">
+          @csrf
+        <input type="hidden" name="action" value="approve">
+        <input type="hidden" value="{{$newrequestedfrom->id}}" name="tid">
+        <input type="hidden" name="who" value="{{$newrequestedfrom->id}}">
+        <input type="hidden" name="amount" value="{{$newrequestedfrom->amount}}">
+        <button type="submit"  class="btn-sm btn-success">Approve</button>
+        </form>
+    </td>
+    <td>
+        <form action="{{ route('wallet.approve-reject') }}" method="POST">
+          @csrf
+        <input type="hidden" name="action" value="reject">
+        <input type="hidden" value="{{$newrequestedfrom->id}}" name="tid">
+        <input type="hidden" name="who" value="{{$newrequestedfrom->id}}">
+        <input type="hidden" name="amount" value="{{$newrequestedfrom->amount}}">
+        <button type="submit" class="btn-sm btn-danger">Reject</button>
+        </form>
+    </td>
+  </tr>
+  @endforeach
+</table>
+@endif
+
+<hr>
+
+ <b>Transactions </b>: <BR>
 <table  class="table" width="100%">
   <tr>
     <td></td>
     <td><b>Collected </b></td>
+    <td></td>
     <td></td>
 </tr>
 @foreach($deposits as $deposit)
@@ -149,12 +196,14 @@
     </td>
     <td>{{$deposit->fromUser->name}} </td>
     <td> {{$deposit->amount}}</td>
+    <td></td>
 </tr>
 
 @endforeach
 <tr>
     <td></td>
     <td><b>Paid</b></td>
+    <td></td>
     <td></td>
 </tr>
 @foreach($withdraws as $withdraw)
@@ -168,6 +217,7 @@
     </td>
     <td>{{$withdraw->user_id}} {{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
+    <td></td>
 </tr>
 @endforeach
 </table>
@@ -175,45 +225,13 @@
 
 
 <hr>
-{{--$withdraws--}}
+
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
-                        
-@foreach ($deposits as $transaction)
-    @if ($transaction && isset($transaction['amount']) && isset($transaction['from_user']) && isset($transaction['from_user']['name']))
-        <div>
-            <p>Amount: ${{ $transaction['amount'] }}</p>
-            <p>Name: {{ $transaction['from_user']['name'] }}</p>
-        </div>
-    @endif
-@endforeach
+  
 
                     </p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
-
-{{--$deposits--}} Collected : <BR>
-@foreach($deposits as $deposit)
-{{$deposit->id}} {{$deposit->name}} : {{$deposit->amount}}<br>
-@endforeach
-
-
-
-
-
-
-
-@foreach ($deposits as $transaction)
-    @if ($transaction && $transaction->amount && $transaction->fromUser && $transaction->fromUser->firstname)
-        <div>
-            <p>Firstname: {{ $transaction->fromUser->firstname }}</p>
-            <p>Amount: ${{ $transaction->amount }}</p>
-        </div>
-    @endif
-@endforeach
-
-
-
-                    </p> 
+                 
                 </div>
             </div>
         </div>

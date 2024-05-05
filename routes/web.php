@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WalletController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/get-token', 'App\Http\Controllers\ProfileController@getToken')->name('get-token');
 Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
+
+Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
+Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
+Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

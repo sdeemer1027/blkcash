@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('profile_picture')->nullable();
             $table->string('phone')->nullable();
-             $table->string('wallet')->nullable();
+            
+             $table->decimal('wallet', 10, 2)->nullable();
              $table->string('city')->nullable();
              $table->string('state')->nullable();
              $table->string('zip')->nullable();

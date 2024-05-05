@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth; // Import Auth facade
 use App\Models\CreditCard;
 use App\Models\Wallet;
+use App\Models\RequestWallet;
 
 
 class HomeController extends Controller
@@ -19,6 +20,8 @@ class HomeController extends Controller
 $cc = CreditCard::where('user_id',$user)->with('user')->get();
 $deposits = Wallet::where('user_id',$user)->with('fromUser')->get();
 $withdraws = Wallet::where('from_user_id',$user)->with('user')->get();
+$requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
+$requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
 
 //firstname
 //lastname
@@ -31,6 +34,6 @@ $withdraws = Wallet::where('from_user_id',$user)->with('user')->get();
 
 //dd($user,$users);
 
-        return view('home', compact('user','cc','deposits','withdraws')); // Return the home view
+        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom')); // Return the home view
     }
 }
