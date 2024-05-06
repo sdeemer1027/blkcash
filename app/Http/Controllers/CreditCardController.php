@@ -82,14 +82,28 @@ $gateway = new Gateway([
 //$creditcards
 //dd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
 
-/*
+
 $result = $gateway->creditCard()->create([
     'customerId' => $user->braintree,
     'number' => '4111111111111111',
     'expirationDate' => '06/28',
     'cvv' => '100'
     ]);
+$result = $gateway->creditCard()->create([
+    'customerId' => $user->braintree,
+    'number' => '5555555555554444',
+    'expirationDate' => '06/28',
+    'cvv' => '100'
+    ]);
+$result = $gateway->creditCard()->create([
+    'customerId' => $user->braintree,
+    'number' => '378282246310005',
+    'expirationDate' => '06/28',
+    'cvv' => '100'
+    ]);
 
+
+/*
 
 dd($result,$customer);
 */
