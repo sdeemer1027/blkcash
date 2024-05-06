@@ -127,6 +127,8 @@
 <a href="/credit-cards/add" style="float: right;">Add Card</a><BR>
 <div class="slide-container">
  <div class="slide">
+     @if(!$buser->braintree) 
+
   @foreach($cc as $credit)
     <div class="box-credit">
             <div class="box-crdits">
@@ -152,8 +154,47 @@
             </div>
    </div>
   @endforeach
+@else
+
+
+@foreach($customer['creditCards'] as $credit)
+
+<div class="box-credit">
+            <div class="box-crdits">
+              <img credit-logo src="logo.png" />
+              <div class="top-cips">
+                <img src="img/chip.png" class="chip-s" />
+                <img src="{{$credit->imageUrl}}" class="visa-s" />
+                <!--img src="img/visa.png" class="visa-s" /-->
+              </div>
+              <div class="accnt-nusm tst-lta">
+                <span> **** </span>
+                <span> **** </span>
+                <span> **** </span>
+                <span>
+                  {{$credit->last4}}
+                </span>
+              </div>
+              <div class="tst-lta">
+                <p>Name <span> {{$customer['firstName']}} {{$customer['lastName']}}  </span></p>
+                <p>
+                  Exp Date <span> {{$credit->expirationYear}}</span>
+                </p>
+              </div>
+            </div>
+   </div>
+  @endforeach
+  @endif
+
+  
  </div>
+  
 </div>
+{{--$credit}}
+<HR>
+{{$customer--}}
+
+{{--$buser--}}
 <hr>
 
 

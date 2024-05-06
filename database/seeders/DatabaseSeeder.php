@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
          \App\Models\CreditCard::create([
              'name' => 'Steve',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '1',
              
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
 \App\Models\CreditCard::create([
              'name' => 'Steve',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '1',
              
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
 \App\Models\CreditCard::create([
              'name' => 'Joe',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '2',
              
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
 \App\Models\CreditCard::create([
              'name' => 'Joe',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '2',
              
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
 \App\Models\CreditCard::create([
              'name' => 'Corey',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '3',
              
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
 \App\Models\CreditCard::create([
              'name' => 'Corey',
              'braintree_token' => '1111',
-             'expires'=>'12/26',
+             'expirationDate'=>'12/2026',
              'cvv' => ' ',
              'user_id' => '3',
              

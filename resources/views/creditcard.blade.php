@@ -46,7 +46,17 @@ FAKE Card : {{$creditcard->braintree_token}}<BR>
     'expirationDate' => '06/22',
     'cvv' => '100'
     ]);
+
+
+
+
+
     </pre> 
+    <pre>
+for visa: 4111111111111111
+for mastercard:    5555555555554444
+for American Express: 378282246310005
+</pre>
 </p>
 
 

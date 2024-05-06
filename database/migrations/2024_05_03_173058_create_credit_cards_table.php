@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('credit_cards', function (Blueprint $table) {
           $table->id();
             $table->string('braintree_token');
-            $table->string('name');
-              $table->string('expirationDate');             
-              $table->string('last4');
-              $table->string('cardType');
-              $table->string('cvv');
+            $table->string('name')->nullable();
+              $table->string('expirationDate')->nullable();             
+              $table->string('last4')->nullable();
+              $table->string('cardType')->nullable();
+              $table->string('cvv')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

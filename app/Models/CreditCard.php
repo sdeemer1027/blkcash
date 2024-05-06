@@ -9,7 +9,16 @@ class CreditCard extends Model
 {
     use HasFactory;
 
-
+  protected $fillable = [
+        'braintree_token',
+        'name',
+        'expirationDate',
+        'last4',
+        'cardType',
+        'cvv',
+        'user_id',
+    ];        
+        
 
 
  public function user()

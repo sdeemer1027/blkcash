@@ -71,7 +71,7 @@ $gateway = new Gateway([
        foreach($creditcards as $creditcard){
            if($cust->token == $creditcard->braintree_token){
 
-dd($cust->token,$creditcard->braintree_token,$creditcards);
+//dd($cust->token,$creditcard->braintree_token,$creditcards);
            }else{
 //CreditCard::update
 
@@ -80,19 +80,19 @@ dd($cust->token,$creditcard->braintree_token,$creditcards);
     }
 
 //$creditcards
-dd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
+//dd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
+
+/*
+$result = $gateway->creditCard()->create([
+    'customerId' => $user->braintree,
+    'number' => '4111111111111111',
+    'expirationDate' => '06/28',
+    'cvv' => '100'
+    ]);
 
 
-//$result = $gateway->creditCard()->create([
-//    'customerId' => $user->braintree,
-//    'number' => '4111111111111111',
-//    'expirationDate' => '06/28',
-//    'cvv' => '100'
-//    ]);
-
-
-//dd($result,$customer);
-
+dd($result,$customer);
+*/
 
 
 
