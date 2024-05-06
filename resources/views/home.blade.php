@@ -133,9 +133,21 @@ New Transaction <BR>
 
 <b>Who You Sent a Request To:</b><BR>
 @if($requested) 
+<table  class="table" width="100%">
+    <tr>
+        <td>Email</td>
+        <td>Amount</td>
+        <td colspan="2">Actions</td>
+    </tr>
   @foreach($requested as $newrequest)
-     {{$newrequest->RequestfromUser->email}} -- ${{$newrequest->amount}}<BR>
+  <tr>
+    <td>{{$newrequest->RequestfromUser->email}}</td>
+    <td>${{$newrequest->amount}}</td>
+    <td><button href="#" class="btn-sm btn-success">Reminder</button></td>
+    <td><button href="#" class="btn-sm btn-danger">Cancel</button></td>
+  </tr>
   @endforeach
+</table>
 @endif
 <HR>
 <b>Who Sent You a Request:</b><BR>
@@ -215,7 +227,7 @@ New Transaction <BR>
         <img src="logo.png" alt="Default Profile Picture" width="40px" style="border-radius: 30%;">
     @endif
     </td>
-    <td>{{$withdraw->user_id}} {{$withdraw->user['name']}}</td>
+    <td>{{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
     <td></td>
 </tr>
