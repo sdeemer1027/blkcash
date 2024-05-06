@@ -71,17 +71,16 @@ $gateway = new Gateway([
        foreach($creditcards as $creditcard){
            if($cust->token == $creditcard->braintree_token){
 
-dd($cust,$creditcard->braintree_token,$creditcards);
+dd($cust->token,$creditcard->braintree_token,$creditcards);
            }else{
-//CreditCard::insert([
-//    'braintree_token' => $cust->token,
-//]);
+//CreditCard::update
 
            }
         }
     }
 
-$creditcardsdd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
+//$creditcards
+dd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
 
 
 //$result = $gateway->creditCard()->create([
