@@ -82,7 +82,7 @@ $gateway = new Gateway([
 //$creditcards
 //dd($creditcards,$user->braintree,$customer->creditCards,$cust->token,$creditcard->braintree_token);
 
-
+/*
 $result = $gateway->creditCard()->create([
     'customerId' => $user->braintree,
     'number' => '4111111111111111',
@@ -103,7 +103,7 @@ $result = $gateway->creditCard()->create([
     ]);
 
 
-/*
+
 
 dd($result,$customer);
 */
