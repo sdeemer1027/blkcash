@@ -40,9 +40,9 @@ class DatabaseSeeder extends Seeder
          ]);
          \App\Models\User::factory()->create([
              'name' => 'Corey',
-             'email' => 'coery@gmail.com',
+             'email' => 'coreyhenry490@gmail.com',
              'firstname'=>'Corey',
-             'lastname' => ' ',
+             'lastname' => 'henry',
              'address' => '123 Main St.',
              'city' => 'sometown',
              'state' => 'NC',
