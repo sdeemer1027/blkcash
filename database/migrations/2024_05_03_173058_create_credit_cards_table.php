@@ -15,7 +15,9 @@ return new class extends Migration
           $table->id();
             $table->string('braintree_token');
             $table->string('name');
-              $table->string('expires');
+              $table->string('expirationDate');             
+              $table->string('last4');
+              $table->string('cardType');
               $table->string('cvv');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

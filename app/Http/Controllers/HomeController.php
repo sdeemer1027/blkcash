@@ -23,13 +23,17 @@ $withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','de
 $requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
 $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
 
-//firstname
-//lastname
-//email
-//phone                with('fromUser') 
-//braintree
+$braincc = [];
 
-// dd($deposits);
+foreach($cc as $creditcard){
+     if($creditcard->braintree_token != '1111'){
+          dd($creditcard->braintree_token);
+     }
+}
+//if($cc->braintree_token != '1111'){
+
+ //    dd($cc->braintree_token);
+//}
 
 
 //dd($user,$users);

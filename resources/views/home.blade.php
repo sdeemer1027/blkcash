@@ -90,9 +90,41 @@
             }
         }
     }
+
+
+
+.icon-container {
+    margin-top: 20px;
+}
+
+.icon {
+    text-align: center;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 75px;
+    line-height: 80px;
+    border-radius: 25%;
+}
+
+.icon-circle i {
+    font-size: 30px;
+    color: white;
+}
+
+.icon-text {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+
+.rounded-circle {
+    border-radius: 20%!important;
+}
 </style>
 
-<a href="#" style="float: right;">Add Card</a><BR>
+<a href="/credit-cards/add" style="float: right;">Add Card</a><BR>
 <div class="slide-container">
  <div class="slide">
   @foreach($cc as $credit)
@@ -103,7 +135,7 @@
                 <img src="img/chip.png" class="chip-s" />
                 <img src="img/visa.png" class="visa-s" />
               </div>
-              <div class="accnt-nusm">
+              <div class="accnt-nusm tst-lta">
                 <span> **** </span>
                 <span> **** </span>
                 <span> **** </span>
@@ -122,17 +154,69 @@
   @endforeach
  </div>
 </div>
-
-
 <hr>
 
+
+
+<!-- Home page navigations   -->
+
+<div class="icon-container d-flex justify-content-around">
+    <div class="icon">
+        <div class="icon-circle bg-success rounded-circle">
+            <i class="fa fa-university" aria-hidden="true"></i>            
+        </div>
+        <div class="icon-text">Transactions</div>
+    </div>
+
+    <div class="icon">        
+        <div class="icon-circle bg-success rounded-circle">
+        <a href="{{ route('payments.page') }}"> 
+         <i class="fa fa-forward" aria-hidden="true"></i>
+          {{-- <i class="fas fa-dollar" aria-hidden="true"></i>--}}
+          {{-- <i class="fas fa-user"><BR><span class="icon-text">Send</span></i> --}}
+        </div>
+        </a>
+        <div class="icon-text">Send/Request</div>
+    </div>
+
+    <div class="icon">
+        <div class="icon-circle bg-success rounded-circle">
+           <i class="fa fa-backward" aria-hidden="true"></i>
+            {{-- <i class="fas fa-envelope"></i> --}}
+        </div>
+        <div class="icon-text">Request</div>
+    </div>
+    <div class="icon">
+        <div class="icon-circle bg-success rounded-circle">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div class="icon-text">Settings</div>
+    </div>
+</div>
+
+
+
+<BR><BR>
+
+<!-- END Home page navigations   -->
+
+
+
+
+
+
+
+
+{{-- 
 New Transaction <BR>
 <a href="{{ route('payments.page') }}">Go to Payment Page</a>
 <hr>
-
+--}}
 
 <b>Who You Sent a Request To:</b><BR>
+<div class="flex">
 @if($requested) 
+ <div class="table-responsive">
 <table  class="table" width="100%">
     <tr>
         <td>Email</td>
@@ -148,10 +232,14 @@ New Transaction <BR>
   </tr>
   @endforeach
 </table>
+</div>
 @endif
+</div>
 <HR>
 <b>Who Sent You a Request:</b><BR>
+<div class="flex">
 @if($requestedfrom)
+<div class="table-responsive">
 <table  class="table" width="100%">
     <tr>
         <td>Email</td>
@@ -160,7 +248,7 @@ New Transaction <BR>
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
-    <td>{{$newrequestedfrom->Requestuser->email}}</td>
+    <td>{{$newrequestedfrom->Requestuser->firstname}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
         <form action="{{ route('wallet.approve-reject') }}" method="POST">
@@ -185,8 +273,9 @@ New Transaction <BR>
   </tr>
   @endforeach
 </table>
+</div>
 @endif
-
+</div>
 <hr>
 
  <b>Transactions </b>: <BR>

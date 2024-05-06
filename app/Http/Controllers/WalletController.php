@@ -11,13 +11,15 @@ use App\Models\RequestWallet;
 
 class WalletController extends Controller
 {
-    //
-
-
-
+   
      public function paymentPage()
     {
-        return view('payments.payment_page'); // Assuming 'payments.payment_page' is your blade view file
+
+$users = User::all();
+//dd($users);
+
+
+        return view('payments.payment_page',compact('users')); // Assuming 'payments.payment_page' is your blade view file
     }
 
 
@@ -56,7 +58,7 @@ class WalletController extends Controller
             } else {
                     // Handle case where user with $userId does not exist
             }
- return redirect()->back()->with('status', 'Payment processed successfully.');
+ return redirect()->route('home')->with('status', 'Payment processed successfully.');
 
         } elseif ($action === 'request') {
             // Request payment
@@ -73,15 +75,12 @@ class WalletController extends Controller
            $wallet->approval = 0; // Assign the amount
           $wallet->save();
 
-
 //dd($request);
- return redirect()->back()->with('status', 'Request was made successfully.');
-
-
-
+        return redirect()->route('home')->with('status', 'Request was made successfully.');
+ 
         }
 
-        return redirect()->back()->with('status', 'Payment processed successfully.');
+        return redirect()->route('home')->with('status', 'Payment processed successfully.');
     }
 
 
@@ -126,7 +125,7 @@ class WalletController extends Controller
                     // Handle case where user with $userId does not exist
             }
  //dd($request);
-
+ return redirect()->route('home')->with('status', 'Payment processed successfully.');
 
 
             } else {
@@ -142,6 +141,8 @@ class WalletController extends Controller
             if ($trans) {
                 $trans->approval = 3; // Add the new amount to the existing wallet amount
                 $trans->save();
+
+                   return redirect()->route('home')->with('status', 'Request was made successfully.');
             } else {
                     // Handle case where user with $userId does not exist
             }

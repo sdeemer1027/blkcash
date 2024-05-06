@@ -22,7 +22,15 @@
 
                     <p></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p></p> 
+                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+
+
+                    <p><HR>Not Public Info Only System for testing<BR><BR>
+
+Token : {{$user->braintree}} <BR>
+                    </p>
+                    <p></p> 
+
                 </div>
             </div>
         </div>
