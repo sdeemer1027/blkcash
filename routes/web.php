@@ -36,6 +36,9 @@ Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')-
 
 Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
 Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
+
+
+Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
 
 

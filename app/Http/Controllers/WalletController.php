@@ -7,10 +7,157 @@ use App\Models\Wallet;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RequestWallet;
+use Braintree\Gateway; // Add this use statement at the top of your controller
+
+use Braintree\Transaction;
+use Braintree\Customer;
+use Braintree\BraintreeCustomerSearch;
 
 
 class WalletController extends Controller
 {
+
+     public function index()
+    {
+
+        $user = Auth::user(); // Get the authenticated user
+        $user = User::where('id',Auth::user()->id)->first();
+
+$gateway = new Gateway([
+        'environment' => 'sandbox',
+        'merchantId' => 'ky5th6y8d4mp2qwf',
+        'publicKey' => 'zt54ghn8yv3wrhgr',
+        'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
+    ]);
+      $token = $gateway->clientToken()->generate();
+      $customer = $gateway->customer()->find($user->braintree);
+        // Access credit card details
+        $creditCards = $customer->creditCards;
+//$customerBalance = $gateway->customer()->balance([$user->braintree]);
+
+$transaction = $gateway->transaction()->find('d92d45nw');
+
+$transaction2 = $gateway->transaction()->find('4paw65qw');
+
+$trans = $gateway->transaction()->find('72bje822');
+
+dd($customer,$transaction,$transaction2,$trans);
+
+
+/*
+ $result = $gateway->transaction()->sale([
+        'customerId' => '49681111134', //$customerID,
+        'paymentMethodToken' =>  '3ycfe5hf',  //$paymentMethodToken,
+        'amount' => '550.00',
+        'options' => [
+            'submitForSettlement' => true, // Automatically submit for settlement
+        ],
+    ]);
+
+
+ dd($result);
+*/
+
+
+
+/*
+
+        // Get customer IDs from the request (assuming it's sent from the frontend)
+        $senderCustomerId =  '49681111134'; //              $request->input('49681111134');
+        $receiverCustomerId = '40885802583';             //  $request->input('40885802583');
+
+        // Charge Customer-1's credit card
+        $result = $gateway->transaction()->sale([
+            'amount' => '25.00', // Amount to charge ($25)
+            'paymentMethodToken' =>  '3ycfe5hf', //    'customer-1-payment-method-token', // Payment method token for Customer-1's credit card
+            'options' => [
+                'submitForSettlement' => true, // Automatically submit for settlement
+            ],
+        ]);
+
+        if ($result->success) {
+            // Transaction successful, update Customer-2's account balance
+ 
+
+//            $customer2 = User::where('braintree_customer_id', $receiverCustomerId)->first();
+//            if ($customer2) {
+//                $customer2->update(['balance' => $customer2->balance + 25.00]); // Update balance for Customer-2
+//                return response()->json(['message' => 'Funds transferred successfully'], 200);
+//            } else {
+//                return response()->json(['error' => 'Receiver customer not found'], 404);
+//            }
+
+        } else {
+            // Transaction failed
+            return response()->json(['error' => $result->message], 400);
+        }
+    
+
+
+
+
+dd($result);
+
+
+
+*/
+
+
+
+
+
+
+
+
+
+ return view('wallet.index',compact('user')); //,compact('users')); 
+
+    }
+
+
+
+
+
+public function addFunds(Request $request)
+{
+    $customerID = $request->user()->braintree_customer_id; // Assuming you store Braintree customer IDs for users
+    $paymentMethodToken = $request->input('payment_method_token');
+    $amount = $request->input('amount');
+
+    $result = Transaction::sale([
+        'customerId' => $customerID,
+        'paymentMethodToken' => $paymentMethodToken,
+        'amount' => $amount,
+        'options' => [
+            'submitForSettlement' => true, // Automatically submit for settlement
+        ],
+    ]);
+
+    if ($result->success) {
+        // Update customer's account balance in your database
+        // Provide success message to the customer
+        return redirect()->back()->with('success', 'Funds added successfully.');
+    } else {
+        // Handle transaction failure
+        $error = $result->message;
+        return redirect()->back()->with('error', $error);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
      public function paymentPage()
     {
