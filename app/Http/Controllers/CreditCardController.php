@@ -149,14 +149,14 @@ BRAINTREE_MERCHANT_ID=ky5th6y8d4mp2qwf
 BRAINTREE_PUBLIC_KEY=zt54ghn8yv3wrhgr
 BRAINTREE_PRIVATE_KEY=b6ca1ce36ce4343047b4c4796bcbad73
 */
-dd(env('BRAINTREE_ENV')); // Dump the specific variable you are trying to access
-dd($_ENV); // Dump all loaded environment variables
-    $braintreeEnv1 = env('BRAINTREE_ENV');
-$braintreeEnv2 = config('braintree.environment');
- $appUrl = config('braintree.environment');
-    $databaseName = config('database.connections.mysql.database');
-
-    dd($appUrl, $databaseName,$braintreeEnv1,$braintreeEnv2);
+//dd(env('BRAINTREE_ENV')); // Dump the specific variable you are trying to access
+//dd($_ENV); // Dump all loaded environment variables
+//    $braintreeEnv1 = env('BRAINTREE_ENV');
+//$braintreeEnv2 = config('braintree.environment');
+// $appUrl = config('braintree.environment');
+//    $databaseName = config('database.connections.mysql.database');
+//
+//    dd($appUrl, $databaseName,$braintreeEnv1,$braintreeEnv2);
 
 
 
