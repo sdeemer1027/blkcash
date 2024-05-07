@@ -34,11 +34,34 @@ FAKE Card : {{$creditcard->braintree_token}}<BR>
     --}}              
 
 
+<form action="{{ route('credit-cards.store') }}" method="POST">
+    @csrf
+
+    <div class="form-group">
+        <label for="name">Name on Card:</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Enter name on card" required>
+    </div>
+
+    <div class="form-group">
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="text" id="expirationDate" name="expirationDate" class="form-control" placeholder="Enter expirationDate mm/yyyy" required>
+    </div>
+ <div class="form-group">
+        <label for="card_number">Credit Card Number:</label>
+        <input type="text" id="card_number" name="card_number" class="form-control" placeholder="Enter credit card number" required>
+    </div>
+    <div class="form-group">
+        <label for="cvv">Cvv:</label>
+        <input type="text" id="cvv" name="cvv" class="form-control" placeholder="Enter cvv number" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Credit Card</button>
+</form>
 
 
                     <p><HR></p>
 
                     <p>
+                        {{--
 <pre>
     $result = $gateway->creditCard()->create([
     'customerId' => $customerId,
@@ -52,10 +75,13 @@ FAKE Card : {{$creditcard->braintree_token}}<BR>
 
 
     </pre> 
+    --}}
     <pre>
+        To Add Test Card : 
 for visa: 4111111111111111
 for mastercard:    5555555555554444
-for American Express: 378282246310005
+{{--
+for American Express: 378282246310005 --}}
 </pre>
 </p>
 

@@ -176,7 +176,7 @@
                 </span>
               </div>
               <div class="tst-lta">
-                <p>Name <span> {{$customer['firstName']}} {{$customer['lastName']}}  </span></p>
+                <p>Name <span> {{--$customer['firstName']}} {{$customer['lastName']--}} {{$credit->cardholderName}} </span></p>
                 <p>
                   Exp Date <span> {{$credit->expirationYear}}</span>
                 </p>

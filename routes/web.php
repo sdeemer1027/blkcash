@@ -32,6 +32,8 @@ Route::get('/get-token', 'App\Http\Controllers\ProfileController@getToken')->nam
 Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 
+Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
+
 Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
 Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
