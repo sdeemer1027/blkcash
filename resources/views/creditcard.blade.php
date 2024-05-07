@@ -69,11 +69,6 @@ FAKE Card : {{$creditcard->braintree_token}}<BR>
     'expirationDate' => '06/22',
     'cvv' => '100'
     ]);
-
-
-
-
-
     </pre> 
     --}}
     <pre>
@@ -87,7 +82,62 @@ for American Express: 378282246310005 --}}
 
 
 
-                    <p>&nbsp;</p><p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>
+@foreach($customer->creditCards as $credit)
+{{$credit->maskedNumber}}  {{$credit->token}}  
+<form action="{{ route('credit-cards.store') }}" method="POST">
+    @csrf
+    <input type="hidden" id="token" name="token" class="form-control" value="{{$credit->token}}">
+   <button type="submit" class="btn btn-primary">delete Card</button>
+</form>
+
+
+
+<hr>
+@endforeach
+<pre>
+bin=555555, 
+expirationMonth=12, 
+expirationYear=2025, 
+last4=4444, 
+cardType=MasterCard, 
+cardholderName=BoB Seeker, 
+commercial=Unknown, 
+countryOfIssuance=Unknown, 
+createdAt=Monday, 
+06-May-24 23:22:01 UTC, 
+customerId=40885802583, 
+customerGlobalId=Y3VzdG9tZXJfNDA4ODU4MDI1ODM, 
+customerLocation=US, 
+debit=Unknown, 
+default=, 
+durbinRegulated=Unknown, 
+expired=, 
+globalId=cGF5bWVudG1ldGhvZF9jY184NzZkNjV3Nw, 
+healthcare=Unknown, 
+imageUrl=https://assets.braintreegateway.com/payment_method_logo/mastercard.png?environment=sandbox, 
+issuingBank=Unknown, 
+payroll=Unknown, 
+prepaid=Unknown, 
+productId=Unknown, 
+subscriptions=, 
+token=876d65w7, 
+uniqueNumberIdentifier=11377884ef231b7df2e3715d4402f601, 
+updatedAt=Monday, 
+06-May-24 23:22:01 UTC, 
+venmoSdk=, 
+verifications=, 
+isNetworkTokenized=, 
+billingAddress=, 
+graphQLId=cGF5bWVudG1ldGhvZF9jY184NzZkNjV3Nw, 
+expirationDate=12/2025, 
+maskedNumber=555555******4444
+</pre>
+                    {{--$customer--}}</p>
+                    
+
+
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 

@@ -55,10 +55,14 @@ if($user->braintree == null){
     }
 }else{
 
+/*
+if($request->input('token')){
+    $toke = $request->input('token');
+$result = $gateway->paymentMethod()->delete('$toke');
 
-
-
-
+$result->success
+}
+*/
 
 
 
