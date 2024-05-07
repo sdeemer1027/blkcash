@@ -296,14 +296,14 @@ New Transaction <BR>
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
-    <td>{{$newrequestedfrom->Requestuser->firstname}}</td>
+    <td>{{$newrequestedfrom->Requestuser->id}}{{$newrequestedfrom->Requestuser->firstname}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
         <form action="{{ route('wallet.approve-reject') }}" method="POST">
           @csrf
         <input type="hidden" name="action" value="approve">
         <input type="hidden" value="{{$newrequestedfrom->id}}" name="tid">
-        <input type="hidden" name="who" value="{{$newrequestedfrom->id}}">
+        <input type="hidden" name="who" value="{{$newrequestedfrom->Requestuser->id}}">
         <input type="hidden" name="amount" value="{{$newrequestedfrom->amount}}">
         <button type="submit"  class="btn-sm btn-success">Approve</button>
         </form>

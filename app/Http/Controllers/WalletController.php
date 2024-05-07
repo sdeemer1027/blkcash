@@ -97,7 +97,7 @@ $users = User::all();
             $amount = $request->input('amount');
             $me = Auth::user()->id; // Get the authenticated user
  
-
+//dd($who);
 
             $trans = RequestWallet::find($transaction); 
             if ($trans) {
