@@ -304,7 +304,7 @@ New Transaction <BR>
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
-    <td>{{$newrequestedfrom->Requestuser->id}}{{$newrequestedfrom->Requestuser->firstname}}</td>
+    <td>{{$newrequestedfrom->Requestuser->firstname}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
         <form action="{{ route('wallet.approve-reject') }}" method="POST">
