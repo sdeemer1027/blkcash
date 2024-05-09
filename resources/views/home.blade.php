@@ -276,7 +276,7 @@ New Transaction <BR>
     </tr>
   @foreach($requested as $newrequest)
   <tr>
-    <td>{{$newrequest->RequestfromUser->email}}</td>
+    <td>{{$newrequest->RequestfromUser->firstname}}</td>
     <td>${{$newrequest->amount}}</td>
     <td><button href="#" class="btn-sm btn-success">Reminder</button></td>
     <td><button href="#" class="btn-sm btn-danger">Cancel</button></td>
