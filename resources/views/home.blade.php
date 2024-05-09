@@ -263,10 +263,10 @@ New Transaction <BR>
 <a href="{{ route('payments.page') }}">Go to Payment Page</a>
 <hr>
 --}}
-
+@if(!$requested == null) 
 <b>Who You Sent a Request To:</b><BR>
 <div class="flex">
-@if($requested) 
+
  <div class="table-responsive">
 <table  class="table" width="100%">
     <tr>
@@ -284,12 +284,17 @@ New Transaction <BR>
   @endforeach
 </table>
 </div>
-@endif
+
 </div>
+@endif
+
+
+@if(!empty($requestedfrom))
+
 <HR>
 <b>Who Sent You a Request:</b><BR>
 <div class="flex">
-@if($requestedfrom)
+
 <div class="table-responsive">
 <table  class="table" width="100%">
     <tr>
@@ -325,9 +330,12 @@ New Transaction <BR>
   @endforeach
 </table>
 </div>
-@endif
+
 </div>
 <hr>
+@endif
+
+
 
  <b>Transactions </b>: <BR>
 <table  class="table" width="100%">
@@ -341,9 +349,9 @@ New Transaction <BR>
 <tr class="table-success">
     <td>
     @if ($deposit->fromUser->profile_picture)
-        <img src="{{ asset('storage/' . $deposit->fromUser->profile_picture) }}" alt="Profile Picture" width="25px" style="border-radius: 30%;">
+        <img src="{{ asset('storage/' . $deposit->fromUser->profile_picture) }}" alt="Profile Picture" width="20px" style="border-radius: 30%;">
     @else
-        <img src="logo.png" alt="Default Profile Picture" width="40px" style="border-radius: 30%;">
+        <img src="logo.png" alt="Default Profile Picture" width="20px" style="border-radius: 30%;">
     @endif
     </td>
     <td>{{$deposit->fromUser->name}} </td>
@@ -362,9 +370,9 @@ New Transaction <BR>
 <tr class="table-danger">
     <td>
     @if ($withdraw->user['profile_picture'])
-        <img src="{{ asset('storage/' . $withdraw->user['profile_picture']) }}" alt="Profile Picture" width="25px" style="border-radius: 30%;">
+        <img src="{{ asset('storage/' . $withdraw->user['profile_picture']) }}" alt="Profile Picture" width="20px" style="border-radius: 30%;">
     @else
-        <img src="logo.png" alt="Default Profile Picture" width="40px" style="border-radius: 30%;">
+        <img src="logo.png" alt="Default Profile Picture" width="20px" style="border-radius: 30%;">
     @endif
     </td>
     <td>{{$withdraw->user['name']}}</td>

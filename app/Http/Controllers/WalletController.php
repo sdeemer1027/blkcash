@@ -41,7 +41,10 @@ $transaction2 = $gateway->transaction()->find('4paw65qw');
 
 $trans = $gateway->transaction()->find('72bje822');
 
-dd($customer,$transaction,$transaction2,$trans);
+
+$customer2 = $gateway->customer()->find('40885802583');
+
+//dd($customer,$transaction,$transaction2,$trans,$customer2);
 
 
 /*

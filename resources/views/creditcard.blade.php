@@ -139,7 +139,18 @@ maskedNumber=555555******4444
 
 
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
+                    <p>&nbsp;</p><p>
+                        <pre>
+Bank routing numbers
+Bank routing numbers must pass a checksum, much like credit card numbers. The following routing numbers are valid, and can be passed to the sandbox:
+
+071101307
+071000013
+                            
+                        </pre>
+
+
+                    </p><p>&nbsp;</p>
 
 
                     <p><HR>Not Public Info Only System for testing<BR><BR>

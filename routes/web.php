@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WalletController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,9 @@ Route::post('/payments/process', [WalletController::class, 'processPayment'])->n
 
 Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
+
+
+Route::post('/search-users', [UserController::class, 'searchUsers'])->name('search.users');
 
 
 Route::get('/dashboard', function () {

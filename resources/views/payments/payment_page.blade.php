@@ -16,13 +16,19 @@
 <label for="who">Send Request To:</label><br>
   {{--  <input type="text" id="who" name="who" placeholder="Enter email to send" required><BR><BR>
 --}}
-<select  id="who" name="who">	
-	@foreach($users as $user)
-	@if(Auth::user()->email != $user->email)
-    <option value="{{$user->email}}">{{$user->name}}</option>
-@endif
-    @endforeach
+
+<!-- Input field with id 'search' -->
+<input type="text" id="searchInput" placeholder="start typing email">
+
+<BR>
+
+<select  id="who" name="who" required>	
+	
 </select>
+
+
+
+
 <BR>
 
 <BR>
@@ -98,7 +104,7 @@
 
 
 
-
+{{-- 
 
 
 
@@ -113,6 +119,33 @@ This is a List of email account you can use
 @foreach($users as $user)
 {{$user->email}}<BR>
 @endforeach
+
+
+
+
+
+<BR><BR><BR>
+
+
+
+
+
+<div id="searchResults">gggg</div>
+
+
+
+
+
+
+
+
+
+<BR><BR><BR>
+
+--}}
+
+
+
 <hr>
 <!-- End Drop this befor launch -->
 
@@ -150,4 +183,60 @@ This is a List of email account you can use
 
 
     </div>
+
 </x-app-layout>
+
+
+<!-- Load jQuery from CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Script to handle AJAX call -->
+<script>
+    jQuery(function($) {
+        $('#searchInput').on('input', function() {
+            var searchValue = $(this).val();
+        $('#who').empty();
+
+            // Check if the input length is at least 3 characters
+            if (searchValue.length >= 2) {
+                // Get the CSRF token from the meta tag
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                // Make AJAX call to fetch users
+                $.ajax({
+                    url: '/search-users', // Your Laravel route to handle the search
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                    },
+                    data: {
+                        search: searchValue
+                    },
+                    success: function(response) {
+                        // Handle the response and display users
+                      // Clear previous results
+                       
+                          $('#who').empty();
+
+                        // Append each result to the div
+                        $.each(response, function(index, user) {
+                           
+                            $('#who').append($('<option>', {
+                                 value: user.email, // Assuming user object has an 'id' property
+                                 text: user.name  //+' ['+user.email+']' // Assuming user object has a 'name' property
+                            }));
+                        });
+
+
+
+
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
