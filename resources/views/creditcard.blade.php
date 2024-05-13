@@ -7,31 +7,7 @@
 
 
           <span>Name</span><span style="float: right;">{{$user->firstname}} {{$user->lastname}}</span><hr>
-
-  <p>
-                        
-{{--$creditcards--}}
-@foreach($creditcards as $creditcard)
-@if($creditcard->braintree_token == '1111')
-FAKE Card : {{$creditcard->braintree_token}}<BR>
-@endif
-@endforeach
-                    </p>
-
-
-
-{{--
-
-          <span>First Name</span><span style="float: right;">{{$user->firstname}}</span><hr>
-          <span>Last Name</span><span style="float: right;">{{$user->lastname}}</span><hr>
-          <span>Email</span><span style="float: right;">{{$user->email}}</span><hr>
-          <span>Phone</span><span style="float: right;">{{$user->phone}}</span><hr>
-          <span>Address</span><span style="float: right;">{{$user->address}}</span><hr>
-          <span>City</span><span style="float: right;">{{$user->city}}</span><hr>
-          <span>State</span><span style="float: right;">{{$user->state}}</span><hr>
-          <span>Zip</span><span style="float: right;">{{$user->zip}}</span><hr>
-
-    --}}              
+          
 
 
 <form action="{{ route('credit-cards.store') }}" method="POST">
@@ -78,24 +54,45 @@ for mastercard:    5555555555554444
 {{--
 for American Express: 378282246310005 --}}
 </pre>
+
+<p>
+Bank routing numbers
+Bank routing numbers must pass a checksum, much like credit card numbers. 
+The following routing numbers are valid, and can be passed to the sandbox:<BR><BR>
+
+071101307<BR>
+071000013
+                            
+                        </p>
+
 </p>
 
 
 
                     <p>&nbsp;</p>
                     <p>
+
+Cards on file with Braintree
+
 @foreach($customer->creditCards as $credit)
+{{--$credit->firstName--}} 
 {{$credit->maskedNumber}}  {{$credit->token}}  
+
+{{--
 <form action="{{ route('credit-cards.store') }}" method="POST">
     @csrf
     <input type="hidden" id="token" name="token" class="form-control" value="{{$credit->token}}">
    <button type="submit" class="btn btn-primary">delete Card</button>
 </form>
-
+--}}
 
 
 <hr>
 @endforeach
+
+ 
+
+
 <pre>
 bin=555555, 
 expirationMonth=12, 
@@ -140,15 +137,7 @@ maskedNumber=555555******4444
 
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>
-                        <pre>
-Bank routing numbers
-Bank routing numbers must pass a checksum, much like credit card numbers. The following routing numbers are valid, and can be passed to the sandbox:
-
-071101307
-071000013
-                            
-                        </pre>
-
+                       
 
                     </p><p>&nbsp;</p>
 

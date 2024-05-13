@@ -16,6 +16,8 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('home'); // Redirect to 'home' route if logged in
@@ -35,6 +37,7 @@ Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCr
 Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
 
 Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
+//Route::get('/payments/card', [WalletController::class, 'paymentPageCard'])->name('payments.page');
 Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
 
 

@@ -13,7 +13,7 @@
 <form action="{{ route('payments.process') }}" method="POST">
     @csrf
     
-<label for="who">Send Request To:</label><br>
+<label for="who">Send Request/Payment To:</label><br>
   {{--  <input type="text" id="who" name="who" placeholder="Enter email to send" required><BR><BR>
 --}}
 

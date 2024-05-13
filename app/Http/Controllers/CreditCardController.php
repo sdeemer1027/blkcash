@@ -20,19 +20,14 @@ class CreditCardController extends Controller
         $user = User::where('id',Auth::user()->id)->first();
 
 
- //       dd($request);
-
-
-
-
-if($user->braintree == null){
-    $gateway = new Gateway([
+      if($user->braintree == null){
+         $gateway = new Gateway([
         'environment' => 'sandbox',
         'merchantId' => 'ky5th6y8d4mp2qwf',
         'publicKey' => 'zt54ghn8yv3wrhgr',
         'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
     ]);
-      $token = $gateway->clientToken()->generate();
+        $token = $gateway->clientToken()->generate();
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
@@ -80,8 +75,6 @@ $number = $request->input('card_number');
 $expirationDate = $request->input('expirationDate');
 $cvv = $request->input('cvv');
 
-
-
 $result = $gateway->creditCard()->create([
     'customerId' => $user->braintree,
     'cardholderName' => $name,
@@ -91,8 +84,47 @@ $result = $gateway->creditCard()->create([
     ]);
 
 
+
+//foreach($result->creditcard as $the){   $result->creditCard->bin
+
+//dd($result->creditCard);
+
+ $docard = CreditCard::create([
+        'braintree_token' => $result->creditCard->token,
+        'user_id' => $user->id,
+        'expirationDate' => $result->creditCard->expirationDate,
+        'last4' => $result->creditCard->last4,
+        'cardType' => $result->creditCard->cardType,
+        // 'cvv' => $cust->cvv
+    ]);
+
+
+
+
+//}
+
+
+
 return view('dashboard'); // Return the home view
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 $gateway = new Gateway([
         'environment' => 'sandbox',
@@ -186,15 +218,15 @@ if($user->braintree == null){
     if ($result->success) {
         // Customer created successfully
         $customerToken = $result->customer->id; // Retrieve the customer token
-        // Save $customerToken to your database users table for the user
-        // Return the customer token or any other response as needed
         auth()->user()->update(['braintree' => $customerToken]);
- //       return response()->json(['token' => $token, 'customerToken' => $customerToken]);
+
     } else {
         // Handle error if customer creation fails
         return response()->json(['error' => 'Customer creation failed'], 500);
     }
 }else{
+
+
 
 
 $gateway = new Gateway([
@@ -207,18 +239,28 @@ $gateway = new Gateway([
       $customer = $gateway->customer()->find($user->braintree);
 
 
-
-
     foreach($customer->creditCards as $cust){
-       foreach($creditcards as $creditcard){
-           if($cust->token == $creditcard->braintree_token){
 
-//dd($cust->token,$creditcard->braintree_token,$creditcards);
-           }else{
-//CreditCard::update
+$ifcard = CreditCard::where('user_id', $user->id)
+                    ->where('braintree_token', $cust->token)
+                    ->first();
 
-           }
-        }
+if (!$ifcard) {
+    $docard = CreditCard::create([
+        'braintree_token' => $cust->token,
+        'user_id' => $user->id,
+        'expirationDate' => $cust->expirationDate,
+        'last4' => $cust->last4,
+        'cardType' => $cust->cardType,
+        // 'cvv' => $cust->cvv
+    ]);
+} else {
+    // Handle if the card already exists, maybe log or throw an exception
+}
+
+
+
+
     }
 
 //$creditcards
