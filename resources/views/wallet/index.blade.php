@@ -14,7 +14,7 @@ Withdraw : {{--$withdraws--}}<BR>
 <table class="table" width="100%">
 <tr>
     <td></td>
-    <td><b>You Paid</b> Total : {{$totalAmount}}</td>
+    <td><b>You Paid</b></td>
     <td></td>
     <td></td>
 </tr>
@@ -32,6 +32,12 @@ Withdraw : {{--$withdraws--}}<BR>
     <td>{{$withdraw->updated_at}}</td>
 </tr>
 @endforeach
+<tr class="table-primary">
+    <td>Total</td>
+    <td></td>
+    <td><b>{{$totalAmount}}</b></td>
+    <td></td>
+</tr>
 </table>
 
 Deposit  : {{--$deposits--}}<BR>
@@ -39,7 +45,7 @@ Deposit  : {{--$deposits--}}<BR>
 <table  class="table" width="100%">
   <tr>
     <td></td>
-    <td><b>You Collected </b> Total : {{$totalDeposits}}</td>
+    <td><b>You Collected </b></td>
     <td></td>
     <td></td>
 </tr>
@@ -58,6 +64,13 @@ Deposit  : {{--$deposits--}}<BR>
 </tr>
 
 @endforeach
+<tr class="table-primary">
+    <td>Total</td>
+    <td></td>
+    <td><b>{{$totalDeposits}}</b></td>
+    <td></td>
+</tr>
+ 
 </table>
 
 
@@ -80,10 +93,10 @@ Deposit  : {{--$deposits--}}<BR>
 Deposit  : {{$deposits}}<BR>
 
 Requested : {{$requested}}<BR>
-Request From : {{$requestedfrom--}}<BR>
+Request From : {{$requestedfrom}}<BR>
 
 <HR>Ignore Me<BR>---------------<BR>
-{{$user}}
+{{$user--}}
 
 
 
