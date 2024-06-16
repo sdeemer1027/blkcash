@@ -23,6 +23,8 @@ class WalletController extends Controller
         $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
 
+ //       dd($user);
+
 $gateway = new Gateway([
         'environment' => 'sandbox',
         'merchantId' => 'ky5th6y8d4mp2qwf',
@@ -41,8 +43,9 @@ $transaction2 = $gateway->transaction()->find('4paw65qw');
 
 $trans = $gateway->transaction()->find('72bje822');
 
+$braintreetoken = $user->braintree;
 
-$customer2 = $gateway->customer()->find('40885802583');
+$customer2 = $gateway->customer()->find($braintreetoken);
 
 //dd($customer,$transaction,$transaction2,$trans,$customer2);
 
