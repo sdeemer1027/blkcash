@@ -8,11 +8,79 @@
 
 Balance: {{$user->wallet}}
 <BR>
-Withdraw : {{$withdraws}}<BR>
+
+
+Withdraw : {{--$withdraws--}}<BR>
+<table class="table" width="100%">
+<tr>
+    <td></td>
+    <td><b>You Paid</b> Total : {{$totalAmount}}</td>
+    <td></td>
+    <td></td>
+</tr>
+@foreach($withdraws as $withdraw)
+<tr class="table-danger">
+    <td>
+    @if ($withdraw->user['profile_picture'])
+        <img src="{{ asset('storage/' . $withdraw->user['profile_picture']) }}" alt="Profile Picture" width="20px" style="border-radius: 30%;">
+    @else
+        <img src="logo.png" alt="Default Profile Picture" width="20px" style="border-radius: 30%;">
+    @endif
+    </td>
+    <td>{{$withdraw->user['name']}}</td>
+    <td> {{$withdraw->amount}}</td>
+    <td>{{$withdraw->updated_at}}</td>
+</tr>
+@endforeach
+</table>
+
+Deposit  : {{--$deposits--}}<BR>
+
+<table  class="table" width="100%">
+  <tr>
+    <td></td>
+    <td><b>You Collected </b> Total : {{$totalDeposits}}</td>
+    <td></td>
+    <td></td>
+</tr>
+@foreach($deposits as $deposit)
+<tr class="table-success">
+    <td>
+    @if ($deposit->fromUser->profile_picture)
+        <img src="{{ asset('storage/' . $deposit->fromUser->profile_picture) }}" alt="Profile Picture" width="20px" style="border-radius: 30%;">
+    @else
+        <img src="logo.png" alt="Default Profile Picture" width="20px" style="border-radius: 30%;">
+    @endif
+    </td>
+    <td>{{$deposit->fromUser->name}} </td>
+    <td> {{$deposit->amount}}</td>
+    <td>{{$deposit->updated_at}}</td>
+</tr>
+
+@endforeach
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {{--$withdraws-- }}
+<BR>
+---------------------------------------------------------------
+<BR>
 Deposit  : {{$deposits}}<BR>
 
 Requested : {{$requested}}<BR>
-Request From : {{$requestedfrom}}<BR>
+Request From : {{$requestedfrom--}}<BR>
 
 <HR>Ignore Me<BR>---------------<BR>
 {{$user}}
