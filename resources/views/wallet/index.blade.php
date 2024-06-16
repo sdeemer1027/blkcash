@@ -19,6 +19,7 @@ Withdraw : {{--$withdraws--}}<BR>
     <td></td>
 </tr>
 @foreach($withdraws as $withdraw)
+
 <tr class="table-danger">
     <td>
     @if ($withdraw->user['profile_picture'])
@@ -29,7 +30,7 @@ Withdraw : {{--$withdraws--}}<BR>
     </td>
     <td>{{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
-    <td>{{$withdraw->updated_at}}</td>
+    <td>{{--$withdraw->updated_at--}}{{ Carbon\Carbon::parse($withdraw->updated_at)->format('F - d/y') }}</td>
 </tr>
 @endforeach
 <tr class="table-primary">
@@ -60,7 +61,7 @@ Deposit  : {{--$deposits--}}<BR>
     </td>
     <td>{{$deposit->fromUser->name}} </td>
     <td> {{$deposit->amount}}</td>
-    <td>{{$deposit->updated_at}}</td>
+    <td>{{--$deposit->updated_at--}}{{ Carbon\Carbon::parse($deposit->updated_at)->format('F - d/y') }}</td>
 </tr>
 
 @endforeach

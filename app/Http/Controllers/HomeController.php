@@ -21,8 +21,8 @@ class HomeController extends Controller
 $buser = User::where('id' , $user)->first();
 $cc = CreditCard::where('user_id',$user)->with('user')->get();
 $requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
-$deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-$withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+$deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
+$withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
 //dd($buser);
 $braincc = [];
