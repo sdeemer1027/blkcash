@@ -238,10 +238,13 @@
         <div class="icon-text">Wallet</div>
     </div>
     <div class="icon">
+        <a href="/profile">
         <div class="icon-circle bg-success rounded-circle">
             <i class="fas fa-cog"></i>
         </div>
+    </a>
         <div class="icon-text">Settings</div>
+
     </div>
 </div>
 
