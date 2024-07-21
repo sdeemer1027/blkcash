@@ -72,11 +72,12 @@ The following routing numbers are valid, and can be passed to the sandbox:<BR><B
                     <p>&nbsp;</p>
                     <p>
 
+{{--
 Cards on file with Braintree
-
+--}}
 @foreach($customer->creditCards as $credit)
 {{--$credit->firstName--}} 
-{{$credit->maskedNumber}}  {{$credit->token}}  
+{{--$credit->maskedNumber}}  {{$credit->token--}}  
 
 {{--
 <form action="{{ route('credit-cards.store') }}" method="POST">
@@ -86,13 +87,11 @@ Cards on file with Braintree
 </form>
 --}}
 
-
-<hr>
 @endforeach
 
  
 
-
+{{--
 <pre>
 bin=555555, 
 expirationMonth=12, 
@@ -131,6 +130,7 @@ graphQLId=cGF5bWVudG1ldGhvZF9jY184NzZkNjV3Nw,
 expirationDate=12/2025, 
 maskedNumber=555555******4444
 </pre>
+--}}
                     {{--$customer--}}</p>
                     
 
@@ -138,7 +138,7 @@ maskedNumber=555555******4444
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>
                        
-
+{{--
                     </p><p>&nbsp;</p>
 
 
@@ -148,6 +148,7 @@ Token : {{$user->braintree}} <BR><BR>
 
 {{$customer}}
                     </p>
+                    --}}
                     <p></p> 
 
 
