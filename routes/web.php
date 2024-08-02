@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\BraintreeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,10 +46,13 @@ Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject']
 //Route::get('/wallet/bank', [WalletController::class, 'bank'])->name('wallet.bank');
 
 
-Route::get('/braintree/form', [WalletController::class, 'braintreeindex'])->name('braintree.form');
-Route::post('/braintree/addBankAccount', [WalletController::class, 'addBankAccount'])->name('braintree.addBankAccount');
+//Route::get('/braintree/form', [BraintreeController::class, 'index'])->name('braintree.form');
+//Route::post('/braintree/addBankAccount', [BraintreeController::class, 'addBankAccount'])->name('braintree.addBankAccount');
+//Route::get('/braintree/client-token', [BraintreeController::class, 'getClientToken'])->name('braintree.clientToken');
 
-Route::get('/braintree/client-token', [WalletController::class, 'getClientToken'])->name('braintree.clientToken');
+Route::get('/braintree/form', [BraintreeController::class, 'index'])->name('braintree.form');
+Route::post('/braintree/addBankAccount', [BraintreeController::class, 'addBankAccount'])->name('braintree.addBankAccount');
+Route::get('/braintree/client-token', [BraintreeController::class, 'getClientToken'])->name('braintree.clientToken');
 
 
 

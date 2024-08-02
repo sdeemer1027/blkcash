@@ -18,24 +18,6 @@ class WalletController extends Controller
 {
 
 
-    protected $gateway;
-
-    public function __construct()
-    {
-        $this->gateway = new Gateway([
-            'environment' => 'sandbox',
-            'merchantId' => 'ky5th6y8d4mp2qwf',
-            'publicKey' => 'zt54ghn8yv3wrhgr',
-            'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
-        ]);
-    }
-
-
-
-
-
-
-
 
 
 
@@ -201,60 +183,6 @@ $customer2 = $gateway->customer()->find($braintreetoken);
     }
 
 
-    public function braintreeindex(){
-
-
-        return view('braintree.form');
-
-
-    }
-
-    public function addBankAccount(Request $request){
-
-
-        $request->validate([
-            'account_number' => 'required',
-            'routing_number' => 'required',
-        ]);
-
-
-        $user = Auth::user(); // Get the authenticated user
-        $user = User::where('id',Auth::user()->id)->first();
-
-
-                //'$user->braintree',
-        $request->validate([
-            'account_number' => 'required',
-            'routing_number' => 'required',
-            'payment_method_nonce' => 'required',
-        ]);
-
-        // Assume you already have a customer ID, or create a new customer if needed.
-        $customerId = '$user->braintree'; // Replace with the actual customer ID.
-
-        $result = $this->gateway->paymentMethod()->create([
-            'customerId' => $customerId,
-            'paymentMethodNonce' => $request->input('payment_method_nonce'),
-            'options' => [
-                'verifyCard' => true,
-            ],
-        ]);
-
-        if ($result->success) {
-            return back()->with('success', 'Bank account added successfully.');
-        } else {
-            return back()->withErrors('Error: ' . $result->message);
-        }
-
-    }
-
-  //  }
-
-    public function getClientToken()
-    {
-        $clientToken = $this->gateway->clientToken()->generate();
-        return response()->json(['clientToken' => $clientToken]);
-    }
 
 
 public function addFunds(Request $request)
