@@ -17,6 +17,28 @@ use Braintree\BraintreeCustomerSearch;
 class WalletController extends Controller
 {
 
+
+    protected $gateway;
+
+    public function __construct()
+    {
+        $this->gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'ky5th6y8d4mp2qwf',
+            'publicKey' => 'zt54ghn8yv3wrhgr',
+            'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
      public function index()
     {
 
@@ -64,80 +86,175 @@ $customer2 = $gateway->customer()->find($braintreetoken);
 //dd($customer,$transaction,$transaction2,$trans,$customer2);
 
 
-/*
- $result = $gateway->transaction()->sale([
-        'customerId' => '49681111134', //$customerID,
-        'paymentMethodToken' =>  '3ycfe5hf',  //$paymentMethodToken,
-        'amount' => '550.00',
-        'options' => [
-            'submitForSettlement' => true, // Automatically submit for settlement
-        ],
-    ]);
 
-
- dd($result);
-*/
-
-
-
-/*
-
-        // Get customer IDs from the request (assuming it's sent from the frontend)
-        $senderCustomerId =  '49681111134'; //              $request->input('49681111134');
-        $receiverCustomerId = '40885802583';             //  $request->input('40885802583');
-
-        // Charge Customer-1's credit card
-        $result = $gateway->transaction()->sale([
-            'amount' => '25.00', // Amount to charge ($25)
-            'paymentMethodToken' =>  '3ycfe5hf', //    'customer-1-payment-method-token', // Payment method token for Customer-1's credit card
-            'options' => [
-                'submitForSettlement' => true, // Automatically submit for settlement
-            ],
-        ]);
-
-        if ($result->success) {
-            // Transaction successful, update Customer-2's account balance
- 
-
-//            $customer2 = User::where('braintree_customer_id', $receiverCustomerId)->first();
-//            if ($customer2) {
-//                $customer2->update(['balance' => $customer2->balance + 25.00]); // Update balance for Customer-2
-//                return response()->json(['message' => 'Funds transferred successfully'], 200);
-//            } else {
-//                return response()->json(['error' => 'Receiver customer not found'], 404);
-//            }
-
-        } else {
-            // Transaction failed
-            return response()->json(['error' => $result->message], 400);
-        }
-    
-
-
-
-
-dd($result);
-
-
-
-*/
-
-
-
-
-
-
-
- //= Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
- //= Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
-
-
- return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users')); 
+ return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
 
     }
 
 
 
+    public function bank()
+    {
+
+        $user = Auth::user(); // Get the authenticated user
+        $user = User::where('id',Auth::user()->id)->first();
+
+
+
+
+
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'ky5th6y8d4mp2qwf',
+            'publicKey' => 'zt54ghn8yv3wrhgr',
+            'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
+        ]);
+        $token = $gateway->clientToken()->generate();
+        $customer = $gateway->customer()->find($user->braintree);
+        // Access credit card details
+        $creditCards = $customer->creditCards;
+//$customerBalance = $gateway->customer()->balance([$user->braintree]);
+
+
+//dd($creditCards);
+
+
+
+        return view('braintree.form');
+
+
+/*
+
+        $request->validate([
+            'account_number' => 'required',
+            'routing_number' => 'required',
+        ]);
+
+        $result = $this->gateway->paymentMethod()->create([
+            'customerId' => 'the_customer_id',
+            'paymentMethodNonce' => $request->input('payment_method_nonce'),
+            'options' => [
+                'verifyCard' => true,
+            ],
+        ]);
+
+        if ($result->success) {
+            return back()->with('success', 'Bank account added successfully.');
+        } else {
+            return back()->withErrors('Error: ' . $result->message);
+        }
+    }
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $transaction = $gateway->transaction()->find('d92d45nw');
+
+        $transaction2 = $gateway->transaction()->find('4paw65qw');
+
+        $trans = $gateway->transaction()->find('72bje822');
+
+        $braintreetoken = $user->braintree;
+
+        $customer2 = $gateway->customer()->find($braintreetoken);
+
+//dd($customer,$transaction,$transaction2,$trans,$customer2);
+
+
+
+
+
+
+
+
+        //= Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
+        //= Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+
+
+        return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
+
+    }
+
+
+    public function braintreeindex(){
+
+
+        return view('braintree.form');
+
+
+    }
+
+    public function addBankAccount(Request $request){
+
+
+        $request->validate([
+            'account_number' => 'required',
+            'routing_number' => 'required',
+        ]);
+
+
+        $user = Auth::user(); // Get the authenticated user
+        $user = User::where('id',Auth::user()->id)->first();
+
+
+                //'$user->braintree',
+        $request->validate([
+            'account_number' => 'required',
+            'routing_number' => 'required',
+            'payment_method_nonce' => 'required',
+        ]);
+
+        // Assume you already have a customer ID, or create a new customer if needed.
+        $customerId = '$user->braintree'; // Replace with the actual customer ID.
+
+        $result = $this->gateway->paymentMethod()->create([
+            'customerId' => $customerId,
+            'paymentMethodNonce' => $request->input('payment_method_nonce'),
+            'options' => [
+                'verifyCard' => true,
+            ],
+        ]);
+
+        if ($result->success) {
+            return back()->with('success', 'Bank account added successfully.');
+        } else {
+            return back()->withErrors('Error: ' . $result->message);
+        }
+
+    }
+
+  //  }
+
+    public function getClientToken()
+    {
+        $clientToken = $this->gateway->clientToken()->generate();
+        return response()->json(['clientToken' => $clientToken]);
+    }
 
 
 public function addFunds(Request $request)
@@ -173,7 +290,6 @@ public function addFunds(Request $request)
 
 
 
-   
 
 
 
@@ -181,7 +297,8 @@ public function addFunds(Request $request)
 
 
 
-   
+
+
      public function paymentPage()
     {
 
@@ -201,7 +318,7 @@ $users = User::all();
 
         if ($action === 'pay') {
             // Process payment
-            // from_user_id YOU 
+            // from_user_id YOU
             // To user_id WHO
           $who= $request->input('who');
           $from_user_id = Auth::user()->id; // Get the authenticated user
@@ -214,7 +331,7 @@ $users = User::all();
           $wallet->amount = $amount; // Assign the amount
           $wallet->save();
 
-          $user = User::find($user_id->id); 
+          $user = User::find($user_id->id);
             if ($user) {
                 $user->wallet += $amount; // Add the new amount to the existing wallet amount
                 $user->save();
@@ -247,7 +364,7 @@ $users = User::all();
 
 //dd($request);
         return redirect()->route('home')->with('status', 'Request was made successfully.');
- 
+
         }
 
         return redirect()->route('home')->with('status', 'Payment processed successfully.');
@@ -266,10 +383,10 @@ $users = User::all();
             $who = $request->input('who');
             $amount = $request->input('amount');
             $me = Auth::user()->id; // Get the authenticated user
- 
+
 //dd($who);
 
-            $trans = RequestWallet::find($transaction); 
+            $trans = RequestWallet::find($transaction);
             if ($trans) {
                 $trans->approval = 1; // Add the new amount to the existing wallet amount
                 $trans->save();
@@ -280,7 +397,7 @@ $users = User::all();
                $wallet->amount = $amount; // Assign the amount
                $wallet->save();
 
-               $user = User::find($who); 
+               $user = User::find($who);
             if ($user) {
                 $user->wallet += $amount; // Add the new amount to the existing wallet amount
                 $user->save();
@@ -303,11 +420,11 @@ $users = User::all();
             }
 
 
-           
+
         } elseif ($action === 'reject') {
             // Handle Reject action
             $transaction =$request->input('tid');
-            $trans = RequestWallet::find($transaction); 
+            $trans = RequestWallet::find($transaction);
             if ($trans) {
                 $trans->approval = 3; // Add the new amount to the existing wallet amount
                 $trans->save();

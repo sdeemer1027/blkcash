@@ -4,9 +4,18 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-                    Balance Wallwt: {{$user->wallet}}  <a href="{{route('braintree.form')}}">GOTO Bank</a>
+Balance: {{$user->wallet}}
 <BR>
-Withdraw : {{--$withdraws--}}<BR>
+Add From Bank  : {{--$withdraws--}}<BR>
+
+
+
+
+
+
+
+
+
 <table class="table" width="100%">
 <tr>
     <td></td>

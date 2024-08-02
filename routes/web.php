@@ -43,6 +43,14 @@ Route::post('/payments/process', [WalletController::class, 'processPayment'])->n
 
 Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
+//Route::get('/wallet/bank', [WalletController::class, 'bank'])->name('wallet.bank');
+
+
+Route::get('/braintree/form', [WalletController::class, 'braintreeindex'])->name('braintree.form');
+Route::post('/braintree/addBankAccount', [WalletController::class, 'addBankAccount'])->name('braintree.addBankAccount');
+
+Route::get('/braintree/client-token', [WalletController::class, 'getClientToken'])->name('braintree.clientToken');
+
 
 
 Route::post('/search-users', [UserController::class, 'searchUsers'])->name('search.users');
