@@ -13,12 +13,17 @@ use Braintree\Transaction;
 use Braintree\Customer;
 use Braintree\BraintreeCustomerSearch;
 
+use App\Services\TwillioService;
 
 class WalletController extends Controller
 {
 
+    protected $twilio;
 
-
+    public function __construct(TwillioService $twilio)
+    {
+        $this->twilio = $twilio;
+    }
 
 
      public function index()
@@ -282,6 +287,10 @@ $users = User::all();
           $from_user_id = Auth::user()->id; // Get the authenticated user
           $user_id = User::where('email',$who)->first();
 
+
+
+
+
   // update the wallet and user.wallet
           $wallet = new RequestWallet();
           $wallet->user_id = $user_id->id; // Assign the user_id
@@ -290,6 +299,23 @@ $users = User::all();
            $wallet->approval = 0; // Assign the amount
           $wallet->save();
 
+           // $wallet->from_user_id
+            $frm = User::where('id',$wallet->from_user_id)->first();
+            $toooo = User::where('id',$user_id->id)->first();
+
+        //    dd($frm,$frm->name,$toooo,$toooo->phone);
+
+            // Example phone number and message
+            $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
+            $message = 'You have a new money request from '.$frm->name.'. Please login <a href="http://dashboard.blk.cash/login">blk.cash</a>.';
+
+            // Send SMS
+            $this->twilio->sendSMS($phoneNumber, $message);
+
+
+
+
+
 //dd($request);
         return redirect()->route('home')->with('status', 'Request was made successfully.');
 
@@ -297,6 +323,9 @@ $users = User::all();
 
         return redirect()->route('home')->with('status', 'Payment processed successfully.');
     }
+
+
+
 
 
 

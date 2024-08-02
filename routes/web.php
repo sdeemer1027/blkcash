@@ -6,6 +6,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BraintreeController;
+//use App\Http\Controllers\MoneyRequestController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +59,8 @@ Route::post('/braintree/addBankAccount', [BraintreeController::class, 'addBankAc
 Route::get('/braintree/client-token', [BraintreeController::class, 'getClientToken'])->name('braintree.clientToken');
 
 
+
+//Route::post('/request-money', [MoneyRequestController::class, 'requestMoney']);
 
 Route::post('/search-users', [UserController::class, 'searchUsers'])->name('search.users');
 
