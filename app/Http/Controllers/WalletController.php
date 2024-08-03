@@ -296,22 +296,24 @@ $users = User::all();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
           $wallet->amount = $amount; // Assign the amount
-           $wallet->approval = 0; // Assign the amount
+          $wallet->approval = 0; // Assign the amount
           $wallet->save();
 
            // $wallet->from_user_id
             $frm = User::where('id',$wallet->from_user_id)->first();
             $toooo = User::where('id',$user_id->id)->first();
-
-        //    dd($frm,$frm->name,$toooo,$toooo->phone);
+if($toooo->validphone === 1 ) {
+    //    dd($frm,$frm->name,$toooo,$toooo->phone);
 // cKPViLWvlFwpVDiQhS.gif
-            // Example phone number and message
-            $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
-            $message = 'BLK.CASH Alert: You have a new money request from '.$frm->name.'. Please login http://dashboard.blk.cash/login';
+    // Example phone number and message
+    $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
+    $message = 'BLK.CASH Alert: You have a new money request from ' . $frm->name . '. Please login http://dashboard.blk.cash/login';
 
-            // Send SMS
-            $this->twilio->sendSMS($phoneNumber, $message);
+    // Send SMS
+    $this->twilio->sendSMS($phoneNumber, $message);
+}else{
 
+}
 
 
 
