@@ -43,7 +43,7 @@ $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approv
     $totalAmount = $withdraws->sum('amount');
     // Calculate the total amount
     $totalDeposits = $deposits->sum('amount');
-
+/*
 //Requestuser
 
   //      dd($requestedfrom,$requested,$deposits,$withdraws);
@@ -72,13 +72,35 @@ $customer2 = $gateway->customer()->find($braintreetoken);
 
 //dd($customer,$transaction,$transaction2,$trans,$customer2);
 
-
+*/
 
  return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
 
     }
 
 
+
+    public function transaction(){
+
+
+        $user = Auth::user(); // Get the authenticated user
+        $user = User::where('id',Auth::user()->id)->first();
+
+        $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
+
+
+        $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
+
+        // Calculate the total amount
+        $totalAmount = $withdraws->sum('amount');
+        // Calculate the total amount
+        $totalDeposits = $deposits->sum('amount');
+
+        return view('transactions.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
+
+    }
 
     public function bank()
     {

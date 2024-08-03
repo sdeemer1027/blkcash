@@ -202,9 +202,11 @@
 
 <div class="icon-container d-flex justify-content-around">
     <div class="icon">
+        <a href="{{route('transactions.index')}}" >
         <div class="icon-circle bg-success rounded-circle">
             <i class="fa fa-university" aria-hidden="true"></i>
         </div>
+        </a>
         <div class="icon-text">Transactions</div>
     </div>
 

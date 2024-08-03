@@ -8,7 +8,9 @@
                     <a href="{{route('braintree.form')}}">GOTO Bank</a>
 
 <BR><BR>
-Withdraw : {{--$withdraws--}}<BR>
+                    {{--$withdraws-- }}
+
+Withdraw :<BR>
 <table class="table" width="100%">
 <tr>
     <td></td>
@@ -28,7 +30,7 @@ Withdraw : {{--$withdraws--}}<BR>
     </td>
     <td>{{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
-    <td>{{--$withdraw->updated_at--}}{{ Carbon\Carbon::parse($withdraw->updated_at)->format('F - d/y') }}</td>
+    <td>{{--$withdraw->updated_at-- }}{{ Carbon\Carbon::parse($withdraw->updated_at)->format('F - d/y') }}</td>
 </tr>
 @endforeach
 <tr class="table-primary">
@@ -39,7 +41,7 @@ Withdraw : {{--$withdraws--}}<BR>
 </tr>
 </table>
 
-Deposit  : {{--$deposits--}}<BR>
+Deposit  : {{--$deposits-- }}<BR>
 
 <table  class="table" width="100%">
   <tr>
@@ -59,7 +61,7 @@ Deposit  : {{--$deposits--}}<BR>
     </td>
     <td>{{$deposit->fromUser->name}} </td>
     <td> {{$deposit->amount}}</td>
-    <td>{{--$deposit->updated_at--}}{{ Carbon\Carbon::parse($deposit->updated_at)->format('F - d/y') }}</td>
+    <td>{{--$deposit->updated_at-- }}{{ Carbon\Carbon::parse($deposit->updated_at)->format('F - d/y') }}</td>
 </tr>
 
 @endforeach
@@ -71,7 +73,7 @@ Deposit  : {{--$deposits--}}<BR>
 </tr>
 
 </table>
-
+--}
 
 
 

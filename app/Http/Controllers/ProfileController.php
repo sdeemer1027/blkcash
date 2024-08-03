@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Braintree\ClientToken;
-use Braintree\Gateway; // Add this use statement at the top of your controller
+use Braintree\Gateway;
 
 class ProfileController extends Controller
 {
@@ -43,8 +43,8 @@ $gateway = new Gateway([
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
-        'firstName' => ''.$user->firstname.'', 
-        'lastName' => ''.$user->lastname.'', 
+        'firstName' => ''.$user->firstname.'',
+        'lastName' => ''.$user->lastname.'',
         'email' => ''.$user->email.'', // Sample email address
         'paymentMethodNonce' => '', //$request->input('payment_method_nonce'), // Payment method nonce obtained from Braintree client-side SDK
     ]);
@@ -97,8 +97,8 @@ if($user->braintree == null){
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
-        'firstName' => ''.$user->firstname.'', 
-        'lastName' => ''.$user->lastname.'', 
+        'firstName' => ''.$user->firstname.'',
+        'lastName' => ''.$user->lastname.'',
         'email' => ''.$user->email.'', // Sample email address
         'paymentMethodNonce' => '', //$request->input('payment_method_nonce'), // Payment method nonce obtained from Braintree client-side SDK
     ]);
@@ -121,7 +121,7 @@ if($user->braintree == null){
 
 /*
 if($user->braintree == null){
-    
+
 }
 
 
@@ -136,8 +136,8 @@ $gateway = new Gateway([
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
-        'firstName' => ''.$user->firstname.'', 
-        'lastName' => ''.$user->lastname.'', 
+        'firstName' => ''.$user->firstname.'',
+        'lastName' => ''.$user->lastname.'',
         'email' => ''.$user->email.'', // Sample email address
         'paymentMethodNonce' => '', //$request->input('payment_method_nonce'), // Payment method nonce obtained from Braintree client-side SDK
     ]);
@@ -176,7 +176,7 @@ return view('profile.index', compact('user'));
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        
+
     //    dd($request);
         /*
 if(!$request->user()->braintree){
