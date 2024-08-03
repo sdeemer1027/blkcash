@@ -304,10 +304,10 @@ $users = User::all();
             $toooo = User::where('id',$user_id->id)->first();
 
         //    dd($frm,$frm->name,$toooo,$toooo->phone);
-
+// cKPViLWvlFwpVDiQhS.gif
             // Example phone number and message
             $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
-            $message = 'You have a new money request from '.$frm->name.'. Please login <a href="http://dashboard.blk.cash/login">blk.cash</a>.';
+            $message = 'BLK.CASH Alert: You have a new money request from '.$frm->name.'. Please login http://dashboard.blk.cash/login';
 
             // Send SMS
             $this->twilio->sendSMS($phoneNumber, $message);
@@ -326,7 +326,30 @@ $users = User::all();
 
 
 
+    public function cancelRequest(Request $request)
+    {
 
+ //       dd($request->input('tid'));
+
+        $request->validate([
+            'tid' => 'required|exists:request_wallet,id', // Assuming you have a money_requests table
+        ]);
+        $transaction = $request->input('tid');
+
+        $trans = RequestWallet::find($transaction);
+        $trans->approval = 3; // Add the new amount to the existing wallet amount
+        $trans->save();
+
+        return redirect()->route('home')->with('status', 'Payment Canceled successfully.');
+    }
+
+
+    public function remindRequest(Request $request)
+    {
+
+
+        return redirect()->route('home')->with('status', 'Payment Reminded successfully.');
+    }
 
 
  public function approveReject(Request $request)

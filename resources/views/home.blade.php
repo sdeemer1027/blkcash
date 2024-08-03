@@ -1,4 +1,4 @@
-<x-app-layout>   
+<x-app-layout>
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -29,7 +29,7 @@
         margin-bottom: 45px;
         position: relative;
         z-index: 1;
-        overflow: hidden;   
+        overflow: hidden;
         border-radius: 12px;
         box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.07);
         margin-top: 10px;
@@ -44,7 +44,7 @@
                 height: 20px;
             }
         }
-        [credit-logo] 
+        [credit-logo]
         {
             position: absolute;
             top: 0px;
@@ -56,7 +56,7 @@
             z-index: -1;
             opacity: 1;
         }
-        &:before 
+        &:before
         {
             position: absolute;
             content: "";
@@ -67,7 +67,7 @@
             background: url(img/credit-card-pattern.png) no-repeat center center/cover;
             opacity: 0.08;
             z-index:-1;
-        }       
+        }
     }
 
 
@@ -127,7 +127,7 @@
 <a href="/credit-cards/add" style="float: right;">Add Card</a><BR>
 <div class="slide-container">
  <div class="slide">
-     @if(!$buser->braintree) 
+     @if(!$buser->braintree)
 
   @foreach($cc as $credit)
     <div class="box-credit">
@@ -176,11 +176,11 @@
                 </span>
               </div>
               <div class="tst-lta">
-                <p>Name <span>  
+                <p>Name <span>
                     @if(!$credit->cardholderName)
                       {{$customer['firstName']}} {{$customer['lastName']}}
                     @else
-                      {{$credit->cardholderName}} 
+                      {{$credit->cardholderName}}
                     @endif
                    </span>
                 </p>
@@ -193,9 +193,9 @@
   @endforeach
   @endif
 
-  
+
  </div>
-  
+
 </div>
 {{--$credit}}
 <HR>
@@ -211,14 +211,14 @@
 <div class="icon-container d-flex justify-content-around">
     <div class="icon">
         <div class="icon-circle bg-success rounded-circle">
-            <i class="fa fa-university" aria-hidden="true"></i>            
+            <i class="fa fa-university" aria-hidden="true"></i>
         </div>
         <div class="icon-text">Transactions</div>
     </div>
 
-    <div class="icon">        
+    <div class="icon">
         <a href="{{ route('payments.page') }}">
-        <div class="icon-circle bg-success rounded-circle">         
+        <div class="icon-circle bg-success rounded-circle">
          <i class="fa fa-forward" aria-hidden="true"></i>
           {{-- <i class="fas fa-dollar" aria-hidden="true"></i>--}}
           {{-- <i class="fas fa-user"><BR><span class="icon-text">Send</span></i> --}}
@@ -231,7 +231,7 @@
         <a href="{{ route('wallet.index') }}">
         <div class="icon-circle bg-success rounded-circle">
             <i class="fa fa-suitcase" aria-hidden="true"></i>
-          
+
             {{-- <i class="fas fa-envelope"></i> <i class="fa fa-money" aria-hidden="true"></i> --}}
         </div>
         </a>
@@ -254,19 +254,7 @@
 
 <!-- END Home page navigations   -->
 
-
-
-
-
-
-
-
-{{-- 
-New Transaction <BR>
-<a href="{{ route('payments.page') }}">Go to Payment Page</a>
-<hr>
---}}
-@if(!$requested == null) 
+@if(!$requested == null)
 <b>Who You Sent a Request To:</b><BR>
 <div class="flex">
 
@@ -281,8 +269,21 @@ New Transaction <BR>
   <tr>
     <td>{{$newrequest->RequestfromUser->firstname}}</td>
     <td>${{$newrequest->amount}}</td>
-    <td><button href="#" class="btn-sm btn-success">Reminder</button></td>
-    <td><button href="#" class="btn-sm btn-danger">Cancel</button></td>
+    <td>
+        <form action="{{ route('request.remind') }}" method="POST">
+            @csrf
+            <input type="hidden" value="{{$newrequest->id}}" name="tid">
+        <button href="#" class="btn-sm btn-success">Reminder</button>
+        </form>
+    </td>
+
+    <td>
+        <form action="{{ route('request.cancel') }}" method="POST">
+            @csrf
+            <input type="hidden" value="{{$newrequest->id}}" name="tid">
+        <button  class="btn-sm btn-danger">Cancel </button>
+        </form>
+    </td>
   </tr>
   @endforeach
 </table>
@@ -391,12 +392,22 @@ New Transaction <BR>
 
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
-  
+
 
                     </p>
-                 
+
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
 </x-app-layout>

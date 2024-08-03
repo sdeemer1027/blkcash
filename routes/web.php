@@ -49,6 +49,8 @@ Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');
 //Route::get('/wallet/bank', [WalletController::class, 'bank'])->name('wallet.bank');
 
+Route::post('/request/cancel', [WalletController::class, 'cancelRequest'])->name('request.cancel');
+Route::post('/request/remind', [WalletController::class, 'remindRequest'])->name('request.remind');
 
 //Route::get('/braintree/form', [BraintreeController::class, 'index'])->name('braintree.form');
 //Route::post('/braintree/addBankAccount', [BraintreeController::class, 'addBankAccount'])->name('braintree.addBankAccount');
