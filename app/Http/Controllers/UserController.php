@@ -17,7 +17,11 @@ class UserController extends Controller
         $search = $request->input('search');
 
         // Perform the search query (assuming 'email' field)   '%' .
-        $users = User::where('email', 'like', $search . '%')->get();
+    //    $users = User::where('email', 'like', '%'.$search . '%')->get();
+
+        $users = User::where('email', 'like', '%' . $search . '%')
+            ->orWhere('name', 'like', '%' . $search . '%')
+            ->get();
 
         return response()->json($users);
     }

@@ -1,4 +1,4 @@
-<x-app-layout>   
+<x-app-layout>
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -12,7 +12,7 @@
 
 <form action="{{ route('payments.process') }}" method="POST">
     @csrf
-    
+
 <label for="who">Send Request/Payment To:</label><br>
   {{--  <input type="text" id="who" name="who" placeholder="Enter email to send" required><BR><BR>
 --}}
@@ -22,8 +22,8 @@
 
 <BR>
 
-<select  id="who" name="who" required>	
-	
+<select  id="who" name="who" required>
+
 </select>
 
 
@@ -33,7 +33,7 @@
 
 <BR>
 
-{{-- 
+{{--
 <label for="amount">Amount:</label><BR>
     <input type="text" id="amount" name="amount" placeholder="Enter amount" required><BR><BR>
 
@@ -69,9 +69,9 @@
     <div class="calculator-button" onclick="addToAmount(1)">1</div>
     <div class="calculator-button" onclick="addToAmount(2)">2</div>
     <div class="calculator-button" onclick="addToAmount(3)">3</div>
-    {{-- 
+    {{--
     <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
-    --}} 
+    --}}
     <div class="calculator-button" onclick="addToAmount(4)">4</div>
     <div class="calculator-button" onclick="addToAmount(5)">5</div>
     <div class="calculator-button" onclick="addToAmount(6)">6</div>
@@ -104,7 +104,7 @@
 
 
 
-{{-- 
+{{--
 
 
 
@@ -195,9 +195,9 @@ This is a List of email account you can use
     jQuery(function($) {
         $('#searchInput').on('input', function() {
             var searchValue = $(this).val();
-        $('#who').empty();
+            $('#who').empty().hide();
 
-            // Check if the input length is at least 3 characters
+            // Check if the input length is at least 2 characters
             if (searchValue.length >= 2) {
                 // Get the CSRF token from the meta tag
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -214,21 +214,23 @@ This is a List of email account you can use
                     },
                     success: function(response) {
                         // Handle the response and display users
-                      // Clear previous results
-                       
-                          $('#who').empty();
+                        $('#who').empty().hide();
 
-                        // Append each result to the div
-                        $.each(response, function(index, user) {
-                           
-                            $('#who').append($('<option>', {
-                                 value: user.email, // Assuming user object has an 'id' property
-                                 text: user.name  //+' ['+user.email+']' // Assuming user object has a 'name' property
-                            }));
-                        });
+                        if (response.length === 1) {
+                            var singleUser = response[0];
+                            $('#searchInput').val(singleUser.name);
+                        } else if (response.length > 1) {
+                            // Append each result to the dropdown
+                            $.each(response, function(index, user) {
+                                $('#who').append($('<option>', {
+                                    value: user.email,
+                                    text: user.name
+                                }));
+                            });
 
-
-
+                            // Show the dropdown
+                            $('#who').show();
+                        }
 
                         console.log(response);
                     },
@@ -237,6 +239,28 @@ This is a List of email account you can use
                     }
                 });
             }
+        });
+
+        // Handle input box losing focus
+        $('#searchInput').on('blur', function() {
+
+     //       setTimeout(function() {
+     //           $('#who').hide();
+     //       }, 200);
+
+        });
+
+        // Handle selection from dropdown
+        $('#who').on('change', function() {
+            var selectedUser = $(this).find('option:selected').text();
+            $('#searchInput').val(selectedUser);
+        });
+
+        // Handle clicking on the dropdown
+        $('#who').on('click', 'option', function() {
+            var selectedUser = $(this).text();
+            $('#searchInput').val(selectedUser);
+            $('#who').hide();
         });
     });
 </script>

@@ -346,7 +346,11 @@ $users = User::all();
 
     public function remindRequest(Request $request)
     {
+        $transaction = $request->input('tid');
+$remind = RequestWallet::find($transaction);
 
+
+dd($remind , $remind->from_user_id);
 
         return redirect()->route('home')->with('status', 'Payment Reminded successfully.');
     }

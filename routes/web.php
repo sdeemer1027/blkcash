@@ -40,7 +40,9 @@ Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCr
 
 Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
 
-Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
+
+Route::get('/payments', [WalletController::class, 'paymentPage'])->middleware(['auth', 'verified'])->name('payments.page');
+//Route::get('/payments', [WalletController::class, 'paymentPage'])->name('payments.page');
 //Route::get('/payments/card', [WalletController::class, 'paymentPageCard'])->name('payments.page');
 Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
 
@@ -60,17 +62,17 @@ Route::get('/braintree/form', [BraintreeController::class, 'index'])->name('brai
 Route::post('/braintree/addBankAccount', [BraintreeController::class, 'addBankAccount'])->name('braintree.addBankAccount');
 Route::get('/braintree/client-token', [BraintreeController::class, 'getClientToken'])->name('braintree.clientToken');
 
-
-
 //Route::post('/request-money', [MoneyRequestController::class, 'requestMoney']);
 
 Route::post('/search-users', [UserController::class, 'searchUsers'])->name('search.users');
 
 
+Route::get('/dashboard', [WalletController::class, 'paymentPage'])->middleware(['auth', 'verified'])->name('dashboard');
+/*
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
+*/
 Route::middleware('auth')->group(function () {
      Route::get('/myprofile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

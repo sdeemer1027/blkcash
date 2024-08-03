@@ -195,16 +195,8 @@
 
 
  </div>
-
 </div>
-{{--$credit}}
-<HR>
-{{$customer--}}
-
-{{--$buser--}}
 <hr>
-
-
 
 <!-- Home page navigations   -->
 
@@ -247,8 +239,6 @@
 
     </div>
 </div>
-
-
 
 <BR><BR>
 
