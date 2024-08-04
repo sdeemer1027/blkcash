@@ -29,58 +29,24 @@ class WalletController extends Controller
      public function index()
     {
 
-        $user = Auth::user(); // Get the authenticated user
+ //       $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
 
-$requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
+        $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
 
+        $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
 
-$deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-$withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
-$requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
-
-  // Calculate the total amount
+    // Calculate the total amount
     $totalAmount = $withdraws->sum('amount');
     // Calculate the total amount
     $totalDeposits = $deposits->sum('amount');
-/*
-//Requestuser
-
-  //      dd($requestedfrom,$requested,$deposits,$withdraws);
-
-$gateway = new Gateway([
-        'environment' => 'sandbox',
-        'merchantId' => 'ky5th6y8d4mp2qwf',
-        'publicKey' => 'zt54ghn8yv3wrhgr',
-        'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
-    ]);
-      $token = $gateway->clientToken()->generate();
-      $customer = $gateway->customer()->find($user->braintree);
-        // Access credit card details
-        $creditCards = $customer->creditCards;
-//$customerBalance = $gateway->customer()->balance([$user->braintree]);
-
-$transaction = $gateway->transaction()->find('d92d45nw');
-
-$transaction2 = $gateway->transaction()->find('4paw65qw');
-
-$trans = $gateway->transaction()->find('72bje822');
-
-$braintreetoken = $user->braintree;
-
-$customer2 = $gateway->customer()->find($braintreetoken);
-
-//dd($customer,$transaction,$transaction2,$trans,$customer2);
-
-*/
-
- return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
+   return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
 
     }
 
-
-
-    public function transaction(){
+     public function transaction(){
 
 
         $user = Auth::user(); // Get the authenticated user
@@ -102,15 +68,11 @@ $customer2 = $gateway->customer()->find($braintreetoken);
 
     }
 
-    public function bank()
+     public function bank()
     {
 
         $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
-
-
-
-
 
         $gateway = new Gateway([
             'environment' => 'sandbox',
@@ -123,62 +85,9 @@ $customer2 = $gateway->customer()->find($braintreetoken);
         // Access credit card details
         $creditCards = $customer->creditCards;
 //$customerBalance = $gateway->customer()->balance([$user->braintree]);
-
-
 //dd($creditCards);
 
-
-
         return view('braintree.form');
-
-
-/*
-
-        $request->validate([
-            'account_number' => 'required',
-            'routing_number' => 'required',
-        ]);
-
-        $result = $this->gateway->paymentMethod()->create([
-            'customerId' => 'the_customer_id',
-            'paymentMethodNonce' => $request->input('payment_method_nonce'),
-            'options' => [
-                'verifyCard' => true,
-            ],
-        ]);
-
-        if ($result->success) {
-            return back()->with('success', 'Bank account added successfully.');
-        } else {
-            return back()->withErrors('Error: ' . $result->message);
-        }
-    }
-
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -353,17 +262,32 @@ if($toooo->validphone === 1 ) {
     public function cancelRequest(Request $request)
     {
 
- //       dd($request->input('tid'));
+     //   dd($request->input('tid'));
 
         $request->validate([
             'tid' => 'required|exists:request_wallet,id', // Assuming you have a money_requests table
         ]);
+
         $transaction = $request->input('tid');
+        $cancelrequest = RequestWallet::find($transaction);
+        $canceltouser = User::find($cancelrequest->user_id);
+        $fromuser = User::find($cancelrequest->from_user_id);
 
         $trans = RequestWallet::find($transaction);
+
         $trans->approval = 3; // Add the new amount to the existing wallet amount
         $trans->save();
+        $message = 'BLK.CASH Alert: request from '.$fromuser->name.' for the amount of '.$trans->amount.' has been canceled Please login http://dashboard.blk.cash/login';
 
+        if($canceltouser->validphone === 1){
+            $phoneNumber = $canceltouser->phone;    // The recipient's phone number
+            $this->twilio->sendSMS($phoneNumber, $message);
+
+        }else{
+// setup and send email as the message to remind them to pay
+            // We Send an Email to the user
+            dd($canceltouser->email,$message);
+        }
         return redirect()->route('home')->with('status', 'Payment Canceled successfully.');
     }
 
@@ -371,11 +295,23 @@ if($toooo->validphone === 1 ) {
     public function remindRequest(Request $request)
     {
         $transaction = $request->input('tid');
-$remind = RequestWallet::find($transaction);
+        $remind = RequestWallet::find($transaction);
 
+        $reminduser = User::find($remind->user_id);
+        $fromuser = User::find($remind->from_user_id);
+        $message = 'BLK.CASH Alert: Reminder money request from '.$fromuser->name.'  Please login http://dashboard.blk.cash/login';
 
-dd($remind , $remind->from_user_id);
+       if($reminduser->validphone === 1){
+          $phoneNumber = $reminduser->phone;    // The recipient's phone number
+          // Send SMS
+          $this->twilio->sendSMS($phoneNumber, $message);
+ //         dd($message);
 
+       }else{
+    // setup and send email as the message to remind them to pay
+    // We Send an Email to the user
+    dd($reminduser->email,$message);
+    }
         return redirect()->route('home')->with('status', 'Payment Reminded successfully.');
     }
 
