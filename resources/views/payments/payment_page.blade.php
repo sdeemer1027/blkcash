@@ -214,7 +214,7 @@ This is a List of email account you can use
                     },
                     success: function(response) {
                         // Handle the response and display users
-                        $('#who').empty().hide();
+               //         $('#who').empty().hide();
 
                         if (response.length === 1) {
                             var singleUser = response[0];

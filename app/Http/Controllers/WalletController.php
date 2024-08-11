@@ -286,7 +286,7 @@ if($toooo->validphone === 1 ) {
         }else{
 // setup and send email as the message to remind them to pay
             // We Send an Email to the user
-            dd($canceltouser->email,$message);
+   //         dd($canceltouser->email,$message);
         }
         return redirect()->route('home')->with('status', 'Payment Canceled successfully.');
     }
@@ -310,7 +310,7 @@ if($toooo->validphone === 1 ) {
        }else{
     // setup and send email as the message to remind them to pay
     // We Send an Email to the user
-    dd($reminduser->email,$message);
+  //  dd($reminduser->email,$message);
     }
         return redirect()->route('home')->with('status', 'Payment Reminded successfully.');
     }
@@ -328,23 +328,34 @@ if($toooo->validphone === 1 ) {
             $amount = $request->input('amount');
             $me = Auth::user()->id; // Get the authenticated user
 
-//dd($who);
-
             $trans = RequestWallet::find($transaction);
             if ($trans) {
                 $trans->approval = 1; // Add the new amount to the existing wallet amount
                 $trans->save();
 
-               $wallet = new Wallet();
-               $wallet->user_id = $who; // Assign the user_id
-               $wallet->from_user_id = $me; // Assign the from_user_id
-               $wallet->amount = $amount; // Assign the amount
-               $wallet->save();
+                $wallet = new Wallet();
+                $wallet->user_id = $who; // Assign the user_id
+                $wallet->from_user_id = $me; // Assign the from_user_id
+                $wallet->amount = $amount; // Assign the amount
+                $wallet->save();
 
-               $user = User::find($who);
+                $user = User::find($who);
             if ($user) {
                 $user->wallet += $amount; // Add the new amount to the existing wallet amount
                 $user->save();
+
+                $user = User::find($user->id);
+                $from = User::find($me);
+                $message = 'BLK.CASH Alert:  money request to '.$from->name.' is paid. Please login http://dashboard.blk.cash/login';
+
+                if($user->validphone === 1) {
+                    $phoneNumber = $user->phone;    // The recipient's phone number
+                    // Send SMS
+                    $this->twilio->sendSMS($phoneNumber, $message);
+                    //         dd($message);
+   //                dd($from);
+                }
+
             } else {
                     // Handle case where user with $userId does not exist
             }
@@ -352,6 +363,10 @@ if($toooo->validphone === 1 ) {
             if ($minuser) {
                 $minuser->wallet -= $amount; // Subtract the new amount to the existing wallet amount
                 $minuser->save();
+
+    //           dd($minuser);
+
+
             } else {
                     // Handle case where user with $userId does not exist
             }
@@ -372,6 +387,19 @@ if($toooo->validphone === 1 ) {
             if ($trans) {
                 $trans->approval = 3; // Add the new amount to the existing wallet amount
                 $trans->save();
+
+               $sendrejection= User::find($trans->from_user_id);
+               $whoreject = User::find($trans->user_id);
+
+                $message = 'BLK.CASH Alert:  money request to '.$whoreject->name.' was Rejected. Please login http://dashboard.blk.cash/login';
+
+                if($sendrejection->validphone === 1) {
+                    $phoneNumber = $sendrejection->phone;    // The recipient's phone number
+                    // Send SMS
+                                $this->twilio->sendSMS($phoneNumber, $message);
+    //                dd($trans, $sendrejection, $message);
+
+                }
 
                    return redirect()->route('home')->with('status', 'Request was made successfully.');
             } else {
