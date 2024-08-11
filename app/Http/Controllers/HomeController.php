@@ -21,11 +21,18 @@ class HomeController extends Controller
 $buser = User::where('id' , $user)->first();
 $cc = CreditCard::where('user_id',$user)->with('user')->get();
 $requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
+$countrequest =RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->count();
 $deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 $withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
-//dd($buser);
+         $countrequestfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->count();
+         $totalcount = $countrequestfrom + $countrequest;
+//dd($countrequest,$countrequestfrom,$totalcount);
 $braincc = [];
+
+         Auth::user()->totalcount = $totalcount;
+
+//dd($user,$buser);
 
 foreach($cc as $creditcard){
      if($creditcard->braintree_token != '1111'){
@@ -50,6 +57,30 @@ $customer= collect($customer);
 
 //dd($user,$users);
 
-        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom','buser','customer')); // Return the home view
+        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom','buser','customer','totalcount')); // Return the home view
     }
+
+
+    public function dashboardcount()
+    {
+        // Get the authenticated user's ID
+        $userId = Auth::id();
+
+        // Retrieve the requested data
+        $totalcount = RequestWallet::where('user_id', $userId)
+            ->where('approval', 0)
+            ->get();
+
+       // dd($totalcount);
+
+        // Pass the data to the view
+        return view('layouts.app', compact('totalcount'));
+    }
+
+
+
+
+
+
+
 }

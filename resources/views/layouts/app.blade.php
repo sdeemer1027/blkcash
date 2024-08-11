@@ -45,30 +45,30 @@
             display: flex;
             justify-content: space-between; /* Evenly distribute icons */
             padding: 0 20px; /* Add padding to adjust spacing */
-            margin-bottom: -30px; 
+            margin-bottom: -30px;
         }
 
         .footer-icon i {
             font-size: 16px;
             color: #000; /* Black font color for icons */
         }
-        
+
 
         .footer-icon3 {
         display: inline-block;
         background-color: red; /* Red background color */
         border-radius: 50%; /* Rounded corners */
         padding: 20px 10px 10px 10px; /* Adjust padding as needed */
-         
-         margin-top: -30px; 
-         margin-bottom: 30px; 
-         
+
+         margin-top: -30px;
+         margin-bottom: 30px;
+
     }
         .footer-icon3 i {
             font-size: 26px;
-            color: #000; /* Black font color for icons 
+            color: #000; /* Black font color for icons
             margin-top: -50px;*/
-             margin-top: -10px; 
+             margin-top: -10px;
         }
     </style>
 
@@ -95,8 +95,6 @@
                 {{ $slot }}
             </main>
 <p>&nbsp;</p>
-
-
     <footer class="footer">
         <div class="footer-icons">
             <!-- Placeholder icons -->
@@ -113,6 +111,18 @@
             </div>
             <div class="footer-icon">
                <i class="fa fa-bell" aria-hidden="true"></i>
+                @if(isset( Auth::user()->totalcount ) && Auth::user()->totalcount > 0)
+                    <span class="srd badge-danger"
+                          style="position: absolute;
+                          top: 0px;
+                       /*   right: 10px;  */
+                          padding: 5px 10px;
+                          border-radius: 50%;
+                          background-color: red;
+                          color: white;
+                          font-size: 10px;">
+                        {{ Auth::user()->totalcount }}</span>
+                @endif
             </div>
             <div class="footer-icon"><a href="{{route('profile.index')}}">
                 <i class="fa fa-user" aria-hidden="true"></i>

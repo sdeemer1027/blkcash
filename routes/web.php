@@ -33,6 +33,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
+Route::get('/dashboardcount', [HomeController::class, 'dashboardcount'])->name('dashboardcount');
 
 Route::get('/get-token', 'App\Http\Controllers\ProfileController@getToken')->name('get-token');
 Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');

@@ -382,8 +382,8 @@
 
 <hr>
 
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>
+                    <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp{{--Auth::user()->totalcount--}}</p><p>&nbsp;</p><p>&nbsp;</p>
+                    
 
 
                     </p>
