@@ -20,7 +20,7 @@ class UserController extends Controller
     //    $users = User::where('email', 'like', '%'.$search . '%')->get();
 
         $users = User::where('email', 'like', '%' . $search . '%')
-            ->orWhere('name', 'like', '%' . $search . '%')
+         //   ->orWhere('name', 'like', '%' . $search . '%')
             ->get();
 
         return response()->json($users);

@@ -18,6 +18,7 @@
 --}}
 
 <!-- Input field with id 'search' -->
+    <input type=type=text id="searchthem" ><br>
 <input type="text" id="searchInput" placeholder="start typing email">
 
 <BR>
@@ -195,7 +196,7 @@ This is a List of email account you can use
     jQuery(function($) {
         $('#searchInput').on('input', function() {
             var searchValue = $(this).val();
-            $('#who').empty().hide();
+           /* $('#who').empty().hide();  */
 
             // Check if the input length is at least 2 characters
             if (searchValue.length >= 2) {
@@ -218,7 +219,7 @@ This is a List of email account you can use
 
                         if (response.length === 1) {
                             var singleUser = response[0];
-                            $('#searchInput').val(singleUser.name);
+                            $('#searchthem').val(singleUser.name);
                         } else if (response.length > 1) {
                             // Append each result to the dropdown
                             $.each(response, function(index, user) {
@@ -253,14 +254,14 @@ This is a List of email account you can use
         // Handle selection from dropdown
         $('#who').on('change', function() {
             var selectedUser = $(this).find('option:selected').text();
-            $('#searchInput').val(selectedUser);
+            $('#searchthem').val(selectedUser);
         });
 
         // Handle clicking on the dropdown
         $('#who').on('click', 'option', function() {
             var selectedUser = $(this).text();
-            $('#searchInput').val(selectedUser);
-            $('#who').hide();
+            $('#searchthem').val(selectedUser);
+          /*  $('#who').hide();  */
         });
     });
 </script>
