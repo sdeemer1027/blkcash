@@ -46,7 +46,7 @@ Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')-
 Route::get('/persnalsettings', 'App\Http\Controllers\SettingsController@index')->name('settings.index');
 
 // Display the form for editing user settings
-Route::get('/settings/edit/{id}', [SettingsController::class, 'edit'])->name('settings.edit');
+//Route::get('/settings/edit/{id}', [SettingsController::class, 'edit'])->name('settings.edit');
 
 // Handle the form submission
 Route::post('/settings/update/{id}', [SettingsController::class, 'update'])->name('settings.update');

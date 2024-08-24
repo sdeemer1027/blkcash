@@ -39,13 +39,33 @@ $files = Imagesetting::where('is_active','=','1')->get();
 
         $user = User::findOrFail($id);
         if( $request->input('snd')) {
-            $user->snd = $request->input('snd');
+            $sndValue = $request->input('snd');
+            if ($sndValue == '6') {
+                $user->snd = null;
+            } else {
+
+
+                $user->snd = $request->input('snd');
+            }
         }else {
-            $user->rcv = $request->input('rcv');
+
+            $rcvValue = $request->input('rcv');
+            if ($rcvValue == '6') {
+                $user->rcv = null;
+            } else {
+
+                $user->rcv = $request->input('rcv');
+            }
         }
+
+
+
+
+
+
         $user->save();
 
-        return redirect()->route('settings.edit', ['id' => $id])
+        return redirect()->route('settings.index')
             ->with('success', 'Image settings updated successfully.');
     }
 
