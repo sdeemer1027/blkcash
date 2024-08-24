@@ -50,7 +50,7 @@
                                         <form action="{{ route('settings.update', ['id' => $user->id]) }}" method="POST">
                                             @csrf
                                             <input name="snd" type="hidden" value="{{ $img->id }}" />
-                                            <button type="submit" class="btn btn-primary">Set as Send Image</button>
+                                            <button type="submit" class="btn btn-primary">Use Send</button>
                                         </form>
                                     @endif
                                 </td>
@@ -73,7 +73,7 @@
                                         <form action="{{ route('settings.update', ['id' => $user->id]) }}" method="POST">
                                             @csrf
                                             <input name="rcv" type="hidden" value="{{ $img->id }}" />
-                                            <button type="submit" class="btn btn-primary">Set as Receive Image</button>
+                                            <button type="submit" class="btn btn-primary">Use Receive</button>
                                         </form>
                                     @endif
                                 </td>
