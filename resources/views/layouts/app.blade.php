@@ -102,7 +102,7 @@
                 <i class="fa fa-home" aria-hidden="true"></i>
             </a>
             </div>
-            <div class="footer-icon"><a href="/profile">
+            <div class="footer-icon"><a href="/persnalsettings">
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
             </div>

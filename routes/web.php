@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BraintreeController;
 //use App\Http\Controllers\MoneyRequestController;
 
+use App\Http\Controllers\SettingsController;
+
 
 
 /*
@@ -40,6 +42,8 @@ Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addC
 Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 
 Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
+
+Route::get('/persnalsettings', 'App\Http\Controllers\SettingsController@index')->name('settings.index');
 
 
 Route::get('/payments', [WalletController::class, 'paymentPage'])->middleware(['auth', 'verified'])->name('payments.page');
