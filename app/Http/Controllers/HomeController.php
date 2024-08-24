@@ -39,10 +39,7 @@ foreach($cc as $creditcard){
           //dd($creditcard->braintree_token);
      }
 }
-//if($cc->braintree_token != '1111'){
 
- //    dd($cc->braintree_token);
-//}
 
 $gateway = new Gateway([
         'environment' => 'sandbox',
