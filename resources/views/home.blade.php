@@ -204,7 +204,8 @@
     <div class="icon">
         <a href="{{route('transactions.index')}}" >
         <div class="icon-circle bg-success rounded-circle">
-            <i class="fa fa-university" aria-hidden="true"></i>
+            <img src="/img/IMG_8309.jpeg">
+           <!-- <i class="fa fa-university" aria-hidden="true"></i>-->
         </div>
         </a>
         <div class="icon-text">Transactions</div>
@@ -212,10 +213,10 @@
 
     <div class="icon">
         <a href="{{ route('payments.page') }}">
-        <div class="icon-circle bg-success rounded-circle">
-         <i class="fa fa-forward" aria-hidden="true"></i>
-          {{-- <i class="fas fa-dollar" aria-hidden="true"></i>--}}
-          {{-- <i class="fas fa-user"><BR><span class="icon-text">Send</span></i> --}}
+        <div class="icon-circle  rounded-circle">
+            <img src="/img/IMG_8311.jpeg">
+            <!-- <i class="fa fa-forward" aria-hidden="true"></i> bg-success-->
+
         </div>
         </a>
         <div class="icon-text">Send/Request</div>
