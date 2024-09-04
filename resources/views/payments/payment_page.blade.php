@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="py-3">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+    <div class="py-3" style="background:#398540;">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="background:#398540;">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="background:#398540;">
+                <div class="p-6 text-gray-900" style="background:#398540;">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <div class="flex justify-center">
 
@@ -10,35 +10,136 @@
 
 
 
-<form action="{{ route('payments.process') }}" method="POST">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form action="{{ route('payments.process') }}" method="POST" style="background:#398540; padding: 20px;">
+    @csrf
+
+    <label for="who" style="color: black;">Send Request/Payment To:</label><br>
+  
+    <!-- Input field with id 'search' -->
+    <input type="text" id="searchthem" style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br>
+    
+    <input type="text" id="searchInput" placeholder="start typing email" style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
+
+    <select id="who" name="who" required style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;">
+    </select><br><br>
+
+    <label for="amount" style="color: black;">Amount:</label><br>
+    <input type="text" id="amount" name="amount" placeholder="0" readonly style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
+
+    <style>
+        /* Basic styling for the calculator */
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            max-width: 200px;
+        }
+
+        .calculator-button {
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculator-button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+
+    <div class="calculator">
+        <div class="calculator-button" onclick="addToAmount(1)">1</div>
+        <div class="calculator-button" onclick="addToAmount(2)">2</div>
+        <div class="calculator-button" onclick="addToAmount(3)">3</div>
+        <div class="calculator-button" onclick="addToAmount(4)">4</div>
+        <div class="calculator-button" onclick="addToAmount(5)">5</div>
+        <div class="calculator-button" onclick="addToAmount(6)">6</div>
+        <div class="calculator-button" onclick="addToAmount(7)">7</div>
+        <div class="calculator-button" onclick="addToAmount(8)">8</div>
+        <div class="calculator-button" onclick="addToAmount(9)">9</div>
+        <div class="calculator-button" onclick="clearAmount()">C</div>
+        <div class="calculator-button" onclick="addToAmount(0)">0</div>
+        <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
+    </div><br><br>
+
+    <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
+    <button type="submit" name="action" value="request" class="btn-sm btn-primary">Request $$</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- 
+
+<form action="{{ route('payments.process') }}" method="POST" style="background:#398540;">
     @csrf
 
 <label for="who">Send Request/Payment To:</label><br>
-  {{--  <input type="text" id="who" name="who" placeholder="Enter email to send" required><BR><BR>
---}}
-
+  
 <!-- Input field with id 'search' -->
-    <input type=type=text id="searchthem" ><br>
-<input type="text" id="searchInput" placeholder="start typing email">
+    <input type=type=text id="searchthem" style="background:#398540;"><br>
+<input type="text" id="searchInput" placeholder="start typing email" style="background:#398540;">
 
 <BR>
 
-<select  id="who" name="who" required>
+<select  id="who" name="who" required style="background:#398540;">
 
 </select>
-
-
-
-
+<BR>
 <BR>
 
-<BR>
-
-{{--
-<label for="amount">Amount:</label><BR>
-    <input type="text" id="amount" name="amount" placeholder="Enter amount" required><BR><BR>
-
---}}
 <style>
     /* Basic styling for the calculator */
     .calculator {
@@ -70,24 +171,18 @@
     <div class="calculator-button" onclick="addToAmount(1)">1</div>
     <div class="calculator-button" onclick="addToAmount(2)">2</div>
     <div class="calculator-button" onclick="addToAmount(3)">3</div>
-    {{--
-    <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
-    --}}
+   
     <div class="calculator-button" onclick="addToAmount(4)">4</div>
     <div class="calculator-button" onclick="addToAmount(5)">5</div>
     <div class="calculator-button" onclick="addToAmount(6)">6</div>
-    {{--
-    <div class="calculator-button" onclick="clearAmount()">C</div>
-    --}}
+    
     <div class="calculator-button" onclick="addToAmount(7)">7</div>
     <div class="calculator-button" onclick="addToAmount(8)">8</div>
     <div class="calculator-button" onclick="addToAmount(9)">9</div>
     <div class="calculator-button" onclick="clearAmount()">C</div>
     <div class="calculator-button" onclick="addToAmount(0)">0</div>
      <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
-{{--
-    <div class="calculator-button" onclick="sendOrRequest()">Send/Request</div>
---}}
+
 </div>
 
 <BR><BR>
@@ -96,55 +191,9 @@
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn-sm btn-primary">Request $$</button>
 </form>
-</div>
-
-
-
-
-
-
-
-
-{{--
-
-
-
-
-
-<!-- Drop this befor launch -->
-<BR>
-<BR>
-<hr>
-This is a List of email account you can use
-<br>in the drop down above you can select any user in the system "this entore thing will be replaced with Ajax call after the 3rd letter is typed in a text box"<HR width="50%">
-@foreach($users as $user)
-{{$user->email}}<BR>
-@endforeach
-
-
-
-
-
-<BR><BR><BR>
-
-
-
-
-
-<div id="searchResults">gggg</div>
-
-
-
-
-
-
-
-
-
-<BR><BR><BR>
-
 --}}
 
+</div>
 
 
 <hr>

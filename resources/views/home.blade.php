@@ -214,7 +214,7 @@
     <div class="icon">
         <a href="{{ route('payments.page') }}">
         <div class="icon-circle  rounded-circle">
-            <img src="/img/IMG_8311.jpeg">
+            <img src="/img/IMG_8503.jpg">
             <!-- <i class="fa fa-forward" aria-hidden="true"></i> bg-success-->
 
         </div>
@@ -225,8 +225,10 @@
     <div class="icon">
         <a href="{{ route('wallet.index') }}">
         <div class="icon-circle bg-success rounded-circle">
+            <img src="/img/IMG_8500.jpg">
+            {{-- 
             <i class="fa fa-suitcase" aria-hidden="true"></i>
-
+--}}
             {{-- <i class="fas fa-envelope"></i> <i class="fa fa-money" aria-hidden="true"></i> --}}
         </div>
         </a>
@@ -235,7 +237,9 @@
     <div class="icon">
         <a href="/profile">
         <div class="icon-circle bg-success rounded-circle">
-            <i class="fas fa-cog"></i>
+            <img src="/img/IMG_8501.jpg">
+            {{-- <i class="fas fa-cog"></i>
+            --}}
         </div>
     </a>
         <div class="icon-text">Settings</div>
