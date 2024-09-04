@@ -36,7 +36,12 @@
 
 
 
-
+<style>
+    
+      #searchInput::placeholder {
+        color: #cfcfcf;
+    }
+</style>
 
 
 <form action="{{ route('payments.process') }}" method="POST" style="background:#398540; padding: 20px;">
@@ -44,10 +49,8 @@
 
     <label for="who" style="color: black;">Send Request/Payment To:</label><br>
   
-    <!-- Input field with id 'search' -->
-    <input type="text" id="searchthem" style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br>
-    
-    <input type="text" id="searchInput" placeholder="start typing email" style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
+     
+    <input type="text" id="searchInput" placeholder="start typing email here" style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
 
     <select id="who" name="who" required style="background:#398540; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;">
     </select><br><br>
@@ -93,6 +96,10 @@
         <div class="calculator-button" onclick="addToAmount(0)">0</div>
         <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
     </div><br><br>
+<!-- Input field with id 'search' -->
+    <input type="text" id="searchthem" style="background:#398540; color: black; border: 0px solid #ccc; padding: 5px; width: 100%;"><br>
+   
+
 
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn-sm btn-primary">Request $$</button>
