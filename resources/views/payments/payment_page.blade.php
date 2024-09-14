@@ -22,7 +22,7 @@
 
 
         <label for="amount" style="color: black;"></label>
-        <input type="hidden" id="amount" name="amount" placeholder="0" readonly 
+        <input type="hidden" required id="amount" name="amount" placeholder="0" readonly 
                style="background:#ffffff; color: black; border: 0px solid #ccc; 
                padding: 5px; width: 80%;font-size:48px;">
    
@@ -135,7 +135,7 @@
   -->
 
 
-<input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;">
+<input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
 <div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
     <!-- Dropdown results will be appended here -->
 </div>

@@ -179,6 +179,12 @@ $users = User::all();
         
 //dd($request);
 
+ // Validate the incoming request
+    $validated = $request->validate([
+        'action' => 'required|in:pay,request', // 'action' must be either 'pay' or 'request'
+        'amount' => 'required|numeric|min:0.01', // 'amount' must be a number greater than 0
+        'who' => 'required|email|exists:users,email', // 'who' must be a valid email and exist in the users table
+    ]);
 
         // Handle form submission here
         $action = $request->input('action');
