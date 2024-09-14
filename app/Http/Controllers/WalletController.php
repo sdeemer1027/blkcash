@@ -176,6 +176,10 @@ $users = User::all();
 
      public function processPayment(Request $request)
     {
+        
+//dd($request);
+
+
         // Handle form submission here
         $action = $request->input('action');
         $amount = $request->input('amount');

@@ -28,6 +28,7 @@
    
 
     <br>
+{{--}}
     <style>
         /* Basic styling for the calculator */
         .calculator {
@@ -39,7 +40,7 @@
         }
 
         .calculator-button {
-            padding: 15px;
+            padding: 10px;
             font-size: 18px;
             text-align: center;
             cursor: pointer;
@@ -52,6 +53,37 @@
             background-color: #e0e0e0;
         }
     </style>
+--}}
+
+
+
+
+<style>
+    /* Basic styling for the calculator */
+    .calculator {
+        display: grid; /* Use grid for consistent layout */
+        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+        gap: 5px; /* Spacing between buttons */
+        width: 90%; /* Set width to 90% of the parent container */
+        max-width: 500px; /* Optional: Maximum width for large screens */
+        margin: 0 auto; /* Center the calculator horizontally */
+    }
+
+    .calculator-button {
+        padding: 15px; /* Adjust padding for better touch targets */
+        font-size: 24px; /* Increase font size for readability */
+        text-align: center; /* Center text in buttons */
+        cursor: pointer; /* Pointer cursor on hover */
+        border: 1px solid #ccc; /* Border around buttons */
+        background-color: #f5f5f5; /* Light background color */
+        transition: background-color 0.3s ease; /* Smooth background color transition */
+    }
+
+    .calculator-button:hover {
+        background-color: #e0e0e0; /* Slightly darker background on hover */
+    }
+</style>
+
 <style>
     #dropdownContainer {
         border: 1px solid #ccc;
@@ -70,41 +102,23 @@
     .dropdown-item:hover {
         background-color: #f0f0f0;
     }
-
-
-
-
-
-
-.btn-pill {
-    border-radius: 50px;        /* Pill shape */
-    padding: 10px 20px;         /* Adjust padding */
-    font-size: 14px;            /* Consistent font size */
-    background-color: #f5f5f5;  /* Background color */
-    border: 1px solid transparent;
-    color: #000;
-    width: 110px;               /* Set the same width for both buttons */
-    text-align: center;         /* Center the text */
-}
-
-.btn-pill.btn-success {
-    border-color: #28a745;      /* Optional green border for 'Pay' */
-}
-
-.btn-pill.btn-primary {
-    border-color: #007bff;      /* Optional blue border for 'Request $$' */
-}
-
-.btn-pill:hover {
-    opacity: 0.9;               /* Slight hover effect */
-}
-
-
-
-
-
-
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="calculator">
         <div class="calculator-button" onclick="addToAmount(1)">1</div>
@@ -116,16 +130,15 @@
         <div class="calculator-button" onclick="addToAmount(7)">7</div>
         <div class="calculator-button" onclick="addToAmount(8)">8</div>
         <div class="calculator-button" onclick="addToAmount(9)">9</div>
-        <div class="calculator-button" onclick="clearAmount()">C</div>  
+        <div class="calculator-button" onclick="clearAmount()">C</div>
         <div class="calculator-button" onclick="addToAmount(0)">0</div>
         <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
     </div>
+
     
 
     <!-- Input field with id 'search' -->
-    <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;">
-    <br>
-    <br>
+    <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;"><br>
 
   
 
@@ -145,15 +158,15 @@
 
 <br><br><br><br>
   --> 
- <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="">
+ <input type="hidden" 
+ id="who" name="who" 
+ required 
+ style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;" 
+ value="">
     <br><br>
-<!--
+
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn-sm btn-primary">Request $$</button>
--->
- <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
- <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
-
 </form>
 
 </div>
@@ -161,6 +174,7 @@
 
 <hr>
 <!-- End Drop this befor launch -->
+
 
                 </div>
             </div>
@@ -207,6 +221,33 @@
         displayAmountDiv.innerHTML = amountInput.value;
     }
 </script>
+{{-- 
+<script>
+    function addToAmount(num) {
+        const amountInput = document.getElementById('amount');
+        const currentValue = amountInput.value;
+        amountInput.value = currentValue === '0' ? num : currentValue + num;
+    }
+
+    function clearAmount() {
+        document.getElementById('amount').value = '0';
+    }
+
+    function backspaceAmount() {
+        const amountInput = document.getElementById('amount');
+        amountInput.value = amountInput.value.slice(0, -1);
+        if (amountInput.value === '') {
+            amountInput.value = '0';
+        }
+    }
+
+//    function sendOrRequest() {
+        // Your code to send or request the amount
+//        alert('Sending or requesting amount: ' + document.getElementById('amount').value);
+//    }
+</script>
+--}}
+
     </div>
 
 </x-app-layout>
@@ -216,6 +257,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Script to handle AJAX call -->
+
+
+
 <script type="text/javascript">
     
 jQuery(function($) {
@@ -292,4 +336,201 @@ jQuery(function($) {
     });
 });
 
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- }}
+<script type="text/javascript">
+    
+jQuery(function($) {
+    $('#searchInput').on('input', function() {
+        var searchValue = $(this).val();
+        $('#who').empty().hide(); // Clear and hide the dropdown
+
+        // Check if the input length is at least 2 characters
+        if (searchValue.length >= 2) {
+            // Get the CSRF token from the meta tag
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Make AJAX call to fetch users
+            $.ajax({
+                url: '/search-users', // Your Laravel route to handle the search
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                data: {
+                    search: searchValue
+                },
+                success: function(response) {
+                    // Handle the response and display users
+                    $('#who').empty().hide(); // Clear the dropdown before appending new options
+
+                    if (response.length === 1) {
+                        var singleUser = response[0];
+                        $('#searchInput').val(singleUser.name); // Update searchInput
+                        $('#who').hide(); // Hide the dropdown if only one result
+                    } else if (response.length > 1) {
+                        // Append each result to the dropdown
+                        $.each(response, function(index, user) {
+                            $('#who').append($('<option>', {
+                                value: user.email,
+                                text: user.name
+                            }));
+                        });
+
+                        // Show the dropdown
+                        $('#who').show();
+                    }
+
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        } else {
+            $('#who').hide(); // Hide dropdown if less than 2 characters
+        }
+    });
+
+    // Handle input box losing focus
+    $('#searchInput').on('blur', function() {
+        // Delay hiding the dropdown to allow option selection
+        setTimeout(function() {
+            $('#who').show();
+        }, 200);
+    });
+
+    // Handle selection from dropdown
+    $('#who').on('change', function() {
+        var selectedEmail = $(this).val();
+        var selectedUser = $(this).find('option:selected').text();
+        $('#searchInput').val(selectedUser); // Update searchInput
+        $('#who').show(); // Hide the dropdown after selection
+    });
+
+    // Handle clicking on the dropdown
+    $('#who').on('click', 'option', function() {
+        var selectedUser = $(this).text();
+        $('#searchInput').val(selectedUser); // Update searchInput
+        $('#who').show(); // Hide the dropdown after selection
+    });
+});
+
+
+</script>
+--}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--}}
+<script>
+    jQuery(function($) {
+        $('#searchInput').on('input', function() {
+            var searchValue = $(this).val();
+           /* $('#who').empty().hide();  */
+
+            // Check if the input length is at least 2 characters
+            if (searchValue.length >= 2) {
+                // Get the CSRF token from the meta tag
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                // Make AJAX call to fetch users
+                $.ajax({
+                    url: '/search-users', // Your Laravel route to handle the search
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                    },
+                    data: {
+                        search: searchValue
+                    },
+                    success: function(response) {
+                        // Handle the response and display users
+               //         $('#who').empty().hide();
+
+                        if (response.length === 1) {
+                            var singleUser = response[0];
+                            $('#searchthem').val(singleUser.name);
+                        } else if (response.length > 1) {
+                            // Append each result to the dropdown
+                            $.each(response, function(index, user) {
+                                $('#who').append($('<option>', {
+                                    value: user.email,
+                                    text: user.name
+                                }));
+                            });
+
+                            // Show the dropdown
+                            $('#who').show();
+                        }
+
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+        // Handle input box losing focus
+        $('#searchInput').on('blur', function() {
+
+     //       setTimeout(function() {
+     //           $('#who').hide();
+     //       }, 200);
+
+        });
+
+        // Handle selection from dropdown
+        $('#who').on('change', function() {
+            var selectedUser = $(this).find('option:selected').text();
+            $('#searchthem').val(selectedUser);
+        });
+
+        // Handle clicking on the dropdown
+        $('#who').on('click', 'option', function() {
+            var selectedUser = $(this).text();
+            $('#searchthem').val(selectedUser);
+          /*  $('#who').hide();  */
+        });
+    });
+</script>
+--}}
