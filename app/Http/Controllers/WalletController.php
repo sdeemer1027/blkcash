@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\RequestWallet;
 use Braintree\Gateway; // Add this use statement at the top of your controller
-
+use App\Models\Imagesetting;
 use Braintree\Transaction;
 use Braintree\Customer;
 use Braintree\BraintreeCustomerSearch;
@@ -168,9 +168,7 @@ public function addFunds(Request $request)
 
 $users = User::all();
 //dd($users);
-
-
-        return view('payments.payment_page',compact('users')); // Assuming 'payments.payment_page' is your blade view file
+        return view('payments.payment_page',compact('users')); 
     }
 
 
@@ -185,7 +183,6 @@ $users = User::all();
         'amount' => 'required|numeric|min:0.01', // 'amount' must be a number greater than 0
         'who' => 'required|email|exists:users,email', // 'who' must be a valid email and exist in the users table
     ]);
-
         // Handle form submission here
         $action = $request->input('action');
         $amount = $request->input('amount');
@@ -209,6 +206,41 @@ $users = User::all();
             if ($user) {
                 $user->wallet += $amount; // Add the new amount to the existing wallet amount
                 $user->save();
+
+          $frm = User::where('id',$wallet->from_user_id)->first();
+
+
+  if($user->validphone === 1 ) {
+    if($user->rcv > 0){
+       $rcvimg = Imagesetting::where('id','=', $user->rcv)->first();
+       $payeeimg= '/'.$rcvimg->path.'/'.$rcvimg->name;
+       $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
+       $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+       $imageUrl = 'http://dashboard.blk.cash'.$payeeimg;
+         // Send SMS
+       $this->twilio->sendSMSimg($phoneNumber, $message, $imageUrl);
+     }else{
+    
+       $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
+       $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+
+    // Send SMS
+    $this->twilio->sendSMS($phoneNumber, $message);
+   }
+
+  }
+
+   else{
+
+        }
+
+               
+
+
+
+
+
+
             } else {
                     // Handle case where user with $userId does not exist
             }
