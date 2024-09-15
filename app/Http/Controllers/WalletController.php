@@ -374,7 +374,7 @@ $users = User::all();
                     //         dd($message);
                    }
 
-dd($phoneNumber, $message, $user);
+//dd($phoneNumber, $message, $user);
 
 
 
