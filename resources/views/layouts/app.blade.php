@@ -109,8 +109,8 @@
             <div class="footer-icon3">
                 <i class="fa fa-qrcode" aria-hidden="true"></i>
             </div>
-            <div class="footer-icon">
-               <i class="fa fa-bell" aria-hidden="true"></i>
+            <div class="footer-icon"><a href="{{route('transactions.index')}}">
+               <i class="fa fa-bell" aria-hidden="true"></i></a>
                 @if(isset( Auth::user()->totalcount ) && Auth::user()->totalcount > 0)
                     <span class="srd badge-danger"
                           style="position: absolute;
