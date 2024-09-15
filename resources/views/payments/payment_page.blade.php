@@ -6,18 +6,18 @@
                 <div class="p-6 text-gray-900" style="background:#ffffff;">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <div class="flex justify-center" >
-<style>
+   <style>
       #searchInput::placeholder {
         color: #cfcfcf;
     }
-</style>
+   </style>
 
-<form action="{{ route('payments.process') }}" method="POST" style="background:#ffffff; padding: 20px; text-align: center;">
+   <form action="{{ route('payments.process') }}" method="POST" style="background:#ffffff; padding: 20px; text-align: center;">
     @csrf
     <div class="row" style="font-size:48px; display: flex; align-items: center; justify-content: center;">
     <div class="col-2" style="flex: 0 0 auto;">$</div>
     <div id="displayAmount" class="col-10" style="flex: 1; text-align: left;"></div>
-</div>
+    </div>
 
 
 
@@ -34,8 +34,9 @@
             display: inline-grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5px;
-            max-width: 200px;
+            max-width: 500px;
             margin: 0 auto;
+            border:0px solid black;
         }
 
         .calculator-button {
@@ -51,62 +52,50 @@
         .calculator-button:hover {
             background-color: #e0e0e0;
         }
+  
+        #dropdownContainer {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            max-height: 300px; /* Limit the height of the dropdown */
+            overflow-y: auto; /* Enable scrolling if content exceeds max height */
+        }
+
+        .dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .btn-pill {
+            border-radius: 50px;        /* Pill shape */
+            padding: 10px 20px;         /* Adjust padding */
+            font-size: 14px;            /* Consistent font size */
+            background-color: #f5f5f5;  /* Background color */
+            border: 1px solid transparent;
+            color: #000;
+            width: 110px;               /* Set the same width for both buttons */
+            text-align: center;         /* Center the text */
+        }
+
+        .btn-pill.btn-success {
+            border-color: #28a745;      /* Optional green border for 'Pay' */
+        }
+
+        .btn-pill.btn-primary {
+            border-color: #007bff;      /* Optional blue border for 'Request $$' */
+        }
+
+        .btn-pill:hover {
+            opacity: 0.9;               /* Slight hover effect */
+        }
     </style>
-<style>
-    #dropdownContainer {
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        max-height: 300px; /* Limit the height of the dropdown */
-        overflow-y: auto; /* Enable scrolling if content exceeds max height */
-    }
 
-    .dropdown-item {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-item:hover {
-        background-color: #f0f0f0;
-    }
-
-
-
-
-
-
-.btn-pill {
-    border-radius: 50px;        /* Pill shape */
-    padding: 10px 20px;         /* Adjust padding */
-    font-size: 14px;            /* Consistent font size */
-    background-color: #f5f5f5;  /* Background color */
-    border: 1px solid transparent;
-    color: #000;
-    width: 110px;               /* Set the same width for both buttons */
-    text-align: center;         /* Center the text */
-}
-
-.btn-pill.btn-success {
-    border-color: #28a745;      /* Optional green border for 'Pay' */
-}
-
-.btn-pill.btn-primary {
-    border-color: #007bff;      /* Optional blue border for 'Request $$' */
-}
-
-.btn-pill:hover {
-    opacity: 0.9;               /* Slight hover effect */
-}
-
-
-
-
-
-
-</style>
-
-    <div class="calculator">
+    <div class="calculator" style="width:300px;">
         <div class="calculator-button" onclick="addToAmount(1)">1</div>
         <div class="calculator-button" onclick="addToAmount(2)">2</div>
         <div class="calculator-button" onclick="addToAmount(3)">3</div>
@@ -121,40 +110,33 @@
         <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
     </div>
     
-
     <!-- Input field with id 'search' -->
     <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;">
     <br>
     <br>
-
-  
-
     <label for="who" style="color: black;">Send Request/Payment To:</label><br>
-<!--
+    <!--
     <input type="text" id="searchInput" placeholder="start typing email here" style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
-  -->
-
-
-<input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
-<div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
+    -->
+    <input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
+    <div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
     <!-- Dropdown results will be appended here -->
-</div>
+    </div>
 
-<!--
+    <!--
     <select id="who" name="who" required style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"></select>
-
-<br><br><br><br>
-  --> 
- <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="">
+    <br><br><br><br>
+    --> 
+    <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="">
     <br><br>
-<!--
+    <!--
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn-sm btn-primary">Request $$</button>
--->
- <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
- <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
+    -->
+    <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
+    <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
 
-</form>
+   </form>
 
 </div>
 
