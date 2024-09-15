@@ -174,10 +174,7 @@ $users = User::all();
 
      public function processPayment(Request $request)
     {
-        
-//dd($request);
-
- // Validate the incoming request
+    // Validate the incoming request
     $validated = $request->validate([
         'action' => 'required|in:pay,request', // 'action' must be either 'pay' or 'request'
         'amount' => 'required|numeric|min:0.01', // 'amount' must be a number greater than 0
@@ -187,7 +184,7 @@ $users = User::all();
         $action = $request->input('action');
         $amount = $request->input('amount');
 
-        if ($action === 'pay') {
+ if ($action === 'pay') {
             // Process payment
             // from_user_id YOU
             // To user_id WHO
@@ -207,40 +204,25 @@ $users = User::all();
                 $user->wallet += $amount; // Add the new amount to the existing wallet amount
                 $user->save();
 
-          $frm = User::where('id',$wallet->from_user_id)->first();
-
-
-  if($user->validphone === 1 ) {
-    if($user->rcv > 0){
-       $rcvimg = Imagesetting::where('id','=', $user->rcv)->first();
-       $payeeimg= '/'.$rcvimg->path.'/'.$rcvimg->name;
-       $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
-       $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
-       $imageUrl = 'http://dashboard.blk.cash'.$payeeimg;
-         // Send SMS
-       $this->twilio->sendSMSimg($phoneNumber, $message, $imageUrl);
-     }else{
-    
-       $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
-       $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
-
-    // Send SMS
-    $this->twilio->sendSMS($phoneNumber, $message);
-   }
-
-  }
-
-   else{
-
-        }
-
-               
-
-
-
-
-
-
+                $frm = User::where('id',$wallet->from_user_id)->first();
+              if($user->validphone === 1 ) {
+                 if($user->rcv > 0){
+                    $rcvimg = Imagesetting::where('id','=', $user->rcv)->first();
+                    $payeeimg= '/'.$rcvimg->path.'/'.$rcvimg->name;
+                    $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
+                    $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                    $imageUrl = 'http://dashboard.blk.cash'.$payeeimg;
+                  // Send SMS with image
+                    $this->twilio->sendSMSimg($phoneNumber, $message, $imageUrl);
+                 }else{
+                    $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
+                    $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                  // Send SMS
+                    $this->twilio->sendSMS($phoneNumber, $message);
+                 }
+                }
+                else{
+                }
             } else {
                     // Handle case where user with $userId does not exist
             }
@@ -251,20 +233,14 @@ $users = User::all();
             } else {
                     // Handle case where user with $userId does not exist
             }
- return redirect()->route('home')->with('status', 'Payment processed successfully.');
+        return redirect()->route('home')->with('status', 'Payment processed successfully.');
 
-        } elseif ($action === 'request') {
+ } elseif ($action === 'request') {
             // Request payment
-
-         $who= $request->input('who');
+          $who= $request->input('who');
           $from_user_id = Auth::user()->id; // Get the authenticated user
           $user_id = User::where('email',$who)->first();
-
-
-
-
-
-  // update the wallet and user.wallet
+       // update the wallet and user.wallet
           $wallet = new RequestWallet();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
@@ -273,31 +249,22 @@ $users = User::all();
           $wallet->save();
 
            // $wallet->from_user_id
-            $frm = User::where('id',$wallet->from_user_id)->first();
-            $toooo = User::where('id',$user_id->id)->first();
-if($toooo->validphone === 1 ) {
-    //    dd($frm,$frm->name,$toooo,$toooo->phone);
-// cKPViLWvlFwpVDiQhS.gif
-    // Example phone number and message
-    $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
-    $message = 'BLK.CASH Alert: You have a new money request from ' . $frm->name . '. Please login http://dashboard.blk.cash/login';
+          $frm = User::where('id',$wallet->from_user_id)->first();
+          $toooo = User::where('id',$user_id->id)->first();
+          if($toooo->validphone === 1 ) {
+                    //    dd($frm,$frm->name,$toooo,$toooo->phone);
+             $phoneNumber = $toooo->phone;    //'+19543910398'; // The recipient's phone number
+             $message = 'BLK.CASH Alert: You have a new money request from ' . $frm->name . '. Please login http://dashboard.blk.cash/login';
+          // Send SMS
+             $this->twilio->sendSMS($phoneNumber, $message);
+          }else{
 
-    // Send SMS
-    $this->twilio->sendSMS($phoneNumber, $message);
-}else{
-
-}
-
-
-
-
-//dd($request);
+          }
+             //dd($request);
         return redirect()->route('home')->with('status', 'Request was made successfully.');
-
-        }
-
+ }
         return redirect()->route('home')->with('status', 'Payment processed successfully.');
-    }
+}
 
 
 
@@ -326,9 +293,9 @@ if($toooo->validphone === 1 ) {
             $this->twilio->sendSMS($phoneNumber, $message);
 
         }else{
-// setup and send email as the message to remind them to pay
+       // setup and send email as the message to remind them to pay
             // We Send an Email to the user
-   //         dd($canceltouser->email,$message);
+       //         dd($canceltouser->email,$message);
         }
         return redirect()->route('home')->with('status', 'Payment Canceled successfully.');
     }
@@ -347,13 +314,13 @@ if($toooo->validphone === 1 ) {
           $phoneNumber = $reminduser->phone;    // The recipient's phone number
           // Send SMS
           $this->twilio->sendSMS($phoneNumber, $message);
- //         dd($message);
+         //         dd($message);
 
        }else{
-    // setup and send email as the message to remind them to pay
-    // We Send an Email to the user
-  //  dd($reminduser->email,$message);
-    }
+        // setup and send email as the message to remind them to pay
+        // We Send an Email to the user
+       //  dd($reminduser->email,$message);
+       }
         return redirect()->route('home')->with('status', 'Payment Reminded successfully.');
     }
 
@@ -388,14 +355,29 @@ if($toooo->validphone === 1 ) {
 
                 $user = User::find($user->id);
                 $from = User::find($me);
-                $message = 'BLK.CASH Alert:  money request to '.$from->name.' is paid. Please login http://dashboard.blk.cash/login';
+                $message = 'BLK.CASH Alert:  money request to '.$from->firstname.' is paid. ' . $from->firstname . ' Sent you $'.$amount.' Please login http://dashboard.blk.cash/login';
 
                 if($user->validphone === 1) {
                     $phoneNumber = $user->phone;    // The recipient's phone number
                     // Send SMS
+
+                  if($user->rcv > 0){
+                    $rcvimg = Imagesetting::where('id','=', $user->rcv)->first();
+                    $payeeimg= '/'.$rcvimg->path.'/'.$rcvimg->name;
+                    $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
+                    $message = 'BLK.CASH Alert:  ' . $from->firstname . ' Sent you $'.$amount;
+                    $imageUrl = 'http://dashboard.blk.cash'.$payeeimg;
+                  // Send SMS with image
+                    $this->twilio->sendSMSimg($phoneNumber, $message, $imageUrl);
+                  }else{
                     $this->twilio->sendSMS($phoneNumber, $message);
                     //         dd($message);
-   //                dd($from);
+                   }
+
+dd($phoneNumber, $message, $user);
+
+
+
                 }
 
             } else {
@@ -439,8 +421,7 @@ if($toooo->validphone === 1 ) {
                     $phoneNumber = $sendrejection->phone;    // The recipient's phone number
                     // Send SMS
                                 $this->twilio->sendSMS($phoneNumber, $message);
-    //                dd($trans, $sendrejection, $message);
-
+                    //                dd($trans, $sendrejection, $message);
                 }
 
                    return redirect()->route('home')->with('status', 'Request was made successfully.');
