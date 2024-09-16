@@ -57,6 +57,8 @@ Route::get('/payments', [WalletController::class, 'paymentPage'])->middleware(['
 Route::post('/payments/process', [WalletController::class, 'processPayment'])->name('payments.process');
 
 Route::get('/transaction', [WalletController::class, 'transaction'])->name('transactions.index');
+route::get('/account/notificication',[WalletController::class, 'notify'])->name('transactions.notify');
+
 
 Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
 Route::post('/wallet/approve-reject', [WalletController::class, 'approveReject'])->name('wallet.approve-reject');

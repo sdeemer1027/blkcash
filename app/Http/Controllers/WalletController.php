@@ -433,7 +433,15 @@ $users = User::all();
         // Redirect or return a response as needed
     }
 
+ public function notify()
+ {
 
+$user = User::where('id',Auth::user()->id)->first();
+
+
+
+    return view('transactions.notify',compact('user'));
+ }
 
 
 }

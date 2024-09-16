@@ -102,14 +102,14 @@
                 <i class="fa fa-home" aria-hidden="true"></i>
             </a>
             </div>
-            <div class="footer-icon"><a href="/persnalsettings">
+            <div class="footer-icon"><a href="/profile">{{-- /persnalsettings --}}
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
             </div>
             <div class="footer-icon3">
                 <i class="fa fa-qrcode" aria-hidden="true"></i>
             </div>
-            <div class="footer-icon"><a href="{{route('transactions.index')}}">
+            <div class="footer-icon"><a href="{{route('transactions.notify')}}">
                <i class="fa fa-bell" aria-hidden="true"></i></a>
                 @if(isset( Auth::user()->totalcount ) && Auth::user()->totalcount > 0)
                     <span class="srd badge-danger"
