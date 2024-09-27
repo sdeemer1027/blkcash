@@ -9,7 +9,7 @@ use App\Http\Controllers\BraintreeController;
 //use App\Http\Controllers\MoneyRequestController;
 
 use App\Http\Controllers\SettingsController;
-
+use App\Http\Controllers\bankaccountController;
 
 
 /*
@@ -36,6 +36,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 Route::get('/dashboardcount', [HomeController::class, 'dashboardcount'])->name('dashboardcount');
+
+Route::get('/bankaccount',  [BankaccountController::class, 'index'])->middleware('auth')->name('bankaccount.index');
+Route::post('/bankaccount', [BankaccountController::class, 'store'])->name('bankaccount.store');
+Route::post('/bankaccounts/transfer', [BankaccountController::class, 'transfer'])->name('bankaccount.transfer');
+Route::post('/bankaccounts/transferToWallet', [BankaccountController::class, 'transferToWallet'])->name('bankaccount.transferToWallet');
+
+
 
 Route::get('/get-token', 'App\Http\Controllers\ProfileController@getToken')->name('get-token');
 Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');

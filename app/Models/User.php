@@ -80,4 +80,9 @@ public function creditCards()
     {
         return $this->hasMany(RequestWallet::class, 'user_id');
     }
+
+    public function bankaccount()
+{
+    return $this->hasOne(Bankaccount::class);
+}
 }
