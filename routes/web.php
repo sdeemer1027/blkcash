@@ -9,7 +9,7 @@ use App\Http\Controllers\BraintreeController;
 //use App\Http\Controllers\MoneyRequestController;
 
 use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\bankaccountController;
+use App\Http\Controllers\BankaccountController;
 
 
 /*
