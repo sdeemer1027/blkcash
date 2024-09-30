@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 Route::get('/dashboardcount', [HomeController::class, 'dashboardcount'])->name('dashboardcount');
-
+  
 Route::get('/bankaccount',  [BankaccountController::class, 'index'])->middleware('auth')->name('bankaccount.index');
 Route::post('/bankaccount', [BankaccountController::class, 'store'])->name('bankaccount.store');
 Route::post('/bankaccounts/transfer', [BankaccountController::class, 'transfer'])->name('bankaccount.transfer');

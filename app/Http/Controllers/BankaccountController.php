@@ -101,7 +101,7 @@ public function transfer(Request $request)
     return redirect()->back()->with('success', 'Funds transferred successfully.');
 }
 
-
+  
 
 
 

@@ -7,7 +7,7 @@
 
 
 <BR>
-
+  
 <div class="container">
     <h2>Create Bank Account</h2>
     <form action="{{ route('bankaccount.store') }}" method="POST">

@@ -42,7 +42,7 @@ Balance in your Wallet: ${{ auth()->user()->wallet }}<BR><BR>
                                 </td>
                                 <td>edit</td>
                             </tr>
-                        </tbody>
+                        </tbody>  
                     </table>
                 </div>
             </div>

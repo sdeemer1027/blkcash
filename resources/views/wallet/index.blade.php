@@ -11,7 +11,7 @@
                     <a href="{{route('bankaccount.index')}}">GOTO Bank</a>
 <BR><BR>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </x-app-layout>

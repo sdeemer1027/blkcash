@@ -83,6 +83,6 @@ public function creditCards()
 
     public function bankaccount()
 {
-    return $this->hasOne(Bankaccount::class);
+    return $this->hasOne(Bankaccount::class);  
 }
 }
