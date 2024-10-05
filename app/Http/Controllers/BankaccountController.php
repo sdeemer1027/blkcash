@@ -22,7 +22,7 @@ class BankaccountController extends Controller
  $user = auth()->user(); // Get the currently authenticated user
 
     // Fetch the user's bank account (will return null if it doesn't exist)
-    $bankaccount = $user->bankaccount()->first(); 
+    $bankaccount = $user->bankaccount()->first();
 
 // If no bank account exists, pass null or an empty instance to the view
     if (!$bankaccount) {
@@ -33,9 +33,18 @@ class BankaccountController extends Controller
         return view('bankaccount.index',compact('bankaccount','user')); // Return the home view
 
     }
+    public function edit(){
+        $user = Auth::user(); // Get the authenticated user
+        $user = auth()->user(); // Get the currently authenticated user
+        $bankaccount = $user->bankaccount()->first();
 
+        return view('bankaccount.edit',compact('bankaccount','user'));
+    }
 
+public function createnew(){
 
+    return view('bankaccount.create');
+}
 
 
 public function store(Request $request)
@@ -47,18 +56,33 @@ public function store(Request $request)
         'account' => 'required|string|max:255',
         'cash' => 'required|numeric',
     ]);
+if($request->id){
+    // Find the bank account by its id
+    $bankAccount = Bankaccount::find($request->id);
 
+    // Check if the bank account exists
+    if ($bankAccount) {
+        $bankAccount->update([
+            'name' => $request->name,
+            'routing' => $request->routing,
+            'account' => $request->account,
+            'cash' => $request->cash,
+        ]);
+        return redirect()->route('bankaccount.index')->with('success', 'Bank account updated successfully.');
+    }
+//dd($request);
+    }else{
     // Create the bank account
-    Bankaccount::create([
-        'user_id' => auth()->id(),
-        'name' => $request->name,
-        'routing' => $request->routing,
-        'account' => $request->account,
-        'cash' => $request->cash,
-        'deposit' => 0,
-        'withdraw' => 0,
+       Bankaccount::create([
+           'user_id' => auth()->id(),
+           'name' => $request->name,
+           'routing' => $request->routing,
+           'account' => $request->account,
+           'cash' => $request->cash,
+           'deposit' => 0,
+           'withdraw' => 0,
     ]);
-
+    }
     // Redirect back or to a success page
     return redirect()->route('bankaccount.index')->with('success', 'Bank account created successfully.');
 }
@@ -101,7 +125,7 @@ public function transfer(Request $request)
     return redirect()->back()->with('success', 'Funds transferred successfully.');
 }
 
-  
+
 
 
 

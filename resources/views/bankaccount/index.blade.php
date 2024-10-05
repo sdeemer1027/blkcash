@@ -8,41 +8,46 @@
 
 
 
+{{-- --}}
+Balance in your Bank: ${{$bankaccount->cash}}
 
-Balance in your Bank: ${{$bankaccount->cash}}<br>
-Balance in your Wallet: ${{ auth()->user()->wallet }}<BR><BR>
+                    <br>
+Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
+                    Current Bank: {{$bankaccount->name}}   {{-- [<a href="{{route('bankaccount.createnew')}}">Add New</a>] --}}
+
+                    <BR>
+
+<br>
+
+
+                    {{--$bankaccount--}}
 
 
 
 
-
-
-
-
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>routing</th>
-                            <th>account</th>
-                             <th>action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                 {{$bankaccount->name}}
+                                       <table class="table">
+                                           <thead>
+                                           <tr>
+                                               <th>Name</th>
+                                               <th>routing</th>
+                                               <th>account</th>
+                                                <th>action</th>
+                                           </tr>
+                                           </thead>
+                                           <tbody>
+                                               <tr>
+                                                   <td>
+                                                    {{$bankaccount->name}}
                                 </td>
                                 <td>
                                  {{$bankaccount->routing}}
                                 </td>
-                                <td>                                   
+                                <td>
                                  {{$bankaccount->account}}
                                 </td>
-                                <td>edit</td>
+                                                   <td><a href="{{route('bankaccount.edit')}}"><i class="fa fa-edit" aria-hidden="true"></i>edit</a></td>
                             </tr>
-                        </tbody>  
+                        </tbody>
                     </table>
                 </div>
             </div>
