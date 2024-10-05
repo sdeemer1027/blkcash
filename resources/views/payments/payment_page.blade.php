@@ -16,7 +16,7 @@
     @csrf
     <div class="row" style="font-size:48px; display: flex; align-items: center; justify-content: center;">
     <div class="col-2" style="flex: 0 0 auto;">$</div>
-    <div id="displayAmount" class="col-10" style="flex: 1; text-align: left;"></div>
+    <div id="displayAmount" class="col-10" style="flex: 1; text-align: left;">0.00</div>
     </div>
 
 
@@ -107,7 +107,9 @@
         <div class="calculator-button" onclick="addToAmount(9)">9</div>
         <div class="calculator-button" onclick="clearAmount()">C</div>
         <div class="calculator-button" onclick="addToAmount(0)">0</div>
+        <div class="calculator-button" onclick="addDecimal()">.</div>
         <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
+
     </div>
 
     <!-- Input field with id 'search' -->
@@ -143,46 +145,71 @@
         </div>
 
 
-<script>
-    function addToAmount(num) {
-        const amountInput = document.getElementById('amount');
-        const displayAmountDiv = document.getElementById('displayAmount');
-        const currentValue = amountInput.value;
 
-        // Update the amount input field
-        amountInput.value = currentValue === '0' ? num : currentValue + num;
+     <script>
+         function formatCurrency(value) {
+             return parseFloat(value).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+         }
 
-        // Update the display div
-        displayAmountDiv.innerHTML = amountInput.value;
-    }
+         function addToAmount(num) {
+             const amountInput = document.getElementById('amount');
+             const displayAmountDiv = document.getElementById('displayAmount');
+             let currentValue = amountInput.value;
 
-    function clearAmount() {
-        const amountInput = document.getElementById('amount');
-        const displayAmountDiv = document.getElementById('displayAmount');
+             // Update the amount input field
+             currentValue = currentValue === '0' ? num.toString() : currentValue + num;
 
-        // Clear the amount input field
-        amountInput.value = '0';
+             // Convert the current value to a float and format it
+             amountInput.value = currentValue;
+             displayAmountDiv.innerHTML = formatCurrency(currentValue);
+         }
 
-        // Clear the display div
-        displayAmountDiv.innerHTML = '0';
-    }
+         function addDecimal() {
+             const amountInput = document.getElementById('amount');
+             const displayAmountDiv = document.getElementById('displayAmount');
+             let currentValue = amountInput.value;
 
-    function backspaceAmount() {
-        const amountInput = document.getElementById('amount');
-        const displayAmountDiv = document.getElementById('displayAmount');
+             // Prevent adding more than one decimal point
+             if (!currentValue.includes('.')) {
+                 currentValue += '.';
+             }
 
-        // Backspace in the input field
-        amountInput.value = amountInput.value.slice(0, -1);
+             // Update the amount input field and display
+             amountInput.value = currentValue === '' ? '0.' : currentValue;
+             displayAmountDiv.innerHTML = formatCurrency(amountInput.value);
+         }
 
-        // If empty, set to '0'
-        if (amountInput.value === '') {
-            amountInput.value = '0';
-        }
+         function clearAmount() {
+             const amountInput = document.getElementById('amount');
+             const displayAmountDiv = document.getElementById('displayAmount');
 
-        // Update the display div
-        displayAmountDiv.innerHTML = amountInput.value;
-    }
-</script>
+             // Clear the amount input field
+             amountInput.value = '0';
+
+             // Clear the display div
+             displayAmountDiv.innerHTML = '0.00';
+         }
+
+         function backspaceAmount() {
+             const amountInput = document.getElementById('amount');
+             const displayAmountDiv = document.getElementById('displayAmount');
+
+             // Backspace in the input field
+             amountInput.value = amountInput.value.slice(0, -1) || '0';
+
+             // Update the display div with formatted value
+             displayAmountDiv.innerHTML = formatCurrency(amountInput.value);
+         }
+     </script>
+
+
+
+
+
+
+
+
+
     </div>
 
 </x-app-layout>
