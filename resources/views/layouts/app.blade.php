@@ -103,11 +103,14 @@
             </a>
             </div>
             <div class="footer-icon"><a href="/profile">{{-- /persnalsettings --}}
+
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </a>
             </div>
             <div class="footer-icon3">
+                <a href="{{route('qrcode.generate')}}">
                 <i class="fa fa-qrcode" aria-hidden="true"></i>
+                </a>
             </div>
             <div class="footer-icon"><a href="{{route('transactions.notify')}}">
                <i class="fa fa-bell" aria-hidden="true"></i></a>

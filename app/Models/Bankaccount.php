@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,9 +17,9 @@ class bankaccount extends Model
         'name',
         'routing',
         'account',
-        'cash', 
+        'cash',
         'deposit',
-        'withdraw', 
+        'withdraw',
         'to',
         'from',
         'amount',
@@ -27,9 +28,9 @@ class bankaccount extends Model
     ];
 
 
- 
- 
-           
+
+
+
 
 
 

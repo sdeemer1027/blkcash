@@ -10,7 +10,7 @@ use App\Http\Controllers\BraintreeController;
 
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BankaccountController;
-
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +90,23 @@ Route::post('/search-users', [UserController::class, 'searchUsers'])->name('sear
 
 
 Route::get('/dashboard', [WalletController::class, 'paymentPage'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
+Route::get('/qrcode/generate', [QrCodeController::class, 'generate'])->name('qrcode.generate');
+
+Route::get('/qrcode/reader', [QrCodeController::class, 'showReaderForm'])->name('qrcode.reader.form');
+Route::post('/qrcode/read', [QrCodeController::class, 'read'])->name('qrcode.read');
+
+
+
+
+
+
+
+
+
+
 /*
 Route::get('/dashboard', function () {
     return view('dashboard');
