@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\bankaccount;
+use App\Models\Bankaccount;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -12,7 +12,7 @@ class BankaccountController extends Controller
      public function index(){
 
         $user = Auth::user(); // Get the authenticated user
-        $bankaccount= bankaccount::where('user_id','=', $user->id)->get();
+        $bankaccount= Bankaccount::where('user_id','=', $user->id)->get();
 
 ///$files = Imagesetting::where('is_active','=','1')->get();
 
