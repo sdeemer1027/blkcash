@@ -22,10 +22,10 @@
 
 
         <label for="amount" style="color: black;"></label>
-        <input type="hidden" required id="amount" name="amount" placeholder="0" readonly 
-               style="background:#ffffff; color: black; border: 0px solid #ccc; 
+        <input type="hidden" required id="amount" name="amount" placeholder="0" readonly
+               style="background:#ffffff; color: black; border: 0px solid #ccc;
                padding: 5px; width: 80%;font-size:48px;">
-   
+
 
     <br>
     <style>
@@ -52,7 +52,7 @@
         .calculator-button:hover {
             background-color: #e0e0e0;
         }
-  
+
         #dropdownContainer {
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -105,29 +105,23 @@
         <div class="calculator-button" onclick="addToAmount(7)">7</div>
         <div class="calculator-button" onclick="addToAmount(8)">8</div>
         <div class="calculator-button" onclick="addToAmount(9)">9</div>
-        <div class="calculator-button" onclick="clearAmount()">C</div>  
+        <div class="calculator-button" onclick="clearAmount()">C</div>
         <div class="calculator-button" onclick="addToAmount(0)">0</div>
         <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
     </div>
-    
+
     <!-- Input field with id 'search' -->
     <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;">
     <br>
     <br>
     <label for="who" style="color: black;">Send Request/Payment To:</label><br>
-    <!--
-    <input type="text" id="searchInput" placeholder="start typing email here" style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"><br><br>
-    -->
+
     <input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
     <div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
     <!-- Dropdown results will be appended here -->
     </div>
 
-    <!--
-    <select id="who" name="who" required style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"></select>
-    <br><br><br><br>
-    --> 
-    <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="">
+    <input type="text"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="{{ request('id') }}">
     <br><br>
     <!--
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
@@ -199,8 +193,152 @@
 
 <!-- Script to handle AJAX call -->
 <script type="text/javascript">
-    
-jQuery(function($) {
+
+
+    jQuery(function($) {
+        // Function to get the 'id' parameter from the URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Check if 'id' is present in the URL
+        var userId = getUrlParameter('id');
+        if (userId) {
+            // Get the CSRF token from the meta tag
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Make AJAX call to prefetch the user data
+            $.ajax({
+                url: '/search-users', // Your Laravel route to handle the search
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                },
+                data: {
+                    search: userId
+                },
+                success: function(response) {
+                    if (response.length > 0) {
+                        var user = response[0]; // Assuming the first result is the user you want
+
+                        // Prefill the input fields with the user's data
+                        $('#searchInput').val(user.name);
+                        $('#searchthem').val(user.name);
+                        $('#who').val(user.email);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // Existing search input event handler
+        $('#searchInput').on('input', function() {
+            var searchValue = $(this).val();
+            var dropdownContainer = $('#dropdownContainer');
+
+            // Clear existing dropdown items
+            dropdownContainer.empty().hide();
+
+            // Check if the input length is at least 2 characters
+            if (searchValue.length >= 2) {
+                // Get the CSRF token from the meta tag
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                // Make AJAX call to fetch users
+                $.ajax({
+                    url: '/search-users', // Your Laravel route to handle the search
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken // Include the CSRF token in the headers
+                    },
+                    data: {
+                        search: searchValue
+                    },
+                    success: function(response) {
+                        // Populate the dropdown container
+                        if (response.length > 0) {
+                            $.each(response, function(index, user) {
+                                var item = $('<div>', {
+                                    class: 'dropdown-item',
+                                    text: user.name,
+                                    'data-email': user.email
+                                });
+                                dropdownContainer.append(item);
+                            });
+
+                            // Show the dropdown
+                            dropdownContainer.show();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+
+        // Handle clicking on an item in the dropdown
+        $(document).on('click', '.dropdown-item', function() {
+            var selectedText = $(this).text();
+            var selectedEmail = $(this).data('email');
+            $('#searchInput').val(selectedText);
+            $('#searchthem').val(selectedText);
+            $('#who').val(selectedEmail);
+            $('#dropdownContainer').hide(); // Hide the dropdown after selection
+        });
+
+        // Hide the dropdown when clicking outside
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest('#searchInput, #dropdownContainer').length) {
+                $('#dropdownContainer').hide();
+            }
+        });
+
+        // Position the dropdown below the input
+        $('#searchInput').on('focus', function() {
+            var offset = $(this).offset();
+            $('#dropdownContainer').css({
+                top: offset.top + $(this).outerHeight(),
+                left: offset.left,
+                width: $(this).outerWidth()
+            }).show();
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+    jQuery(function($) {
     $('#searchInput').on('input', function() {
         var searchValue = $(this).val();
         var dropdownContainer = $('#dropdownContainer');
@@ -273,5 +411,5 @@ jQuery(function($) {
         }).show();
     });
 });
-
+*/
 </script>

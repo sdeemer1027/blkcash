@@ -18,7 +18,7 @@ class QrCodeController extends Controller
 
         // Generate QR code with custom data (e.g., a URL)
         $result = Builder::create()
-            ->data($user->id) // Change this to dynamic data as needed
+            ->data($user->email) // Change this to dynamic data as needed
             ->size(300)
             ->build();
 

@@ -27,7 +27,9 @@
         codeReader.decodeFromVideoDevice(selectedDeviceId, 'preview', (result, err) => {
             if (result) {
                 console.log(result.text);
+
                 alert("QR Code Content: " + result.text);
+                window.location.href = '/payments?id=' + encodeURIComponent(result.text);
             }
             if (err && !(err instanceof ZXing.NotFoundException)) {
                 console.error(err);
