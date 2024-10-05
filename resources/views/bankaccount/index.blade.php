@@ -49,8 +49,8 @@ Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
+
+
 
 
 
@@ -65,10 +65,10 @@ Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
         </div>
         <button type="submit" class="btn btn-primary">Transfer to Bank Account</button>
     </form>
-
+<BR>
 
 <HR>
-<h3>Transfer Funds to Wallet</h3>
+<h3>Add Funds to Wallet</h3>
 <p>Bank Account Balance: ${{ $bankaccount->cash }}</p>
 
 <form action="{{ route('bankaccount.transferToWallet') }}" method="POST">
@@ -79,8 +79,8 @@ Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
     </div>
     <button type="submit" class="btn btn-secondary">Add to Wallet</button>
 </form>
-
-
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
