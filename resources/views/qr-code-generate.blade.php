@@ -4,8 +4,8 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
+                    <h1>Your Generated QR Code</h1>
+                    <a href="{{route('qrcode.reader.form')}}" class="btn btn-danger btn-sm">Click here to scan a QRCode</a><br>
                     <BR>
 
                     {{--
@@ -15,7 +15,7 @@
                     </div>
 
                        --}}
-                    <h1>Your Generated QR Code</h1>
+
                     <img src="{{ $qrCode }}" alt="QR Code">
 
 

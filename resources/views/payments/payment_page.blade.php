@@ -114,14 +114,14 @@
     <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;">
     <br>
     <br>
-    <label for="who" style="color: black;">Send Request/Payment To:</label><br>
-
+    <label for="who" style="color: black;">Send Request/Payment:</label><br>
+       <a href="{{route('qrcode.reader.form')}}" class="btn btn-danger btn-sm">Click here to scan a QRCode</a><br><BR>
     <input type="text" id="searchInput" placeholder="Start typing..."  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
     <div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
     <!-- Dropdown results will be appended here -->
     </div>
 
-    <input type="text"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="{{ request('id') }}">
+    <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="{{ request('id') }}">
     <br><br>
     <!--
     <button type="submit" name="action" value="pay" class="btn-sm btn-success">Pay</button>
