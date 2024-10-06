@@ -168,7 +168,7 @@ public function addFunds(Request $request)
 
 $users = User::all();
 //dd($users);
-        return view('payments.payment_page',compact('users')); 
+        return view('payments.payment_page',compact('users'));
     }
 
 
@@ -183,6 +183,7 @@ $users = User::all();
         // Handle form submission here
         $action = $request->input('action');
         $amount = $request->input('amount');
+        $memo = $request->input('memo');
 
  if ($action === 'pay') {
             // Process payment
@@ -197,6 +198,7 @@ $users = User::all();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
           $wallet->amount = $amount; // Assign the amount
+     $wallet->notes = $memo;
           $wallet->save();
 
           $user = User::find($user_id->id);
@@ -240,12 +242,14 @@ $users = User::all();
           $who= $request->input('who');
           $from_user_id = Auth::user()->id; // Get the authenticated user
           $user_id = User::where('email',$who)->first();
+          $memo = $request->input('memo');
        // update the wallet and user.wallet
           $wallet = new RequestWallet();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
           $wallet->amount = $amount; // Assign the amount
           $wallet->approval = 0; // Assign the amount
+     $wallet->notes = $memo; // Assign the amount
           $wallet->save();
 
            // $wallet->from_user_id
@@ -339,6 +343,8 @@ $users = User::all();
 
             $trans = RequestWallet::find($transaction);
             if ($trans) {
+
+              //  dd($trans);
                 $trans->approval = 1; // Add the new amount to the existing wallet amount
                 $trans->save();
 
@@ -346,6 +352,7 @@ $users = User::all();
                 $wallet->user_id = $who; // Assign the user_id
                 $wallet->from_user_id = $me; // Assign the from_user_id
                 $wallet->amount = $amount; // Assign the amount
+                $wallet->notes = $trans->notes; // Assign the amount
                 $wallet->save();
 
                 $user = User::find($who);

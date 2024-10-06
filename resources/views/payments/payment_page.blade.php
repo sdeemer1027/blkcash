@@ -132,7 +132,9 @@
     -->
     <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
-
+<BR>
+       <label for="memo" style="color: black;">Add an Optional Memo:</label><br>
+       <textarea name="memo" id="memo"></textarea>
    </form>
 
 </div>

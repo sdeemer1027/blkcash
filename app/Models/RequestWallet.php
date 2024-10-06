@@ -15,6 +15,7 @@ class RequestWallet extends Model
         'from_user_id',
         'amount',
         'approval',
+        'notes',
 
     ];
  protected $table = 'request_wallet'; // Specify the table name here

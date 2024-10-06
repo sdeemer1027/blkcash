@@ -13,6 +13,7 @@ class Wallet extends Model
         'user_id',
         'from_user_id',
         'amount',
+         'notes',
     ];
 
 
@@ -30,5 +31,5 @@ class Wallet extends Model
 
 
 
-    
+
 }
