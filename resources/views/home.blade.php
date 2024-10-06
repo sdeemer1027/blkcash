@@ -335,7 +335,7 @@
   </tr>
         @if($newrequestedfrom && !empty($newrequestedfrom->notes))
             <tr>
-                <td colspan="4" style="text-align:center">{{$newrequestedfroms->notes}}</td>
+                <td colspan="4" style="text-align:center">{{$newrequestedfrom->notes}}</td>
             </tr>
         @endif
   @endforeach
