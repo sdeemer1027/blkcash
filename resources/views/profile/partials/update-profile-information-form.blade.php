@@ -18,14 +18,23 @@
         @method('patch')
 
         <div>
-            <x-input-label for="validphone" :value="__('validphone')" />
-            <x-text-input id="validphone" validphone="name" type="text" class="mt-1 block w-full" :value="old('validphone', $user->validphone)"  />
+            <x-input-label for="validphone" :value="__('SMS-Confirmation')" />
+            <span style = "font-size:10px;">Confimation is needed to send you text when you get paid</span>
 
+            <select id="validphone" name="validphone" class="mt-1 block w-full">
+                <option value="1" {{ old('validphone', $user->validphone) == 1 ? 'selected' : '' }}>Yes I Confirm</option>
+                <option value="0" {{ old('validphone', $user->validphone) == 0 ? 'selected' : '' }}>No </option>
+            </select>
         </div>
-
+        {{--
+        <div>
+            <x-input-label for="validphone" :value="__('SMS-Confirmation')" />
+            <x-text-input id="validphone" validphone="name" type="text" class="mt-1 block w-full" :value="old('validphone', $user->validphone)"  />
+        </div>
+        --}}
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('UserName')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
@@ -44,8 +53,17 @@
 
 
 <div class="form-group">
+    {{--$user->profile_picture--}}
+    @if(auth()->user()->profile_picture)
+        <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture" width="40px"  style="border-radius: 30%;float:right">
+    @else
+    <!-- Default profile picture or placeholder -->
+        None Set
+    @endif
         <label for="profile_picture">Profile Picture</label>
         <input type="file" name="profile_picture" accept="image/*">
+
+
     </div>
     <div class="form-group">
          <x-input-label for="phone" :value="__('Phone')" />
