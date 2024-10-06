@@ -2,29 +2,16 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-3 text-gray-900">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-
-
-
-{{-- --}}
-Balance in your Bank: ${{$bankaccount->cash}}
-
-                    <br>
+                    Balance in your Bank: ${{$bankaccount->cash}}
+   {{--                 <br>
 Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
                     Current Bank: {{$bankaccount->name}}   {{-- [<a href="{{route('bankaccount.createnew')}}">Add New</a>] --}}
-
                     <BR>
-
-<br>
-
-
+                    <br>
                     {{--$bankaccount--}}
-
-
-
-
                                        <table class="table">
                                            <thead>
                                            <tr>
@@ -77,7 +64,7 @@ Balance in your Wallet: ${{ auth()->user()->wallet }}<BR>
         <label for="amountToWallet">Transfer Amount</label>
         <input type="number" step="0.01" class="form-control" id="amountToWallet" name="amountToWallet" required>
     </div>
-    <button type="submit" class="btn btn-secondary">Add to Wallet</button>
+    <button type="submit" class="btn btn-secondary">From Bank to Wallet</button>
 </form>
                 </div>
             </div>

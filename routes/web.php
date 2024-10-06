@@ -51,6 +51,7 @@ Route::post('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addC
 Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCreditCard')->middleware('auth');
 
 Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
+Route::get('/credit-cards/details', 'App\Http\Controllers\CreditCardController@details')->name('credit-cards.details');
 
 Route::get('/persnalsettings', 'App\Http\Controllers\SettingsController@index')->name('settings.index');
 

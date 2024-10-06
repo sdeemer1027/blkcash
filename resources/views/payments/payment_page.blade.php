@@ -16,7 +16,7 @@
     @csrf
     <div class="row" style="font-size:48px; display: flex; align-items: center; justify-content: center;">
     <div class="col-2" style="flex: 0 0 auto;">$</div>
-    <div id="displayAmount" class="col-10" style="flex: 1; text-align: left;">0.00</div>
+    <div id="displayAmount" class="col-10" style="flex: 1; text-align: left;">0</div>
     </div>
 
 
@@ -187,7 +187,7 @@
              amountInput.value = '0';
 
              // Clear the display div
-             displayAmountDiv.innerHTML = '0.00';
+             displayAmountDiv.innerHTML = '0';  //'0.00';
          }
 
          function backspaceAmount() {

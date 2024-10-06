@@ -201,22 +201,12 @@
 <!-- Home page navigations   -->
 
 <div class="icon-container d-flex justify-content-around">
-    <div class="icon">
-        <a href="{{route('transactions.index')}}" >
-        <div class="icon-circle bg-success rounded-circle">
-            <img src="/img/IMG_8309.jpeg">
-           <!-- <i class="fa fa-university" aria-hidden="true"></i>-->
-        </div>
-        </a>
-        <div class="icon-text">Transactions</div>
-    </div>
 
     <div class="icon">
         <a href="{{ route('payments.page') }}">
         <div class="icon-circle  rounded-circle">
             <img src="/img/IMG_8503cp.jpg">
             <!-- <i class="fa fa-forward" aria-hidden="true"></i> bg-success-->
-
         </div>
         </a>
         <div class="icon-text">Send/Request</div>
@@ -226,20 +216,27 @@
         <a href="{{ route('wallet.index') }}">
         <div class="icon-circle bg-success rounded-circle">
             <img src="/img/IMG_8500cp.jpg">
-            {{-- 
-            <i class="fa fa-suitcase" aria-hidden="true"></i>
---}}
-            {{-- <i class="fas fa-envelope"></i> <i class="fa fa-money" aria-hidden="true"></i> --}}
+             {{-- <i class="fas fa-envelope"></i> <i class="fa fa-money" aria-hidden="true"></i> --}}
         </div>
         </a>
         <div class="icon-text">Wallet</div>
     </div>
+
+    <div class="icon">
+        <a href="{{route('transactions.index')}}" >
+            <div class="icon-circle bg-success rounded-circle">
+                <img src="/img/IMG_8309.jpeg">
+                {{-- <i class="fa fa-university" aria-hidden="true"></i>--}}
+            </div>
+        </a>
+        <div class="icon-text">Transactions</div>
+    </div>
+
     <div class="icon">
         <a href="/profile">
         <div class="icon-circle bg-success rounded-circle">
             <img src="/img/IMG_8501cp.jpg">
-            {{-- <i class="fas fa-cog"></i>
-            --}}
+            {{-- <i class="fas fa-cog"></i> --}}
         </div>
     </a>
         <div class="icon-text">Settings</div>

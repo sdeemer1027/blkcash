@@ -31,8 +31,8 @@ class CreditCardController extends Controller
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
-        'firstName' => ''.$user->firstname.'', 
-        'lastName' => ''.$user->lastname.'', 
+        'firstName' => ''.$user->firstname.'',
+        'lastName' => ''.$user->lastname.'',
         'email' => ''.$user->email.'', // Sample email address
         'paymentMethodNonce' => '', //$request->input('payment_method_nonce'), // Payment method nonce obtained from Braintree client-side SDK
     ]);
@@ -97,12 +97,6 @@ $result = $gateway->creditCard()->create([
         'cardType' => $result->creditCard->cardType,
         // 'cvv' => $cust->cvv
     ]);
-
-
-
-
-//}
-
 
 
 return view('dashboard'); // Return the home view
@@ -209,8 +203,8 @@ if($user->braintree == null){
 
 // Create a Braintree customer
     $result = $gateway->customer()->create([
-        'firstName' => ''.$user->firstname.'', 
-        'lastName' => ''.$user->lastname.'', 
+        'firstName' => ''.$user->firstname.'',
+        'lastName' => ''.$user->lastname.'',
         'email' => ''.$user->email.'', // Sample email address
         'paymentMethodNonce' => '', //$request->input('payment_method_nonce'), // Payment method nonce obtained from Braintree client-side SDK
     ]);
@@ -314,4 +308,45 @@ dd($result,$customer);
 
 
     }
+
+    public function details()
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'ky5th6y8d4mp2qwf',
+            'publicKey' => 'zt54ghn8yv3wrhgr',
+            'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
+        ]);
+        $token = $gateway->clientToken()->generate();
+        $customer = $gateway->customer()->find($user->braintree);
+
+
+        foreach ($customer->creditCards as $cust) {
+
+            $ifcard = CreditCard::where('user_id', $user->id)
+                ->where('braintree_token', $cust->token)
+                ->first();
+
+            if (!$ifcard) {
+                $docard = CreditCard::create([
+                    'braintree_token' => $cust->token,
+                    'user_id' => $user->id,
+                    'expirationDate' => $cust->expirationDate,
+                    'last4' => $cust->last4,
+                    'cardType' => $cust->cardType,
+                    // 'cvv' => $cust->cvv
+                ]);
+            } else {
+                // Handle if the card already exists, maybe log or throw an exception
+            }
+   //         dd($customer);
+
+
+            return view('creditcards.index', compact('user','customer')); // Return the home view   ,'creditcards'
+        }
+    }
+
 }

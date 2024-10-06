@@ -9,7 +9,9 @@
                     <a href="{{route('braintree.form')}}">GOTO Bank</a>
                     --}}
                     <BR>
-                    <a href="{{route('bankaccount.index')}}">GOTO Bank Details</a>
+                    <a href="{{route('bankaccount.index')}}">Bank Details</a>
+                    <BR>
+                    <a href="{{route('credit-cards.details')}}">CreditCard Details</a>
 <BR><BR>
                 </div>
             </div>
