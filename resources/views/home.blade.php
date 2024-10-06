@@ -344,6 +344,7 @@
     <td></td>
 </tr>
 @foreach($deposits as $deposit)
+    {{--$deposit--}}
 <tr class="table-success">
     <td>
     @if ($deposit->fromUser->profile_picture)
@@ -356,6 +357,11 @@
     <td> {{$deposit->amount}}</td>
     <td>{{$deposit->fromUser->created_at->format('m/d/y')}}</td>
 </tr>
+        @if($deposit && !empty($deposit->notes))
+            <tr class="table-success">
+                <td colspan="4" style="text-align:center">{{$deposit->notes}}</td>
+            </tr>
+        @endif
 
 @endforeach
 <tr>
@@ -377,6 +383,11 @@
     <td> {{$withdraw->amount}}</td>
     <td>{{$withdraw->User->created_at->format('m/d/y')}}</td>
 </tr>
+        @if($withdraw && !empty($withdraw->notes))
+            <tr class="table-danger">
+                <td colspan="4" style="text-align:center">{{$withdraw->notes}}</td>
+            </tr>
+        @endif
 @endforeach
 </table>
 
