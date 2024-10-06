@@ -261,7 +261,7 @@
     </tr>
   @foreach($requested as $newrequest)
   <tr>
-    <td>{{$newrequest->RequestfromUser->firstname}}</td>
+    <td>{{$newrequest->RequestfromUser->name}}</td>
     <td>${{$newrequest->amount}}</td>
     <td>
         <form action="{{ route('request.remind') }}" method="POST">
@@ -302,7 +302,7 @@
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
-    <td>{{$newrequestedfrom->Requestuser->firstname}}</td>
+    <td>{{$newrequestedfrom->Requestuser->name}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
         <form action="{{ route('wallet.approve-reject') }}" method="POST">
@@ -354,7 +354,7 @@
     </td>
     <td>{{$deposit->fromUser->name}} </td>
     <td> {{$deposit->amount}}</td>
-    <td></td>
+    <td>{{$deposit->fromUser->created_at->format('m/d/y')}}</td>
 </tr>
 
 @endforeach
@@ -375,7 +375,7 @@
     </td>
     <td>{{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
-    <td></td>
+    <td>{{$withdraw->User->created_at->format('m/d/y')}}</td>
 </tr>
 @endforeach
 </table>
