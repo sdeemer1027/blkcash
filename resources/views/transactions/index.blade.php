@@ -25,8 +25,14 @@
                                 </td>
                                 <td>{{$withdraw->user['name']}}</td>
                                 <td> {{$withdraw->amount}}</td>
-                                <td>{{--$withdraw->updated_at--}}{{ Carbon\Carbon::parse($withdraw->updated_at)->format('F - d/y') }}</td>
+                                <td>{{--$withdraw->updated_at--}}{{-- Carbon\Carbon::parse($withdraw->updated_at)->format('F - d/y') --}}
+                                    {{$withdraw->updated_at->format('m/d/y')}}</td>
                             </tr>
+                            @if($withdraw && !empty($withdraw->notes))
+                                <tr class="table-secondary">
+                                    <td colspan="4" style="text-align:center;font-size: small">{{$withdraw->notes}}</td>
+                                </tr>
+                            @endif
                         @endforeach
                         <tr class="table-primary">
                             <td>Total</td>
@@ -56,9 +62,14 @@
                                 </td>
                                 <td>{{$deposit->fromUser->name}} </td>
                                 <td> {{$deposit->amount}}</td>
-                                <td>{{--$deposit->updated_at--}}{{ Carbon\Carbon::parse($deposit->updated_at)->format('F - d/y') }}</td>
+                                <td>{{--$deposit->updated_at--}}{{-- Carbon\Carbon::parse($deposit->updated_at)->format('F - d/y') --}}
+                                    {{$deposit->updated_at->format('m/d/y')}}</td>
                             </tr>
-
+                            @if($deposit && !empty($deposit->notes))
+                                <tr class="table-secondary">
+                                    <td colspan="4" style="text-align:center;font-size: small">{{$deposit->notes}}</td>
+                                </tr>
+                            @endif
                         @endforeach
                         <tr class="table-primary">
                             <td>Total</td>

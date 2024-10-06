@@ -282,7 +282,7 @@
   </tr>
         @if($newrequest && !empty($newrequest->notes))
             <tr >
-                <td colspan="4" style="text-align:center">{{$newrequest->notes}}</td>
+                <td colspan="4" style="text-align:center;font-size: small">{{$newrequest->notes}}</td>
             </tr>
         @endif
 
@@ -335,7 +335,7 @@
   </tr>
         @if($newrequestedfrom && !empty($newrequestedfrom->notes))
             <tr>
-                <td colspan="4" style="text-align:center">{{$newrequestedfrom->notes}}</td>
+                <td colspan="4" style="text-align:center;font-size: small">{{$newrequestedfrom->notes}}</td>
             </tr>
         @endif
   @endforeach
@@ -372,7 +372,7 @@
 </tr>
         @if($deposit && !empty($deposit->notes))
             <tr class="table-success">
-                <td colspan="4" style="text-align:center">{{$deposit->notes}}</td>
+                <td colspan="4" style="text-align:center;font-size: small">{{$deposit->notes}}</td>
             </tr>
         @endif
 
@@ -398,7 +398,7 @@
 </tr>
         @if($withdraw && !empty($withdraw->notes))
             <tr class="table-danger">
-                <td colspan="4" style="text-align:center">{{$withdraw->notes}}</td>
+                <td colspan="4" style="text-align:center;font-size: small">{{$withdraw->notes}}</td>
             </tr>
         @endif
 @endforeach
