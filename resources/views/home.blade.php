@@ -309,7 +309,7 @@
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
-      {{$newrequestedfrom}}
+      {{--newrequestedfrom--}}
     <td>{{$newrequestedfrom->Requestuser->name}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
