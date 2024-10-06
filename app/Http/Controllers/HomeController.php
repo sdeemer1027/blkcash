@@ -25,6 +25,13 @@ $countrequest =RequestWallet::where('from_user_id',$user)->where('approval',0)->
 $deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 $withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
+
+         // Merging deposits and withdraws into one collection
+         $mergedTransactions = $deposits->concat($withdraws);
+         // Sort the merged collection by 'updated_at' in descending order
+         $mergedTransactions = $mergedTransactions->sortByDesc('updated_at');
+
+//dd($mergedTransactions);
          $countrequestfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->count();
          $totalcount = $countrequestfrom + $countrequest;
 //dd($countrequest,$countrequestfrom,$totalcount);
@@ -54,7 +61,7 @@ $customer= collect($customer);
 
 //dd($user,$users);
 
-        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom','buser','customer','totalcount')); // Return the home view
+        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom','buser','customer','totalcount','mergedTransactions')); // Return the home view
     }
 
 

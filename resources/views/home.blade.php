@@ -248,11 +248,13 @@
 
 <!-- END Home page navigations   -->
 
-@if(!$requested == null)
+@if($requested && count($requested) > 0)
+
 <b>Who You Sent a Request To:</b><BR>
 <div class="flex">
 
  <div class="table-responsive">
+     {{--$requested--}}
 <table  class="table" width="100%">
     <tr>
         <td>Email</td>
@@ -294,7 +296,7 @@
 @endif
 
 
-@if(!empty($requestedfrom))
+@if($requestedfrom && count($requestedfrom) > 0)
 
 <HR>
 <b>Who Sent You a Request:</b><BR>
@@ -406,7 +408,97 @@
 
 
 
-<hr>
+
+
+
+{{-- }
+
+
+               <HR>Talk About this format<BR>
+
+                    <b>Transactions </b>: <BR>
+                    <table  class="table" width="100%">
+                        <tr>
+                            <td colspan="2" class="table-success"><b>Collected </b></td>
+                            <td colspan="2" class="table-danger">Paid</td>
+                        </tr>
+
+
+                        @foreach($mergedTransactions as $trans)
+
+                            @if(auth()->user()->getAuthIdentifier() == $trans->user_id)
+                                <tr class="table-success">
+                            @else
+                                <tr class="table-danger">
+                                @endif
+
+                                <td>
+                                    @if ($trans->fromUser->profile_picture)
+                                        <img src="{{ asset('storage/' . $trans->fromUser->profile_picture) }}" alt="Profile Picture" width="20px" style="border-radius: 30%;">
+                                    @else
+                                        <img src="logo.png" alt="Default Profile Picture" width="20px" style="border-radius: 30%;">
+                                    @endif
+                                </td>
+                                <td>{{$trans->fromUser->name}} </td>
+                                <td> {{$trans->amount}}</td>
+                                <td>{{$trans->fromUser->created_at->format('m/d/y')}}</td>
+                            </tr>
+                            @if($trans && !empty($trans->notes))
+                                    @if(auth()->user()->getAuthIdentifier() == $trans->user_id)
+                                        <tr class="table-success">
+                                    @else
+                                        <tr class="table-danger">
+                                            @endif
+                                    <td colspan="4" style="text-align:center;font-size: small">{{$trans->notes}}</td>
+                                </tr>
+                            @endif
+
+                        @endforeach
+
+                    </table>
+
+
+--}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <hr>
 
                     <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp{{--Auth::user()->totalcount--}}</p><p>&nbsp;</p><p>&nbsp;</p>
 
