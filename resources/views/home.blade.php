@@ -261,6 +261,7 @@
     </tr>
   @foreach($requested as $newrequest)
   <tr>
+      {{--$newrequest--}}
     <td>{{$newrequest->RequestfromUser->name}}</td>
     <td>${{$newrequest->amount}}</td>
     <td>
@@ -279,7 +280,13 @@
         </form>
     </td>
   </tr>
-  @endforeach
+        @if($newrequest && !empty($newrequest->notes))
+            <tr >
+                <td colspan="4" style="text-align:center">{{$newrequest->notes}}</td>
+            </tr>
+        @endif
+
+    @endforeach
 </table>
 </div>
 
@@ -302,6 +309,7 @@
     </tr>
   @foreach($requestedfrom as $newrequestedfrom)
   <tr>
+      {{$newrequestedfrom}}
     <td>{{$newrequestedfrom->Requestuser->name}}</td>
     <td>${{$newrequestedfrom->amount}}</td>
     <td>
@@ -325,6 +333,11 @@
         </form>
     </td>
   </tr>
+        @if($newrequestedfrom && !empty($newrequestedfrom->notes))
+            <tr>
+                <td colspan="4" style="text-align:center">{{$newrequestedfroms->notes}}</td>
+            </tr>
+        @endif
   @endforeach
 </table>
 </div>
