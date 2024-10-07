@@ -367,7 +367,7 @@
 
                     <hr>
 
- <b>Transactions </b>: <BR>
+ <b>Transactions Completed</b>: <BR>
 <table  class="table" width="100%">
   <tr>
     <td></td>
