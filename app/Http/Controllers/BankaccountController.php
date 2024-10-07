@@ -117,7 +117,7 @@ public function transfer(Request $request)
     $user->wallet-= $amount;
     $user->save();
 //    $wallet->save();
-
+ 
     $amountnew = $amount * 0.03; // 3% of the amount
     $fee = $amountnew;           // The fee is the same as $amountnew
     $bankAccount->cash += $amount - $fee; // Subtract the fee from the amount

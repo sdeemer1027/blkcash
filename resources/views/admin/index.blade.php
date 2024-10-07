@@ -7,7 +7,7 @@
 
                     <div class="d-flex justify-content-center align-items-center  flex-column">
 {{--$adminbankaccount--}}
- 
+
                         @if(in_array(Auth::user()->id, [1, 2, 3]) && request()->is('admin*'))
                             <div class="shrink-0 flex items-center">Cash Available: <b><span style="color:#0da10d">${{$adminbankaccount->cash}}</span></b>
                             </div>
