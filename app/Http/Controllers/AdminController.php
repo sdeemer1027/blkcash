@@ -29,7 +29,7 @@ class AdminController extends Controller
         // Calculate the total amount
         $totalDeposits = $deposits->sum('amount');
         // Fetch the user's bank account (will return null if it doesn't exist)
-        $adminbankaccount = bankaccount::where('id','=','100')->first();
+        $adminbankaccount = Bankaccount::where('id','=','100')->first();
 
         return view('admin.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits','adminbankaccount')); //,compact('users'));
 
