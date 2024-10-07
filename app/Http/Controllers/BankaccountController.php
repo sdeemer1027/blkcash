@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\Bankaccount;
 use Illuminate\Support\Facades\Auth;
@@ -128,6 +129,15 @@ public function transfer(Request $request)
 
     $feeaccount->cash += $fee;
     $feeaccount->save();
+
+    Transaction::create([
+        'user_id' => $user->id,
+        'amount' => $amount - $fee,
+        'fee' => $fee,
+        'transaction_type' => 'instant',
+
+    ]);
+
 
     return redirect()->back()->with('success', 'Funds transferred successfully.');
 }
