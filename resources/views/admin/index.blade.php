@@ -15,12 +15,12 @@
 
                                 <table  class="table" width="100%">
                                     <tr>
-                                        <td>UserName</td>
-                                        <td>Requested</td>
-                                        <td>Fee</td>
-                                        <td>Transfered</td>
-                                        <td>Type</td>
-                                        <td>Date</td>
+                                        <th>UserName</th>
+                                        <th>Requested</th>
+                                        <th>Fee</th>
+                                        <th>Transfered</th>
+                                        <th>Type</th>
+                                        <th>Date</th>
                                     </tr>
                                     @foreach($transactions as $transaction)
                                         {{--$deposit--}}
