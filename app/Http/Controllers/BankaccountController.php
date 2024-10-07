@@ -15,10 +15,6 @@ class BankaccountController extends Controller
         $user = Auth::user(); // Get the authenticated user
         $bankaccount= Bankaccount::where('user_id','=', $user->id)->get();
 
-///$files = Imagesetting::where('is_active','=','1')->get();
-
-//dd($user->id,$bankaccount,$user);
-
 
  $user = auth()->user(); // Get the currently authenticated user
 
@@ -134,7 +130,7 @@ public function transfer(Request $request)
         'user_id' => $user->id,
         'amount' => $amount - $fee,
         'fee' => $fee,
-        'transaction_type' => 'instant',
+        'transaction_type' => 'Instant',
 
     ]);
 
@@ -159,7 +155,6 @@ public function transferToWallet(Request $request)
 
     $amountToWallet = $request->input('amountToWallet');
 
-//dd($bankAccount->cash,$amountToWallet,$bankAccount);
     // Check if the bank account has enough cash
     if ($bankAccount->cash < $amountToWallet) {
         return redirect()->back()->with('error', 'Insufficient bank account balance.');
@@ -174,8 +169,13 @@ public function transferToWallet(Request $request)
 
  $user->wallet += $amountToWallet;
     $user->save();
-
-  //  $wallet->save();
+ //   dd($amountToWallet,$user->id);
+    Transaction::create([
+        'user_id' => $user->id,
+        'amount' => $amountToWallet,
+        'fee' => '0',
+        'transaction_type' => 'Deposit',
+    ]);
 
     return redirect()->back()->with('success', 'Funds transferred to wallet successfully.');
 }

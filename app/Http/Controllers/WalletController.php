@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Wallet;
 use App\Models\User;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\RequestWallet;
 use Braintree\Gateway; // Add this use statement at the top of your controller
 use App\Models\Imagesetting;
+use App\Models\Transaction as TransactionModel;
 use Braintree\Transaction;
 use Braintree\Customer;
 use Braintree\BraintreeCustomerSearch;
@@ -48,23 +50,33 @@ class WalletController extends Controller
 
      public function transaction(){
 
-
-        $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
 
         $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
+ //       $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
+         $deposits = Wallet::where('user_id', Auth::user()->id)
+             ->where('created_at', '>=', Carbon::now()->subDays(31)) // Filter for the last 31 days
+             ->with('fromUser')
+             ->orderBy('id', 'desc')
+             ->get();
 
-
-        $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $withdraws = Wallet::where('from_user_id',Auth::user()->id)
+            ->where('created_at', '>=', Carbon::now()->subDays(31))
+            ->with('user')
+            ->orderBy('id','desc')
+            ->get(); //->limit(2)->get();
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
-
+$tansactions = TransactionModel::where('user_id',Auth::user()->id)->get();
+//dd($tansactions);
         // Calculate the total amount
         $totalAmount = $withdraws->sum('amount');
         // Calculate the total amount
         $totalDeposits = $deposits->sum('amount');
-
-        return view('transactions.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
+        $totalfee = $tansactions->sum('fee');
+//dd($tansactions,$totalfee);
+        return view('transactions.index',compact('user','deposits',
+            'withdraws','requested','requestedfrom','totalAmount','totalDeposits','tansactions',
+        'totalfee')); //,compact('users'));
 
     }
 
@@ -104,14 +116,6 @@ class WalletController extends Controller
 //dd($customer,$transaction,$transaction2,$trans,$customer2);
 
 
-
-
-
-
-
-
-        //= Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-        //= Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
 
 
         return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
