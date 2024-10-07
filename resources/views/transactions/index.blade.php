@@ -83,7 +83,9 @@
 {{--$tansactions--}}
                     <table  class="table" width="100%">
                         <tr>
+                            {{--
                             <th>UserName</th>
+                            --}}
                             <th>Requested</th>
                             <th>Fee</th>
                             <th>Transfered</th>
@@ -93,9 +95,9 @@
                         @foreach($tansactions as $transaction)
                             {{--$deposit--}}
                             <tr class="table-success">
-                                <td>
+                               {{-- <td>
                                     {{$transaction->user->name}}
-                                </td>
+                                </td> --}}
                                 <td>{{$transaction->fee + $transaction->amount}}</td>
                                 <td>{{$transaction->fee}} </td>
                                 <td> {{$transaction->amount}}</td>
@@ -110,13 +112,12 @@
 
 
                         @endforeach
-                        <tr>
+                        <tr class="table-primary">
                             <th>Total</th>
-                            <th></th>
                             <th >${{$totalfee}}</th>
                             <th></th>
                             <th></th>
-
+                            <th></th>
                         </tr>
                     </table>
 
