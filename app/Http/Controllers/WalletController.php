@@ -21,23 +21,17 @@ class WalletController extends Controller
 {
 
     protected $twilio;
-
     public function __construct(TwillioService $twilio)
     {
         $this->twilio = $twilio;
     }
-
-
      public function index()
     {
-
- //       $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
 
         $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
-
-        $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
+        $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get();
+        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get();
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
 
     // Calculate the total amount
@@ -66,8 +60,8 @@ class WalletController extends Controller
             ->orderBy('id','desc')
             ->get(); //->limit(2)->get();
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
-$tansactions = TransactionModel::where('user_id',Auth::user()->id)->get();
-//dd($tansactions);
+        $tansactions = TransactionModel::where('user_id',Auth::user()->id)->get();
+
         // Calculate the total amount
         $totalAmount = $withdraws->sum('amount');
         // Calculate the total amount
@@ -152,21 +146,6 @@ public function addFunds(Request $request)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      public function paymentPage()
     {
 
@@ -178,6 +157,7 @@ $users = User::all();
 
      public function processPayment(Request $request)
     {
+ //      dd($request);
     // Validate the incoming request
     $validated = $request->validate([
         'action' => 'required|in:pay,request', // 'action' must be either 'pay' or 'request'
@@ -190,7 +170,21 @@ $users = User::all();
         $memo = $request->input('memo');
 
  if ($action === 'pay') {
-            // Process payment
+
+
+     if (isset($_GET['instant']) && $_GET['instant'] === 'on') {
+         // Checkbox is checked, and the value is "on"
+         $tfee = 0.01;
+         $amountr = $amount * $tfee; //0.03; // 3% of the amount
+         $fee =  $amountr;           // The fee is the same as $amountr
+
+     } else {
+         // Checkbox is either not checked or not present
+  //       dd($fee);
+         $fee = 0;
+     }
+
+     // Process payment
             // from_user_id YOU
             // To user_id WHO
           $who= $request->input('who');
@@ -201,8 +195,9 @@ $users = User::all();
           $wallet = new Wallet();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
-          $wallet->amount = $amount; // Assign the amount
-     $wallet->notes = $memo;
+          $wallet->amount = $amount; //- $fee; // Assign the amount
+          $wallet->notes = $memo;
+ //         dd($wallet);
           $wallet->save();
 
           $user = User::find($user_id->id);
