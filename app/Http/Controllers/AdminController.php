@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bankaccount;
+use App\Models\Bankaccount;
 use App\Models\RequestWallet;
 use App\Models\User;
 use App\Models\Wallet;
