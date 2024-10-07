@@ -4,20 +4,21 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">Wallet: <b><span style="color:#0da10d">${{ Auth::user()->wallet }}</span></b>                   
+
+                <div class="shrink-0 flex items-center">Wallet: <b><span style="color:#0da10d">${{ Auth::user()->wallet }}</span></b>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">                  
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
-                    
+
                     <x-slot name="trigger">
-                            <div>                      
+                            <div>
                     @if(auth()->user()->profile_picture)
                        <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture" width="40px"  style="border-radius: 30%;">
                     @else
@@ -33,11 +34,19 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        {{-- 
+                        {{--
                          <x-dropdown-link :href="route('dashboard')">
                            Dashboard
                         </x-dropdown-link>
                         --}}
+                        @if(in_array(Auth::user()->id, [1, 2, 3]))
+
+
+                        <x-dropdown-link :href="route('admin.index')">
+                            Admin
+                        </x-dropdown-link>
+                        @endif
+
                         <x-dropdown-link :href="route('profile.edit')">
                            {{ Auth::user()->name }}
                         </x-dropdown-link>
@@ -82,17 +91,24 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
+                @if(in_array(Auth::user()->id, [1, 2, 3]))
+
+
+                    <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        Admin
+                    </x-responsive-nav-link>
+                @endif
             <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">
                 {{ Auth::user()->name }}
             </x-responsive-nav-link>
-                {{--       
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>    
+                {{--
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 --}}
             </div>
 
             <div class="mt-3 space-y-1">
-                {{-- 
+                {{--
                 <x-responsive-nav-link :href="route('dashboard')">
                    Dashboard
                 </x-responsive-nav-link>

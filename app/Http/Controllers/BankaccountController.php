@@ -99,7 +99,7 @@ public function transfer(Request $request)
     $user = auth()->user(); // Get the authenticated user
     $wallet = $user->wallet; // Get the user's wallet
     $bankAccount = $user->bankaccount()->first(); // Get the user's bank account
-//dd($wallet);
+    $feeaccount = Bankaccount::where('id','=','100')->first();
     // Validate the transfer amount
     $request->validate([
         'amount' => 'required|numeric|min:0.01|max:' . $wallet, // Ensure the user cannot transfer more than they have
@@ -118,9 +118,16 @@ public function transfer(Request $request)
     $user->save();
 //    $wallet->save();
 
+    $amountnew = $amount * 0.03; // 3% of the amount
+    $fee = $amountnew;           // The fee is the same as $amountnew
+    $bankAccount->cash += $amount - $fee; // Subtract the fee from the amount
+
     // Add to bank account's cash
-    $bankAccount->cash += $amount;
+
     $bankAccount->save();
+
+    $feeaccount->cash += $fee;
+    $feeaccount->save();
 
     return redirect()->back()->with('success', 'Funds transferred successfully.');
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bankaccount;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth; // Import Auth facade
@@ -31,7 +32,6 @@ $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->wit
          // Sort the merged collection by 'updated_at' in descending order
          $mergedTransactions = $mergedTransactions->sortByDesc('updated_at');
 
-//dd($mergedTransactions);
          $countrequestfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->count();
          $totalcount = $countrequestfrom + $countrequest;
 //dd($countrequest,$countrequestfrom,$totalcount);
