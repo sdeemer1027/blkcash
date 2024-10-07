@@ -244,20 +244,20 @@
     </div>
 </div>
 
-<BR><BR>
+<HR>
 
 <!-- END Home page navigations   -->
 
 @if($requested && count($requested) > 0)
 
-<b>Who You Sent a Request To:</b><BR>
+<b>Open Request for Payment:</b><BR>
 <div class="flex">
 
  <div class="table-responsive">
      {{--$requested--}}
 <table  class="table" width="100%">
     <tr>
-        <td>Email</td>
+        <td>User Name</td>
         <td>Amount</td>
         <td colspan="2">Actions</td>
     </tr>
@@ -293,19 +293,28 @@
 </div>
 
 </div>
-@endif
+                    @else
 
+                        <div class="flex">
+                            <div class="table-responsive">
+                                <li><b>You have no open request for payments</b></li>
+                               <!-- Who You Sent a Request To: -->
+                            </div>
+                        </div>
 
+                    @endif
+
+                    <HR>
 @if($requestedfrom && count($requestedfrom) > 0)
 
-<HR>
-<b>Who Sent You a Request:</b><BR>
+
+<b>Who Is Asking You for Payments:</b><BR>
 <div class="flex">
 
 <div class="table-responsive">
 <table  class="table" width="100%">
     <tr>
-        <td>Email</td>
+        <td>User Name</td>
         <td>Amount</td>
         <td colspan="2">Actions</td>
     </tr>
@@ -345,10 +354,18 @@
 </div>
 
 </div>
-<hr>
+
+                    @else
+
+                        <div class="flex">
+                            <div class="table-responsive">
+                                <li><b>No one is asking you for payments</b></li>
+                                <!-- <b>Who Sent You a Request:</b><BR> -->
+                            </div>
+                        </div>
 @endif
 
-
+                    <hr>
 
  <b>Transactions </b>: <BR>
 <table  class="table" width="100%">
