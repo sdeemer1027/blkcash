@@ -11,6 +11,7 @@ use App\Http\Controllers\BraintreeController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\BankaccountController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,9 +104,11 @@ Route::post('/qrcode/read', [QrCodeController::class, 'read'])->name('qrcode.rea
 
 
 
+//Route::get('/admin',[AdminController::class, 'index'])->name('admin.index');
 
-
-
+Route::get('/admin', [AdminController::class, 'index'])
+    ->name('admin.index')
+    ->middleware('check.admin');
 
 
 /*
