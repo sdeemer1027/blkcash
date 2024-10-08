@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bankaccount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Wallet;
@@ -168,20 +169,23 @@ $users = User::all();
         $action = $request->input('action');
         $amount = $request->input('amount');
         $memo = $request->input('memo');
-
+        $inst = $request->input('instant');
  if ($action === 'pay') {
 
+     if($inst){
+         $feeaccount = Bankaccount::where('id','=','100')->first();
 
-     if (isset($_GET['instant']) && $_GET['instant'] === 'on') {
-         // Checkbox is checked, and the value is "on"
+
+        // instant transfer is on $75134.38
          $tfee = 0.01;
-         $amountr = $amount * $tfee; //0.03; // 3% of the amount
+         $amountr = $amount * $tfee;
          $fee =  $amountr;           // The fee is the same as $amountr
+         $feeaccount->cash += $fee;
+         $feeaccount->save();
 
-     } else {
-         // Checkbox is either not checked or not present
-  //       dd($fee);
-         $fee = 0;
+     }else{
+         // intstant transfer is not checked
+         $fee =  0;
      }
 
      // Process payment
@@ -195,14 +199,14 @@ $users = User::all();
           $wallet = new Wallet();
           $wallet->user_id = $user_id->id; // Assign the user_id
           $wallet->from_user_id = $from_user_id; // Assign the from_user_id
-          $wallet->amount = $amount; //- $fee; // Assign the amount
+          $wallet->amount = $amount - $fee; // Assign the amount
           $wallet->notes = $memo;
  //         dd($wallet);
           $wallet->save();
 
           $user = User::find($user_id->id);
             if ($user) {
-                $user->wallet += $amount; // Add the new amount to the existing wallet amount
+                $user->wallet += $amount - $fee; // Add the new amount to the existing wallet amount
                 $user->save();
 
                 $frm = User::where('id',$wallet->from_user_id)->first();
@@ -211,13 +215,22 @@ $users = User::all();
                     $rcvimg = Imagesetting::where('id','=', $user->rcv)->first();
                     $payeeimg= '/'.$rcvimg->path.'/'.$rcvimg->name;
                     $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
-                    $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                     if($inst){
+                         $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount. ' this was an instant transfer you are charged '.$fee.' for a total of '.$amount - $fee;
+                     }else{
+                         $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                     }
                     $imageUrl = 'http://dashboard.blk.cash'.$payeeimg;
                   // Send SMS with image
                     $this->twilio->sendSMSimg($phoneNumber, $message, $imageUrl);
                  }else{
                     $phoneNumber = $user->phone;    //'+19543910398'; // The recipient's phone number
-                    $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                     if($inst){
+                         $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount. ' this was an instant transfer you are charged '.$fee.' for a total of '.$amount - $fee;
+                     }else{
+                         $message = 'BLK.CASH Alert:  ' . $frm->firstname . ' Sent you $'.$amount;
+                     }
+
                   // Send SMS
                     $this->twilio->sendSMS($phoneNumber, $message);
                  }
