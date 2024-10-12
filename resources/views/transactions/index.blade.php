@@ -1,25 +1,26 @@
 <x-app-layout>
-    <style>
-        .whide-row {
-            display: none;
-        }
-        .dhide-row {
-            display: none;
-        }
-    </style>
+
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<h3>Activity <!-- for the last 31 days --></h3>
+                    <style>
+                        .whide-row {
+                            display: none;
+                        }
+                        .dhide-row {
+                            display: none;
+                        }
+                    </style>
+                    <h3>Activity <!-- for the last 31 days --></h3>
                     Withdraw From Wallet: {{--$withdraws--}}<BR>
                     <table class="table" width="100%">
                         <tr>
                             <td></td>
                             <td><b>You Paid</b></td>
                             <td></td>
-                            <td><button id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button></td>
+                            <td><button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button></td>
                         </tr>
                         @foreach($withdraws as $withdraw)
 
@@ -57,7 +58,7 @@
                             <td></td>
                             <td><b>You Collected </b></td>
                             <td></td>
-                            <td><button id="toggleButton2" onclick="toggleRows2()">Show/Hide Rows</button></td>
+                            <td><button class="btn btn-danger btn-sm" id="toggleButton2" onclick="toggleRows2()">Show/Hide Rows</button></td>
                         </tr>
                         @foreach($deposits as $deposit)
                             <tr class="table-success dhide-row" id="dhide">
