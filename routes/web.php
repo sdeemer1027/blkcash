@@ -69,6 +69,7 @@ Route::post('/payments/process', [WalletController::class, 'processPayment'])->n
 
 Route::get('/transaction', [WalletController::class, 'transaction'])->name('transactions.index');
 route::get('/account/notificication',[WalletController::class, 'notify'])->name('transactions.notify');
+Route::get('/transaction/bank', [WalletController::class, 'transactionbank'])->name('transactions.bankframe');
 
 
 Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
