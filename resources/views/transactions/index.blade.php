@@ -19,8 +19,8 @@
                         <tr>
                             <td></td>
                             <td><b>You Paid</b></td>
-                            <td></td>
-                            <td><button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button></td>
+
+                            <td colspan="2"><button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button></td>
                         </tr>
                         @foreach($withdraws as $withdraw)
 
@@ -57,8 +57,8 @@
                         <tr>
                             <td></td>
                             <td><b>You Collected </b></td>
-                            <td></td>
-                            <td><button class="btn btn-danger btn-sm" id="toggleButton2" onclick="toggleRows2()">Show/Hide Rows</button></td>
+
+                            <td colspan="2"><button class="btn btn-danger btn-sm" id="toggleButton2" onclick="toggleRows2()">Show/Hide Rows</button></td>
                         </tr>
                         @foreach($deposits as $deposit)
                             <tr class="table-success dhide-row" id="dhide">
