@@ -8,35 +8,36 @@
                     <div class="d-flex justify-content-center align-items-center  flex-column">
                         {{--$adminbankaccount--}}
                         {{--$transactions--}}
+
                         @if(in_array(Auth::user()->id, [1, 2, 3]) && request()->is('admin*'))
                             <div class="shrink-0 flex items-center">Cash Available: <b><span style="color:#0da10d">${{$adminbankaccount->cash}}</span></b>
                             </div>
                             <div class="shrink-0 flex items-center">
-                                <a href="{{route('admin.index')}}"> <i class="fa fa-university" aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                <a href="{{route('admin.users')}}"> <i class="fa fa-user" aria-hidden="true"></i></a>
+                               <a href="{{route('admin.index')}}"> <i class="fa fa-university" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                               <a href="{{route('admin.users')}}"> <i class="fa fa-user" aria-hidden="true"></i></a>
                             </div>
                             <div class="shrink-0 flex items-center">
 
                                 <table  class="table" >
                                     <tr>
                                         <th>UserName</th>
-                                        <th>Requested</th>
-                                        <th>Fee</th>
-                                        <th>Transfered</th>
-                                        <th>Type</th>
-                                        <th>Date</th>
+                                        <th>Email</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
-                                    @foreach($transactions as $transaction)
+                                    @foreach($users as $usr)
                                         {{--$deposit--}}
                                         <tr class="table-success">
                                             <td>
-                                                {{$transaction->user->name}}
+                                                {{$usr->name}}
                                             </td>
-                                            <td>{{$transaction->fee + $transaction->amount}}</td>
-                                            <td>{{$transaction->fee}} </td>
-                                            <td> {{$transaction->amount}}</td>
-                                            <td> {{$transaction->transaction_type}}</td>
-                                            <td>{{$transaction->created_at->format('m/d/y')}}</td>
+                                            <td></td>
+                                            <td>{{$usr->email}}</td>
+                                            <td> </td>
+                                            <td> </td>
+                                            <td></td>
                                         </tr>
 
 
@@ -49,7 +50,7 @@
 
                             </div>
 
-                            {{$transactions->links()}}
+                            {{$users->links()}}
 
 
                         @else

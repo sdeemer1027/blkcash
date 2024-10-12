@@ -109,7 +109,9 @@ Route::post('/qrcode/read', [QrCodeController::class, 'read'])->name('qrcode.rea
 Route::get('/admin', [AdminController::class, 'index'])
     ->name('admin.index')
     ->middleware('check.admin');
-
+Route::get('/admin/users', [AdminController::class, 'users'])
+    ->name('admin.users')
+    ->middleware('check.admin');
 
 /*
 Route::get('/dashboard', function () {

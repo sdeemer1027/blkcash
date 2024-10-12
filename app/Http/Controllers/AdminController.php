@@ -15,13 +15,27 @@ class AdminController extends Controller
     {
 
         //       $user = Auth::user(); // Get the authenticated user
-        $user = User::where('id',Auth::user()->id)->first();
+        $user = User::where('id',Auth::user()->id)
+            ->first();
 
-        $transactions = Transaction::with('user')->get();
+        $transactions = Transaction::with('user')->paginate(5); //->get()
         // Fetch the Admin bank account (will return null if it doesn't exist)
         $adminbankaccount = Bankaccount::where('id','=','100')->first();
 
         return view('admin.index',compact('user','adminbankaccount','transactions')); //,compact('users'));
+
+    }
+    public function users()
+    {
+
+        //       $user = Auth::user(); // Get the authenticated user
+        $user = User::where('id',Auth::user()->id)->first();
+
+        $users = User::paginate(5); // with('user')-> ->get()
+        // Fetch the Admin bank account (will return null if it doesn't exist)
+        $adminbankaccount = Bankaccount::where('id','=','100')->first();
+
+        return view('admin.users',compact('user','adminbankaccount','users')); //,compact('users'));
 
     }
 }
