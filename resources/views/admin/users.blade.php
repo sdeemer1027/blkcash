@@ -31,7 +31,7 @@
                                         {{--$deposit--}}
                                         <tr class="table-success">
                                             <td>
-                                                {{$usr->name}}
+                                               <a href="{{route('admin.getuser', $usr->id)}}"> {{$usr->name}} </a>
                                             </td>
                                             <td></td>
                                             <td>{{$usr->email}}</td>
