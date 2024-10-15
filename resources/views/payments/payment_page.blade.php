@@ -119,7 +119,7 @@
 
     <input type="hidden"  id="who" name="who"  required  style="background:#ffffff; color: black; border: 1px solid #ccc; padding: 5px; width: 100%;"  value="{{ request('id') }}">
     <br><br>
-      <input type="checkbox" name="instant" > Instant<br>
+{{--      <input type="checkbox" name="instant" > Instant<br>  --}}
     <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
     <BR>

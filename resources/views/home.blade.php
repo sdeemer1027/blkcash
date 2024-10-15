@@ -387,7 +387,7 @@
     </td>
     <td>{{$deposit->fromUser->name}} </td>
     <td> {{$deposit->amount}}</td>
-    <td>{{$deposit->fromUser->created_at->format('m/d/y')}}</td>
+    <td>{{$deposit->fromUser->updated_at->format('m/d/y')}}</td>
 </tr>
         @if($deposit && !empty($deposit->notes))
             <tr class="table-success">
@@ -413,7 +413,7 @@
     </td>
     <td>{{$withdraw->user['name']}}</td>
     <td> {{$withdraw->amount}}</td>
-    <td>{{$withdraw->User->created_at->format('m/d/y')}}</td>
+    <td>{{$withdraw->User->updated_at->format('m/d/y')}}</td>
 </tr>
         @if($withdraw && !empty($withdraw->notes))
             <tr class="table-danger">
@@ -424,7 +424,7 @@
 </table>
 
 
-
+{{--$withdraws--}}
 
 
 
