@@ -133,15 +133,14 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Card</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th colspan="2">Card</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($customer->creditCards as $creditCard)
                         <tr>
-                            <td>
+                            <td colspan="2">
                                 <div class="box-credit">
                                     <div class="box-crdits">
                                         <img credit-logo src="/logo.png" />
@@ -166,12 +165,13 @@
                                 </div>
                                 {{-- $creditCard->cardholderName ?: 'No Cardholder Name Provided' --}}
                             </td>
-
+                        </tr>
+<tr>
                             <td>
                                 <a href="#"><i class="fa fa-edit" aria-hidden="true"></i>edit</a>
                             </td>
                             <td>
-                                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i>delete</a>
+                                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 {{--}}<br>
                                 {{$creditCard->token--}}
 
