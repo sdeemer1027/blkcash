@@ -342,11 +342,35 @@ dd($result,$customer);
             } else {
                 // Handle if the card already exists, maybe log or throw an exception
             }
-   //         dd($customer);
+     //       dd($customer,$ifcard);
 
 
             return view('creditcards.index', compact('user','customer')); // Return the home view   ,'creditcards'
         }
+    }
+
+
+    public function deleteCreditCard($token)
+    {
+/*
+credit_card->braintree_token is = $customer->creditCard->token
+need to create a soft delete
+*/
+//dd($token);
+        $delToken = $token;
+        $user = Auth::user(); // Get the authenticated user
+
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'ky5th6y8d4mp2qwf',
+            'publicKey' => 'zt54ghn8yv3wrhgr',
+            'privateKey' => 'b6ca1ce36ce4343047b4c4796bcbad73'
+        ]);
+        $token = $gateway->clientToken()->generate();
+ //       $customer = $gateway->customer()->find($user->braintree);
+        $result = $gateway->paymentMethod()->delete($delToken);
+
+
     }
 
 }

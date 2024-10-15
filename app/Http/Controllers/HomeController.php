@@ -17,15 +17,15 @@ class HomeController extends Controller
 {
      public function index()
     {
- $user = Auth::user()->id; // Get the authenticated user
-//$user = User::where('id',$user->id)->with('creditCards')->get();
-$buser = User::where('id' , $user)->first();
-$cc = CreditCard::where('user_id',$user)->with('user')->get();
-$requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
-$countrequest =RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->count();
-$deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
-$withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
-$requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
+         $user = Auth::user()->id; // Get the authenticated user
+
+         $buser = User::where('id' , $user)->first();
+         $cc = CreditCard::where('user_id',$user)->with('user')->get();
+         $requested = RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->get();
+         $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->get();
+         $countrequest =RequestWallet::where('from_user_id',$user)->where('approval',0)->with('RequestfromUser')->count();
+         $deposits = Wallet::where('user_id',$user)->with('fromUser')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
+         $withdraws = Wallet::where('from_user_id',$user)->with('user')->orderBy('id','desc')->limit(2)->get(); //get(); //->limit(2)->get();
 
          // Merging deposits and withdraws into one collection
          $mergedTransactions = $deposits->concat($withdraws);
@@ -34,21 +34,14 @@ $requestedfrom = RequestWallet::where('user_id',$user)->where('approval',0)->wit
 
          $countrequestfrom = RequestWallet::where('user_id',$user)->where('approval',0)->with('Requestuser')->count();
          $totalcount = $countrequestfrom + $countrequest;
-//dd($countrequest,$countrequestfrom,$totalcount);
-$braincc = [];
 
          Auth::user()->totalcount = $totalcount;
+         foreach($cc as $creditcard){
+             if($creditcard->braintree_token != '1111'){
+                 }
+    }
 
-//dd($user,$buser);
-
-foreach($cc as $creditcard){
-     if($creditcard->braintree_token != '1111'){
-          //dd($creditcard->braintree_token);
-     }
-}
-
-
-$gateway = new Gateway([
+    $gateway = new Gateway([
         'environment' => 'sandbox',
         'merchantId' => 'ky5th6y8d4mp2qwf',
         'publicKey' => 'zt54ghn8yv3wrhgr',
@@ -56,14 +49,12 @@ $gateway = new Gateway([
     ]);
       $token = $gateway->clientToken()->generate();
       $customer = $gateway->customer()->find($buser->braintree);
-$customer= collect($customer);
-//dd($buser,$customer);
+      $customer= collect($customer);
 
-//dd($user,$users);
-
-        return view('home', compact('user','cc','deposits','withdraws','requested','requestedfrom','buser','customer','totalcount','mergedTransactions')); // Return the home view
+       return view('home', compact('user','cc','deposits','withdraws',
+                                               'requested','requestedfrom','buser','customer',
+                                               'totalcount','mergedTransactions')); // Return the home view
     }
-
 
     public function dashboardcount()
     {

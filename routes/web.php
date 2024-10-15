@@ -53,6 +53,7 @@ Route::get('/credit-cards/add', 'App\Http\Controllers\CreditCardController@addCr
 
 Route::post('/credit-cards', 'App\Http\Controllers\CreditCardController@store')->name('credit-cards.store');
 Route::get('/credit-cards/details', 'App\Http\Controllers\CreditCardController@details')->name('credit-cards.details');
+Route::delete('/credit-card/delete/{token}', 'App\Http\Controllers\CreditCardController@deleteCreditCard')->name('credit-cards.delete');
 
 Route::get('/persnalsettings', 'App\Http\Controllers\SettingsController@index')->name('settings.index');
 
