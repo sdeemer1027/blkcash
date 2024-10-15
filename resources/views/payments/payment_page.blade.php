@@ -1,9 +1,9 @@
 <x-app-layout>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <div class="py-3" style="background:#ffffff;">
+    <div class="py-0" style="background:#ffffff;">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="background:#ffffff;">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="background:#ffffff;">
-          <div class="p-6 text-gray-900" style="background:#ffffff;">
+          <div class="p-0 text-gray-900" style="background:#ffffff;">
             <div class="flex justify-center" >
    <style>
       #searchInput::placeholder {
