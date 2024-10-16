@@ -99,10 +99,11 @@
         <div class="calculator-button" onclick="addToAmount(7)">7</div>
         <div class="calculator-button" onclick="addToAmount(8)">8</div>
         <div class="calculator-button" onclick="addToAmount(9)">9</div>
-        <div class="calculator-button" onclick="clearAmount()">C</div>
+  {{--       <div class="calculator-button" onclick="clearAmount()">C</div> --}}
+        <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
         <div class="calculator-button" onclick="addToAmount(0)">0</div>
         <div class="calculator-button" onclick="addDecimal()">.</div>
-        <div class="calculator-button" onclick="backspaceAmount()">⌫</div>
+
 
     </div>
 
