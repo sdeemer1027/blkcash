@@ -26,7 +26,7 @@
         */
         width: 100%;
         padding: 25px;
-        margin-bottom: 45px;
+        margin-bottom: 10px;
         position: relative;
         z-index: 1;
         overflow: hidden;
