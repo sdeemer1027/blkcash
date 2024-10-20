@@ -293,18 +293,19 @@
 </div>
 
 </div>
+                        <HR>
                     @else
-
+{{--
                         <div class="flex">
                             <div class="table-responsive">
                                 <li><b>You have no open request for payments</b></li>
                                <!-- Who You Sent a Request To: -->
                             </div>
                         </div>
-
+--}}
                     @endif
 
-                    <HR>
+
 @if($requestedfrom && count($requestedfrom) > 0)
 
 
@@ -354,18 +355,19 @@
 </div>
 
 </div>
-
+                        <hr>
                     @else
-
+{{--
                         <div class="flex">
                             <div class="table-responsive">
                                 <li><b>No one is asking you for payments</b></li>
                                 <!-- <b>Who Sent You a Request:</b><BR> -->
                             </div>
                         </div>
+                        --}}
 @endif
 
-                    <hr>
+
 
  <b>Transactions Completed</b>: <BR>
 <table  class="table" width="100%">
