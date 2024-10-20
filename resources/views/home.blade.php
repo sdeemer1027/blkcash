@@ -124,7 +124,7 @@
 }
 </style>
 
-<a href="/credit-cards/add" class="btn btn-primary btn-sm" style="float: right;width:95px;">Add Card</a><BR>
+<a href="/credit-cards/add"  style="float: right;">Add Card</a><BR>
 <div class="slide-container">
  <div class="slide">
      @if(!$buser->braintree)
