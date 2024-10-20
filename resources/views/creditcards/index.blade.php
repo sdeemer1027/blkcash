@@ -133,13 +133,14 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th colspan="2">Card</th>
+                            <th>Card</th>
+                            <th><a href="/credit-cards/add" class="btn btn-primary btn-sm" style="float: right;width:95px;">Add Card</a></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($customer->creditCards as $creditCard)
                         <tr>
-                            <td >
+                            <td  style="text-align: center;">
                                 <div class="box-credit">
                                     <div class="box-crdits">
                                         <img credit-logo src="/logo.png" />
@@ -165,7 +166,7 @@
                                 {{-- $creditCard->cardholderName ?: 'No Cardholder Name Provided' --}}
                             </td>
 
-                            <td>
+                            <td  style="float: right;">
 <BR>
                                 {{--
                                                                 <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -175,10 +176,10 @@
                                 <form action="{{ route('credit-cards.delete', $creditCard->token) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this card?')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" style=" width:95px;" onclick="return confirm('Are you sure you want to delete this card?')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                                 </form>
                                 <BR><BR>
-                                <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> edit</a>
+                                <a href="#" class="btn btn-warning btn-sm" style=" width:95px;"><i class="fa fa-edit" aria-hidden="true"></i> edit</a>
 
                             </td>
                         </tr>

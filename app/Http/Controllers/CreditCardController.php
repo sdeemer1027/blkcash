@@ -370,6 +370,9 @@ need to create a soft delete
  //       $customer = $gateway->customer()->find($user->braintree);
         $result = $gateway->paymentMethod()->delete($delToken);
 
+        $customer = $gateway->customer()->find($user->braintree);
+
+        return view('creditcards.index', compact('user','customer')); // Return the home view   ,'creditcards'
 
     }
 
