@@ -17,7 +17,7 @@
 
                         .box-credit {
                             display: inline-block;
-                            width: 300px; /* Set a fixed width for each credit card box */
+                            width: 250px; /* Set a fixed width for each credit card box */
                             margin-right: 20px; /* Add margin between cards */
                         }
                         .box-crdits {
@@ -27,7 +27,7 @@
                             */
                             width: 100%;
                             padding: 25px;
-                            margin-bottom: 45px;
+                            margin-bottom: 10px;
                             position: relative;
                             z-index: 1;
                             overflow: hidden;
@@ -134,13 +134,12 @@
                         <thead>
                         <tr>
                             <th colspan="2">Card</th>
-
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($customer->creditCards as $creditCard)
                         <tr>
-                            <td colspan="2">
+                            <td >
                                 <div class="box-credit">
                                     <div class="box-crdits">
                                         <img credit-logo src="/logo.png" />
@@ -165,23 +164,21 @@
                                 </div>
                                 {{-- $creditCard->cardholderName ?: 'No Cardholder Name Provided' --}}
                             </td>
-                        </tr>
-<tr>
+
                             <td>
-                                <a href="#"><i class="fa fa-edit" aria-hidden="true"></i>edit</a>
-                            </td>
-                            <td>
-                                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                {{--}}<br>
+<BR>
+                                {{--
+                                                                <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                                }}<br>
                                 {{$creditCard->token--}}
 
                                 <form action="{{ route('credit-cards.delete', $creditCard->token) }}" method="POST" style="display: inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this card?')">Delete It</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this card?')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                                 </form>
-
-
+                                <BR><BR>
+                                <a href="#" class="btn btn-warning btn-sm"><i class="fa fa-edit" aria-hidden="true"></i> edit</a>
 
                             </td>
                         </tr>
