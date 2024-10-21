@@ -3,8 +3,9 @@
     <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-3 text-gray-900">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                    <a href="{{route('home')}}">Home</a> -> <b>Transactions</b> -> <a href="#">Reports</a>
                     <style>
                         .whide-row {
                             display: none;
@@ -14,7 +15,7 @@
                         }
                     </style>
                     <h3>Activity <!-- for the last 31 days --></h3>
-                    Withdraw From Wallet: {{--$withdraws--}}<BR>
+                    From Wallet: {{--$withdraws--}}<BR>
                     <table class="table" width="100%">
                         <tr>
                             <td></td>
@@ -54,7 +55,7 @@
                         </tr>
                     </table>
 {{--$withdraws->links()--}}
-                    Deposit to Wallet: {{--$deposits--}}<BR>
+                    To Wallet: {{--$deposits--}}<BR>
 
                     <table  class="table" width="100%">
                         <tr>
