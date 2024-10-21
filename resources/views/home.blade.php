@@ -123,8 +123,9 @@
     border-radius: 20%!important;
 }
 </style>
-
+<div class="col-12">
 <a href="/credit-cards/add"  class="btn btn-primary btn-sm" style="width:95px;">Add Card</a><BR>
+</div>
 <div class="slide-container">
  <div class="slide">
      @if(!$buser->braintree)

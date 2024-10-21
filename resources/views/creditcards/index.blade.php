@@ -4,6 +4,66 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                    <a href="{{route('home')}}">Home</a> -> <a href="{{route('wallet.index')}}">Wallet</a> -> <a href="{{route('bankaccount.index')}}">Bank Details</a> -> <b>Credit Card Details</b>
+                    {{--
+                                       <style>
+
+                                           .icon-container {
+                                               display: flex;
+                                               justify-content: center;
+                                               align-items: center;
+                                               /*  height: 100vh;*/ /* Full viewport height for vertical centering */
+                                               flex-direction: column; /* Stack icon and text vertically */
+                                               /*   margin-top: 20px; */
+                                           }
+
+                                           .icon {
+                                               text-align: center;
+                                           }
+
+                                           .icon-circle {
+                                               width: 80px;
+                                               height: 75px;
+                                               display: flex; /* Align the image inside the circle */
+                                               justify-content: center;
+                                               align-items: center;
+                                               border-radius: 25%;
+                                           }
+                                           .icon-circle img {
+                                               width: 100%; /* Ensure the image fits inside the circle */
+                                               height: 100%;
+                                               object-fit: cover; /* Maintain aspect ratio */
+                                           }
+
+                                           .icon-circle i {
+                                               font-size: 30px;
+                                               color: white;
+                                           }
+
+                                           .icon-text {
+                                               margin-top: 5px;
+                                               font-size: 14px;
+                                           }
+
+
+                                           .rounded-circle {
+                                               border-radius: 20%!important;
+                                           }
+                                       </style>
+                                       <div class="icon-container">
+                                           <div class="icon">
+                                               <a href="{{ route('wallet.index') }}">
+                                                   <div class="icon-circle bg-success rounded-circle">
+                                                       <img src="/img/IMG_8500cp.jpg">
+                                                   </div>
+                                               </a>
+                                               <div class="icon-text">Your Wallet</div>
+                                           </div>
+                                       </div>
+
+
+                   --}}
+                    <br>
 
                     <style>
                         .slide-container {
