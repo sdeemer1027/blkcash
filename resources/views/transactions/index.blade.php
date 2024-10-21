@@ -19,11 +19,14 @@
                         <tr>
                             <td></td>
                             <td><b>You Paid</b></td>
+                            <td></td>
+                            <td style="float:right;">
+                                <button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Hide Rows</button>
 
-                            <td colspan="2"><button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button></td>
+{{--                                <button class="btn btn-danger btn-sm" id="toggleButton" onclick="toggleRows()">Show/Hide Rows</button>--}}
+                            </td>
                         </tr>
                         @foreach($withdraws as $withdraw)
-
                             <tr class="table-danger whide-row" id="whide">
                                 <td>
                                     @if ($withdraw->user['profile_picture'])
@@ -44,10 +47,10 @@
                             @endif
                         @endforeach
                         <tr class="table-primary">
-                            <td>Total</td>
-                            <td></td>
-                            <td><b>{{$totalAmount}}</b></td>
-                            <td></td>
+                            <td class="table-primary">&nbsp;</td>
+                            <td class="table-primary">Total</td>
+                            <td class="table-primary">&nbsp;</td>
+                            <td class="table-primary text-end"><b>{{$totalAmount}}</b></td>
                         </tr>
                     </table>
 {{--$withdraws->links()--}}
@@ -57,8 +60,10 @@
                         <tr>
                             <td></td>
                             <td><b>You Collected </b></td>
-
-                            <td colspan="2"><button class="btn btn-danger btn-sm" id="toggleButton2" onclick="toggleRows2()">Show/Hide Rows</button></td>
+                            <td></td>
+                            <td style="float:right;">
+                                <button class="btn btn-danger btn-sm" id="toggleButton2" onclick="toggleRows2()">Hide Rows</button>
+                            </td>
                         </tr>
                         @foreach($deposits as $deposit)
                             <tr class="table-success dhide-row" id="dhide">
@@ -80,11 +85,12 @@
                                 </tr>
                             @endif
                         @endforeach
+
                         <tr class="table-primary">
-                            <td>Total</td>
-                            <td></td>
-                            <td><b>{{$totalDeposits}}</b></td>
-                            <td></td>
+                            <td class="table-primary">&nbsp;</td>
+                            <td class="table-primary">Total</td>
+                            <td class="table-primary">&nbsp;</td>
+                            <td class="table-primary text-end"><b>{{$totalDeposits}}</b></td>
                         </tr>
 
                     </table>
@@ -141,12 +147,28 @@
 
     <script>
         function toggleRows() {
-            // Select all rows with id="whide" or class="whide-row" and toggle their visibility
+            // Select all rows with class="whide-row" and toggle their visibility
             var rows = document.querySelectorAll('.whide-row');
+            var button = document.getElementById('toggleButton'); // Select the button to change its text
+            var allHidden = true; // Flag to check if all rows are hidden
+
             rows.forEach(function(row) {
-                row.style.display = (row.style.display === "none") ? "table-row" : "none";
+                if (row.style.display === "none" || row.style.display === "") {
+                    row.style.display = "table-row"; // Show the row
+                    allHidden = false; // If at least one row is shown, mark as not hidden
+                } else {
+                    row.style.display = "none"; // Hide the row
+                }
             });
+
+            // Optional: Update button text based on visibility
+            if (allHidden) {
+                button.textContent = "Show Rows"; // All are hidden, so text prompts to show
+            } else {
+                button.textContent = "Hide Rows"; // Some are visible, so text prompts to hide
+            }
         }
+/*
         function toggleRows2() {
             // Select all rows with id="whide" or class="whide-row" and toggle their visibility
             var rows = document.querySelectorAll('.dhide-row');
@@ -154,5 +176,35 @@
                 row.style.display = (row.style.display === "none") ? "table-row" : "none";
             });
         }
+        */
+        function toggleRows2() {
+            // Select all rows with class="whide-row" and toggle their visibility
+            var rows = document.querySelectorAll('.dhide-row');
+            var button = document.getElementById('toggleButton2'); // Select the button to change its text
+            var allHidden = true; // Flag to check if all rows are hidden
+
+            rows.forEach(function(row) {
+                if (row.style.display === "none" || row.style.display === "") {
+                    row.style.display = "table-row"; // Show the row
+                    allHidden = false; // If at least one row is shown, mark as not hidden
+                } else {
+                    row.style.display = "none"; // Hide the row
+                }
+            });
+
+            // Optional: Update button text based on visibility
+            if (allHidden) {
+                button.textContent = "Show Rows"; // All are hidden, so text prompts to show
+            } else {
+                button.textContent = "Hide Rows"; // Some are visible, so text prompts to hide
+            }
+        }
+
+
+
+
+
+
+
     </script>
 </x-app-layout>
