@@ -26,6 +26,9 @@ class WalletController extends Controller
     {
         $this->twilio = $twilio;
     }
+ /*
+  * Index loads Wallet Index File
+  */
      public function index()
     {
         $user = User::where('id',Auth::user()->id)->first();
@@ -36,84 +39,64 @@ class WalletController extends Controller
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
 
     // Calculate the total amount
-    $totalAmount = $withdraws->sum('amount');
+        $totalAmount = $withdraws->sum('amount');
     // Calculate the total amount
-    $totalDeposits = $deposits->sum('amount');
-   return view('wallet.index',compact('user','deposits','withdraws','requested','requestedfrom','totalAmount','totalDeposits')); //,compact('users'));
-
+        $totalDeposits = $deposits->sum('amount');
+      return view('wallet.index',compact('user',
+             'deposits', 'withdraws', 'requested',
+                       'requestedfrom', 'totalAmount', 'totalDeposits'));
     }
 
-     public function transaction(){
-
+     public function transaction()
+    {
         $user = User::where('id',Auth::user()->id)->first();
 
         $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
- //       $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
-         $deposits = Wallet::where('user_id', Auth::user()->id)
- //            ->where('created_at', '>=', Carbon::now()->subDays(31)) // Filter for the last 31 days
-             ->with('fromUser')
-             ->orderBy('id', 'desc')
-//  ->paginate(5);
-             ->get();
-
-        $withdraws = Wallet::where('from_user_id',Auth::user()->id)
-//            ->where('created_at', '>=', Carbon::now()->subDays(31))
-            ->with('user')
-            ->orderBy('id','desc')
-//            ->paginate(5);
-            ->get(); //->limit(2)->get();
+        $deposits = Wallet::where('user_id', Auth::user()->id)->with('fromUser')->orderBy('id', 'desc')->get();
+        $withdraws = Wallet::where('from_user_id',Auth::user()->id)->with('user')->orderBy('id','desc')->get(); //->limit(2)->get();
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
         $tansactions = TransactionModel::where('user_id',Auth::user()->id)->paginate(5); //->get()
 
-        // Calculate the total amount
+    // Calculate the total amount
         $totalAmount = $withdraws->sum('amount');
-        // Calculate the total amount
+    // Calculate the total amount
         $totalDeposits = $deposits->sum('amount');
         $totalfee = $tansactions->sum('fee');
-//dd($tansactions,$totalfee);
-        return view('transactions.index',compact('user','deposits',
-            'withdraws','requested','requestedfrom','totalAmount','totalDeposits','tansactions',
-        'totalfee')); //,compact('users'));
-
+      return view('transactions.index',compact('user',
+             'deposits', 'withdraws', 'requested', 'requestedfrom',
+                       'totalAmount', 'totalDeposits', 'tansactions', 'totalfee'));
     }
 
-
-    public function transactionbank(){
-
+     public function transactionbank()
+    {
         $user = User::where('id',Auth::user()->id)->first();
 
         $requested = RequestWallet::where('from_user_id',Auth::user()->id)->where('approval',0)->with('RequestfromUser')->get();
-        //       $deposits = Wallet::where('user_id',Auth::user()->id)->with('fromUser')->orderBy('id','desc')->get(); //->limit(2)->get();
         $deposits = Wallet::where('user_id', Auth::user()->id)
-            ->where('created_at', '>=', Carbon::now()->subDays(31)) // Filter for the last 31 days
+            ->where('created_at', '>=', Carbon::now()->subDays(31))
             ->with('fromUser')
-            ->orderBy('id', 'desc')->paginate(5);
-//             ->get();
+            ->orderBy('id', 'desc')
+            ->paginate(5);
 
         $withdraws = Wallet::where('from_user_id',Auth::user()->id)
             ->where('created_at', '>=', Carbon::now()->subDays(31))
             ->with('user')
             ->orderBy('id','desc')->paginate(5);
-//            ->get(); //->limit(2)->get();
         $requestedfrom = RequestWallet::where('user_id',Auth::user()->id)->where('approval',0)->with('Requestuser')->get();
         $tansactions = TransactionModel::where('user_id',Auth::user()->id)->paginate(5); //->get()
 
-        // Calculate the total amount
+    // Calculate the total amount
         $totalAmount = $withdraws->sum('amount');
-        // Calculate the total amount
+    // Calculate the total amount
         $totalDeposits = $deposits->sum('amount');
         $totalfee = $tansactions->sum('fee');
-//dd($tansactions,$totalfee);
-        return view('transactions.bankframe',compact('user','deposits',
-            'withdraws','requested','requestedfrom','totalAmount','totalDeposits','tansactions',
-            'totalfee')); //,compact('users'));
-
+        return view('transactions.bankframe',compact('user',
+               'deposits', 'withdraws', 'requested', 'requestedfrom',
+                         'totalAmount', 'totalDeposits', 'tansactions', 'totalfee'));
     }
-
 
      public function bank()
     {
-
         $user = Auth::user(); // Get the authenticated user
         $user = User::where('id',Auth::user()->id)->first();
 
