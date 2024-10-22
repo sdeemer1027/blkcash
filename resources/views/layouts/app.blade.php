@@ -39,6 +39,7 @@
             color: #000; /* Black font color */
             text-align: center;
             padding: 10px 0;
+            z-index: 1000; /* Make sure it's on top of other elements */
         }
 
         .footer-icons {
