@@ -100,5 +100,5 @@
             </div>
         </div>
     </div>
-    {{$totalAmount}}
+    {{--$totalAmount--}}
 </x-app-layout>
