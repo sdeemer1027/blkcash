@@ -45,6 +45,10 @@
                         <x-dropdown-link :href="route('admin.index')">
                             Admin
                         </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('content.show')">
+                                Content
+                            </x-dropdown-link>
                         @endif
 
                         <x-dropdown-link :href="route('profile.edit')">
@@ -96,6 +100,9 @@
 
                     <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         Admin
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('content.show')" :active="request()->routeIs('content.show')">
+                        Content
                     </x-responsive-nav-link>
                 @endif
             <x-responsive-nav-link :href="route('profile.index')" :active="request()->routeIs('profile.index')">

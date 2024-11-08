@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -132,5 +133,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/privacy-policy', [ContentController::class, 'show'])->name('privacy.show')->defaults('slug', 'privacy-policy');
+Route::get('/terms', [ContentController::class, 'show'])->name('terms.show')->defaults('slug', 'terms');
+Route::get('/faq', [ContentController::class, 'indexFAQ'])->name('faq.index');
+
+// Routes for editing
+Route::middleware('auth')->group(function() {
+    Route::get('/content/show',[ContentController::class, 'showall'])->name('content.show');
+    Route::get('/content/{id}/edit', [ContentController::class, 'edit'])->name('content.edit');
+    Route::post('/content/{id}', [ContentController::class, 'update'])->name('content.update');
+});
+
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';
