@@ -15,7 +15,7 @@
                         tinymce.init({
                             selector: '#editor',
                             plugins: 'lists link image table code',
-                            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
+                            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code',
                             menubar: false
                         });
                     </script>
