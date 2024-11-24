@@ -18,7 +18,7 @@
                             toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | code',
                             menubar: false
                         });
-                    </script>
+                    </script> 
 
 
                     <form action="{{ route('content.update', $content->id) }}" method="POST">
