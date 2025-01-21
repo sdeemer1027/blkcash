@@ -111,8 +111,10 @@
     <input type="hidden" id="searchthem" style="color: black; border: 0px solid #ccc; padding: 5px; width: 100%;">
     <br>
     <br>
+   {{--
     <label for="who" style="color: black;">Send Request/Payment:</label><br>
        <a href="{{route('qrcode.reader.form')}}" class="btn btn-danger btn-sm">Click here to scan a QRCode</a><br><BR>
+       --}}
     <input type="text" id="searchInput" placeholder="Start typing user Email"  style="width: 100%; padding: 10px; box-sizing: border-box;" required>
     <div id="dropdownContainer" style="display: none; position: absolute; z-index: 1000; width: 100%; background: white; border: 1px solid #ccc; max-height: 200px; overflow-y: auto;">
     <!-- Dropdown results will be appended here -->
@@ -123,6 +125,7 @@
 {{--      <input type="checkbox" name="instant" > Instant<br>  --}}
     <button type="submit" name="action" value="pay" class="btn btn-pill custom-btn btn-success">Pay</button>
     <button type="submit" name="action" value="request" class="btn btn-pill custom-btn btn-primary">Request</button>
+     <a href="{{route('qrcode.reader.form')}}" class="btn btn-pill custom-btn btn-danger btn-sm">Scan QR</a><br>
 {{--    <BR>
        <label for="memo" style="color: black;">Add an Optional Memo:</label><br>
        <textarea name="memo" id="memo"></textarea> --}}
